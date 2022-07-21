@@ -1,0 +1,84 @@
+
+/* Class = "UILabel"; text = "대표 캐릭터 설정"; ObjectID = "0rm-RQ-NhC"; */
+"0rm-RQ-NhC.text" = "대표 캐릭터 설정";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4Pu-eT-u7q"; */
+"4Pu-eT-u7q.text" = "Label";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "7Ec-XC-fK5"; */
+"7Ec-XC-fK5.text" = "-";
+
+/* Class = "UILabel"; text = "검색 (0)"; ObjectID = "7em-0p-9dj"; */
+"7em-0p-9dj.text" = "검색 (0)";
+
+/* Class = "UILabel"; text = "감소"; ObjectID = "9cR-bG-ZSb"; */
+"9cR-bG-ZSb.text" = "감소";
+
+/* Class = "UILabel"; text = "추가"; ObjectID = "F2T-E7-VaA"; */
+"F2T-E7-VaA.text" = "추가";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Iux-KC-odS"; */
+"Iux-KC-odS.text" = "Label";
+
+/* Class = "UILabel"; text = "각인"; ObjectID = "KSm-gt-80L"; */
+"KSm-gt-80L.text" = "각인";
+
+/* Class = "UIButton"; normalTitle = "나중에 설정하기"; ObjectID = "NDZ-5m-0nK"; */
+"NDZ-5m-0nK.normalTitle" = "나중에 설정하기";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "OtV-bo-KvP"; */
+"OtV-bo-KvP.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "SRh-OQ-BZ2"; */
+"SRh-OQ-BZ2.text" = "-";
+
+/* Class = "UILabel"; text = "대표 캐릭터는 특정 캐릭터의 정보를 자동으로 갱신하여 사용자에게 보여주는 기능입니다.\n\n대표 캐릭터를 설정하면 앱 실행 시 자동으로 정보를 갱신하며, 컨텐츠 관리에 자동으로 등록됩니다.\n\n로스트아크 공식 홈페이지 점검 중에는 대표 캐릭터 설정이 불가능합니다."; ObjectID = "Ts8-KK-fXT"; */
+"Ts8-KK-fXT.text" = "대표 캐릭터는 특정 캐릭터의 정보를 자동으로 갱신하여 사용자에게 보여주는 기능입니다.\n\n대표 캐릭터를 설정하면 앱 실행 시 자동으로 정보를 갱신하며, 컨텐츠 관리에 자동으로 등록됩니다.\n\n로스트아크 공식 홈페이지 점검 중에는 대표 캐릭터 설정이 불가능합니다.";
+
+/* Class = "UIButton"; normalTitle = "캐릭터 확인"; ObjectID = "WN2-hi-Dyu"; */
+"WN2-hi-Dyu.normalTitle" = "캐릭터 확인";
+
+/* Class = "UILabel"; text = "캐릭터명 입력"; ObjectID = "WXo-uO-OKn"; */
+"WXo-uO-OKn.text" = "캐릭터명 입력";
+
+/* Class = "UILabel"; text = "각인"; ObjectID = "bAo-ZE-Q9k"; */
+"bAo-ZE-Q9k.text" = "각인";
+
+/* Class = "UITextField"; placeholder = "캐릭터명을 입력해주세요."; ObjectID = "byX-iQ-Khp"; */
+"byX-iQ-Khp.placeholder" = "캐릭터명을 입력해주세요.";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "cfA-1A-TAh"; */
+"cfA-1A-TAh.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "계속"; ObjectID = "fBT-YI-CZG"; */
+"fBT-YI-CZG.normalTitle" = "계속";
+
+/* Class = "UILabel"; text = "Developed by Huisoo"; ObjectID = "hgc-uD-0eC"; */
+"hgc-uD-0eC.text" = "Developed by Huisoo";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "mWe-Gt-wIf"; */
+"mWe-Gt-wIf.text" = "Label";
+
+/* Class = "UILabel"; text = "설정한 대표 캐릭터는 환경설정에서 수정 가능합니다."; ObjectID = "rKJ-hU-yu7"; */
+"rKJ-hU-yu7.text" = "설정한 대표 캐릭터는 환경설정에서 수정 가능합니다.";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "raa-Ew-Rzd"; */
+"raa-Ew-Rzd.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "입력해주세요."; ObjectID = "sWt-Bq-V9g"; */
+"sWt-Bq-V9g.placeholder" = "입력해주세요.";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "uji-Lt-Jer"; */
+"uji-Lt-Jer.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "x7u-gR-Vag"; */
+"x7u-gR-Vag.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "xY6-f7-tSC"; */
+"xY6-f7-tSC.text" = "-";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "yLw-AY-bRN"; */
+"yLw-AY-bRN.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "zVt-ri-vwU"; */
+"zVt-ri-vwU.text" = "-";
