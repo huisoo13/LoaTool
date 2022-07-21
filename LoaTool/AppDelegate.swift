@@ -12,7 +12,7 @@ import CloudKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+    // 테스트
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Local Database form Migration for Realm
