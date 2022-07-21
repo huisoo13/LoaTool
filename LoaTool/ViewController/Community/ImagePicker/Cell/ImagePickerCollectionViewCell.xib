@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImagePickerCollectionViewCell" id="gTV-IL-0wX" customClass="ImagePickerCollectionViewCell" customModule="ImagePickerViewControllerSample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DQ4-ZX-k3T">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2la-d8-uGW" customClass="PaddingLabel" customModule="ImagePickerViewControllerSample" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="136" width="160" height="24"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="sBM-aJ-RyE"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GIF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnk-FT-BBQ" customClass="PaddingLabel" customModule="ImagePickerViewControllerSample" customModuleProvider="target">
+                        <rect key="frame" x="4" y="4" width="36" height="24"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="Gtt-Bu-yFg"/>
+                            <constraint firstAttribute="height" constant="24" id="hyr-b6-and"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="leftInset">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qn6-dc-MMz">
+                        <rect key="frame" x="132" y="4.5" width="24" height="23"/>
+                        <color key="tintColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="0wb-uN-ejR"/>
+                            <constraint firstAttribute="width" constant="24" id="ws9-EH-2EJ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="Qn6-dc-MMz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="5q5-Y6-wm6"/>
+                <constraint firstItem="DQ4-ZX-k3T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Ai0-iu-zQt"/>
+                <constraint firstAttribute="trailing" secondItem="DQ4-ZX-k3T" secondAttribute="trailing" id="KEY-If-WB7"/>
+                <constraint firstAttribute="bottom" secondItem="2la-d8-uGW" secondAttribute="bottom" id="Zc7-kP-oCT"/>
+                <constraint firstItem="Xnk-FT-BBQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="Zt2-b1-Gx7"/>
+                <constraint firstAttribute="trailing" secondItem="Qn6-dc-MMz" secondAttribute="trailing" constant="4" id="cj8-yX-sMI"/>
+                <constraint firstItem="DQ4-ZX-k3T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gkf-g3-j1n"/>
+                <constraint firstItem="Xnk-FT-BBQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="kva-Yf-8SC"/>
+                <constraint firstAttribute="trailing" secondItem="2la-d8-uGW" secondAttribute="trailing" id="p2a-tI-i7d"/>
+                <constraint firstAttribute="bottom" secondItem="DQ4-ZX-k3T" secondAttribute="bottom" id="rG8-SV-0e4"/>
+                <constraint firstItem="2la-d8-uGW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vkc-7H-BlG"/>
+            </constraints>
+            <size key="customSize" width="160" height="160"/>
+            <connections>
+                <outlet property="badgeImageView" destination="Qn6-dc-MMz" id="fFP-xb-D4c"/>
+                <outlet property="durationLabel" destination="2la-d8-uGW" id="bWH-J5-LLB"/>
+                <outlet property="extensionLabel" destination="Xnk-FT-BBQ" id="T7u-ds-we6"/>
+                <outlet property="imageView" destination="DQ4-ZX-k3T" id="OlY-fb-ybm"/>
+            </connections>
+            <point key="canvasLocation" x="217.39130434782609" y="189.50892857142856"/>
+        </collectionViewCell>
+    </objects>
+    <designables>
+        <designable name="2la-d8-uGW">
+            <size key="intrinsicContentSize" width="34" height="14.5"/>
+        </designable>
+        <designable name="Xnk-FT-BBQ">
+            <size key="intrinsicContentSize" width="19.5" height="14.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="1.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
