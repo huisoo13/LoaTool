@@ -19,7 +19,7 @@ class DailyTableViewCell: UITableViewCell {
     @IBOutlet weak var camelLabel: TGPCamelLabels!
     @IBOutlet weak var slider: TGPDiscreteSlider!
     
-    let cellSize: CGSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 168)
+    var cellSize: CGSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 168)
     let minimumLineSpacing: CGFloat = 8
     
     var showCompleteCharacter: Bool = UserDefaults.standard.bool(forKey: "showCompleteCharacter")
@@ -140,7 +140,8 @@ extension DailyTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        cellSize
+        cellSize = CGSize(width: collectionView.bounds.width - 32, height: 168)
+        return cellSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

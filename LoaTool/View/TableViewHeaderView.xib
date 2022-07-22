@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +20,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oh2-Wv-r9i">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oh2-Wv-r9i">
                     <rect key="frame" x="211.5" y="0.0" width="178.5" height="34"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7KV-We-djT">
@@ -101,7 +101,42 @@
                         <constraint firstItem="7KV-We-djT" firstAttribute="leading" secondItem="Oh2-Wv-r9i" secondAttribute="leading" id="zRa-5q-Vgz"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9k-Gq-uSw">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yGl-uo-hkk">
+                    <rect key="frame" x="285.5" y="0.0" width="104.5" height="34"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 획득 골드" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJT-77-Kpr">
+                            <rect key="frame" x="0.0" y="10" width="58.5" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cC-sK-u06">
+                            <rect key="frame" x="64.5" y="10" width="8" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content.icon.33" translatesAutoresizingMaskIntoConstraints="NO" id="4f2-zW-huz">
+                            <rect key="frame" x="68.5" y="5" width="24" height="24"/>
+                            <color key="tintColor" systemColor="systemBlueColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="24" id="vwB-2f-fck"/>
+                                <constraint firstAttribute="height" constant="24" id="y7r-61-5uI"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="4f2-zW-huz" firstAttribute="centerY" secondItem="yGl-uo-hkk" secondAttribute="centerY" id="83h-Wz-bvp"/>
+                        <constraint firstItem="wJT-77-Kpr" firstAttribute="leading" secondItem="yGl-uo-hkk" secondAttribute="leading" id="EpO-ah-0u2"/>
+                        <constraint firstItem="4cC-sK-u06" firstAttribute="centerY" secondItem="yGl-uo-hkk" secondAttribute="centerY" id="LkM-gN-JT2"/>
+                        <constraint firstItem="4f2-zW-huz" firstAttribute="leading" secondItem="4cC-sK-u06" secondAttribute="trailing" constant="-4" id="nFb-4M-pa4"/>
+                        <constraint firstItem="wJT-77-Kpr" firstAttribute="centerY" secondItem="yGl-uo-hkk" secondAttribute="centerY" id="sNu-0q-Rw4"/>
+                        <constraint firstItem="4cC-sK-u06" firstAttribute="leading" secondItem="wJT-77-Kpr" secondAttribute="trailing" constant="6" id="sjh-pD-Zr6"/>
+                        <constraint firstAttribute="trailing" secondItem="4f2-zW-huz" secondAttribute="trailing" constant="12" id="zMB-FB-oGj"/>
+                    </constraints>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9k-Gq-uSw">
                     <rect key="frame" x="336" y="0.0" width="38" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -116,13 +151,17 @@
                 <constraint firstItem="ABS-Hg-mxe" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5ya-ni-Bcd"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Oh2-Wv-r9i" secondAttribute="bottom" id="B1F-xy-5MS"/>
                 <constraint firstItem="Oh2-Wv-r9i" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KqA-Un-6lc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="yGl-uo-hkk" secondAttribute="bottom" id="QHX-gD-OJL"/>
                 <constraint firstAttribute="trailing" secondItem="Oh2-Wv-r9i" secondAttribute="trailing" id="XCe-0o-T2s"/>
+                <constraint firstItem="yGl-uo-hkk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eZu-sH-hnP"/>
+                <constraint firstAttribute="trailing" secondItem="yGl-uo-hkk" secondAttribute="trailing" id="fR1-D0-nkE"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="z9k-Gq-uSw" secondAttribute="bottom" id="r27-XT-qUs"/>
                 <constraint firstAttribute="trailing" secondItem="z9k-Gq-uSw" secondAttribute="trailing" constant="16" id="vDG-qr-kI5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="button" destination="z9k-Gq-uSw" id="Ui9-Eg-h8v"/>
+                <outlet property="goldView" destination="yGl-uo-hkk" id="ry9-6O-fvQ"/>
                 <outlet property="label" destination="ABS-Hg-mxe" id="9vV-RB-wGF"/>
                 <outlet property="typeView" destination="Oh2-Wv-r9i" id="HPF-xa-ghW"/>
             </connections>
@@ -131,6 +170,7 @@
     </objects>
     <resources>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="content.icon.33" width="64" height="64"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

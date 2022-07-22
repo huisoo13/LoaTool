@@ -109,7 +109,14 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 40, height: 60)
+        guard let data = self.data,
+              let identifier = data.included[safe: indexPath.item] else { return .zero }
+        
+        let member = RealmManager.shared.read(Member.self, identifier: identifier).first
+        let count = member?.name.count ?? 4
+        let width = max(40, CGFloat(10 * count))
+        
+        return CGSize(width: width, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -184,11 +191,8 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         }
         
         if isExceeded { return }
-        if data.type >= 40 {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
-        } else {
-            updatedView(data)
-        }
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
         
         let member = RealmManager.shared.read(Member.self, identifier: identifier).first
         cell.data = member

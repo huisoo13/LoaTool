@@ -341,7 +341,7 @@ class CloudManager {
     
     
     // Lostark
-    func update(withTimeInterval: TimeInterval = 2) {
+    func update(withTimeInterval: TimeInterval = 3) {
         timerForTodo?.invalidate()
         
         // STEP 1: iCloud 계정 연동 확인하기
@@ -483,6 +483,7 @@ class CloudManager {
             debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud User type 옵저버 생성")
         }
         
+        /* 수정 - 001
         let subscription2 = CKQuerySubscription(recordType: "Todo", predicate: predicate)
         let notificationInfo2 = CKSubscription.NotificationInfo()
         notificationInfo2.shouldSendContentAvailable = true
@@ -496,6 +497,7 @@ class CloudManager {
             guard error == nil else { return }
             debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud Todo type 옵저버 생성")
         }
+         */
     }
 }
 

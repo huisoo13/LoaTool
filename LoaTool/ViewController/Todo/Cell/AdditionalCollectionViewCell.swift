@@ -11,6 +11,7 @@ class AdditionalCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var jobView: UIView!
     @IBOutlet weak var jobImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var clearStamp: UIImageView!
     
     var data: Member? {
         didSet {
@@ -29,7 +30,8 @@ class AdditionalCollectionViewCell: UICollectionViewCell {
                 return
             }
 
-            self.alpha = completed ? 0.5 : 1
+            self.alpha = completed ? 0.7 : 1
+            clearStamp.isHidden = !completed
         }
     }
     

@@ -27,7 +27,7 @@ class TodoViewModel {
         let calculate = DateManager.shared.calculateDate(data.lastUpdate)
         
         self.sortedIncludedMember()
-        
+
         if calculate > 0 {
             self.updateDailyContent(data, calculate: calculate)
             self.updateWeeklyContent(data)
@@ -89,13 +89,10 @@ class TodoViewModel {
         guard let todo = RealmManager.shared.readAll(Todo.self).first else { return }
         debug("[LOATOOL][\(DateManager.shared.currentDate())] 추가 캐릭터 순서 갱신")
 
-        let members = todo.member.sorted(by: { ($1.category, $0.level) > ($0.category, $1.level) } )
+        let members = todo.member
         let contents = todo.additional
         
         RealmManager.shared.update {
-            todo.member.removeAll()
-            todo.member.append(objectsIn: members)
-            
             contents.forEach { content in
                 var included: [String] = []
                 

@@ -232,7 +232,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
     @objc dynamic var type: Int = 1
     @objc dynamic var icon: Int = 0
     @objc dynamic var level: Double = 0
-    
+    @objc dynamic var gold: Int = 0
+
     var included = List<String>()
     var completed = List<String>()
     var weekday = List<Int>()
@@ -259,13 +260,14 @@ class AdditionalContent: Object, NSItemProviderWriting {
      - completed: 완료 캐릭터
      - weekday: 요일
      */
-    init(identifier: String, title: String, type: Int, icon: Int, level: Double, included: [String], completed: [String], weekday: [Int]) {
+    init(identifier: String, title: String, type: Int, icon: Int, level: Double, gold: Int, included: [String], completed: [String], weekday: [Int]) {
         self.identifier = identifier
         self.title = title
         self.type = type
         self.icon = icon
         self.level = level
-        
+        self.gold = gold
+
         self.included.removeAll()
         self.included.append(objectsIn: included)
         
@@ -281,6 +283,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 20,
                                                                 icon: 6,
                                                                 level: 460,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -289,6 +292,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 20,
                                                                 icon: 3,
                                                                 level: 460,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -297,6 +301,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 21,
                                                                 icon: 1,
                                                                 level: 460,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -305,6 +310,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 20,
                                                                 icon: 32,
                                                                 level: 1445,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 4, 7]),
@@ -313,6 +319,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 20,
                                                                 icon: 18,
                                                                 level: 460,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [3, 5, 7]),
@@ -321,6 +328,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 11,
                                                                 icon: 17,
                                                                 level: 0,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -329,6 +337,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 31,
                                                                 icon: 2,
                                                                 level: 0,
+                                                                gold: 0,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -337,38 +346,43 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 type: 31,
                                                                 icon: 7,
                                                                 level: 1370,
+                                                                gold: 1600,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-009",
-                                                                title: "발탄",
+                                                                title: "[하드] 발탄",
                                                                 type: 41,
                                                                 icon: 9,
-                                                                level: 1415,
+                                                                level: 1445,
+                                                                gold: 4500,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-010",
-                                                                title: "비아키스",
+                                                                title: "[하드] 비아키스",
                                                                 type: 41,
                                                                 icon: 9,
-                                                                level: 1430,
+                                                                level: 1460,
+                                                                gold: 4500,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-011",
-                                                                title: "쿠크세이튼",
+                                                                title: "[노말] 쿠크세이튼",
                                                                 type: 41,
                                                                 icon: 9,
                                                                 level: 1475,
+                                                                gold: 4500,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-012",
-                                                                title: "아브렐슈드",
+                                                                title: "[하드] 아브렐슈드",
                                                                 type: 41,
                                                                 icon: 9,
-                                                                level: 1490,
+                                                                level: 1540,
+                                                                gold: 10500,
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),

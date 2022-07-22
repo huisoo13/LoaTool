@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,26 +41,37 @@
                             <constraint firstAttribute="width" constant="32" id="veM-IQ-TvW"/>
                         </constraints>
                     </view>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stamp.complete" translatesAutoresizingMaskIntoConstraints="NO" id="SnC-Yf-eCP">
+                        <rect key="frame" x="0.0" y="18" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="IAo-uW-5yx"/>
+                            <constraint firstAttribute="height" constant="40" id="jV2-YI-2gB"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="SnC-Yf-eCP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="DuP-kX-RLD"/>
                 <constraint firstItem="BXU-pZ-lyH" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Iuu-cC-2Tg"/>
                 <constraint firstItem="bFV-5i-XrZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ldr-nB-MiY"/>
+                <constraint firstItem="SnC-Yf-eCP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="8" id="RiN-18-mtt"/>
                 <constraint firstItem="BXU-pZ-lyH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="7" id="URq-cE-RQl"/>
                 <constraint firstItem="bFV-5i-XrZ" firstAttribute="top" secondItem="BXU-pZ-lyH" secondAttribute="bottom" constant="2" id="f5Y-6r-F7Y"/>
                 <constraint firstAttribute="trailing" secondItem="bFV-5i-XrZ" secondAttribute="trailing" id="zui-JO-e7r"/>
             </constraints>
             <size key="customSize" width="32" height="59"/>
             <connections>
+                <outlet property="clearStamp" destination="SnC-Yf-eCP" id="jT4-EQ-YjX"/>
                 <outlet property="jobImageView" destination="WwU-68-mOz" id="4ha-r0-2vu"/>
                 <outlet property="jobView" destination="BXU-pZ-lyH" id="ijv-Sp-qso"/>
                 <outlet property="nameLabel" destination="bFV-5i-XrZ" id="GRI-dx-m9K"/>
             </connections>
-            <point key="canvasLocation" x="124.6376811594203" y="151.00446428571428"/>
+            <point key="canvasLocation" x="124.6376811594203" y="150.66964285714286"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="stamp.complete" width="40" height="40"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

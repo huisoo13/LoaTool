@@ -11,6 +11,8 @@ class TodoViewController: UIViewController, Storyboarded {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var helpView: UIView!
     
+    var goldLabel: UILabel?
+    
     weak var coordinator: AppCoordinator?
     
     let viewModel: TodoViewModel = TodoViewModel()
@@ -33,17 +35,27 @@ class TodoViewController: UIViewController, Storyboarded {
         
         viewModel.configure()
         
+        /* 수정 - 001
         NotificationCenter.default.addObserver(self, selector: #selector(beginUpdateRealmFromCloudKit(_:)), name: NSNotification.Name("beginUpdateRealmFromCloudKit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(endUpdateRealmFromCloudKit(_:)), name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
+         */
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData(_:)), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
+        /* 수정 - 001
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("beginUpdateRealmFromCloudKit"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
+         */
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reloadData"), object: nil)
     }
     
+    /* 수정 - 001
     @objc func beginUpdateRealmFromCloudKit(_ sender: NSNotification) {
         DispatchQueue.main.async {
             IndicatorView.showLoadingView(self)
@@ -57,6 +69,17 @@ class TodoViewController: UIViewController, Storyboarded {
             
             CloudManager.shared.timerForTodo?.invalidate()
         }
+    }
+     */
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { _ in
+            self.tableView.reloadData()
+        }, completion: { _ in
+            self.tableView.reloadData()
+        })
     }
     
     fileprivate func setupViewModelObserver() {
@@ -74,6 +97,20 @@ class TodoViewController: UIViewController, Storyboarded {
     
     @IBAction func moveToTodoConfigureViewController(_ sender: UIButton) {
         coordinator?.pushToTodoConfigureViewController(animated: true)
+    }
+    
+    
+    @objc func reloadData(_ sender: NSNotification) {
+        goldLabel?.text = "\(totalClearGold())"
+    }
+    
+    func totalClearGold() -> Int {
+        var gold = 0
+        viewModel.result.value?.additional.forEach { additional in
+            gold += additional.gold * additional.completed.count
+        }
+        
+        return gold
     }
 }
 
@@ -143,12 +180,16 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
             header.label.attributedText = completeText
         case 2:
             header.label.text = "추가 컨텐츠"
+            
+            if let label = header.goldView.subviews[safe: 1] as? UILabel { goldLabel = label }
+            goldLabel?.text = "\(totalClearGold())"
         default:
             break
         }
         
         header.typeView.isHidden = section != 0
         header.button.isHidden = true
+        header.goldView.isHidden = section != 2
         
         header.addGestureRecognizer { _ in
             switch section {
