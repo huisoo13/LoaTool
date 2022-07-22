@@ -18,7 +18,7 @@ class IconPickerViewController: UIViewController, Storyboarded {
     weak var coordinator: AppCoordinator?
     var delegate: IconPickerViewDelegate?
     
-    let numberOfItems: Int = 33
+    let numberOfItems: Int = 34
     let numberOfItemInLine: Int = 6
     let minimumSpacing: CGFloat = 10
     let contentInset: UIEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)

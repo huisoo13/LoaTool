@@ -118,11 +118,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 // MARK: - CloudKit
 extension AppDelegate {
     func setupCloudKit() {
+        /// 수정 - 001
+        /// Device 와 iCloud 간 데이터 교환 시 순서에 대해 오류 발생
+        /// Member 클래스의 순서가 기존의 순서와 다르게 가져오는 문제
+        /// 한번에 여러개를 완료 처리 할때 Timer를 통한 딜레이 후 데이터 전송 하는 방식은 딜레이 완료 전에 앱을 종료 시 데이터 전송 하지 않음 → 결국 앱 실행 시 업데이트가 되지 않은 상태로 돌아감
+        /// 관련 코드 주석 처리
+        
+        /*
         CloudManager.shared.pull([Todo.self]) { error in
             guard error == nil else { return }
             debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 할 일 정보 가져오기 완료")
         }
-    
+         */
+        
         CloudManager.shared.fetch()
         CloudManager.shared.addSubscription()
     }
@@ -140,10 +148,13 @@ extension AppDelegate {
             
             switch zoneName {
             case "todoZone":
+                /* 수정 - 001
                 CloudManager.shared.pull([Todo.self]) { error in
                     guard error == nil else { return }
                     debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 할 일 정보 가져오기 완료")
                 }
+                 */
+                break
             default:
                 CloudManager.shared.fetch()
             }

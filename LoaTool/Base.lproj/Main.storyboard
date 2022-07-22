@@ -2988,10 +2988,10 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s7s-7E-pg3">
-                                <rect key="frame" x="0.0" y="302" width="414" height="594"/>
+                                <rect key="frame" x="0.0" y="346" width="414" height="550"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sa3-40-vQo">
-                                <rect key="frame" x="0.0" y="268" width="414" height="34"/>
+                                <rect key="frame" x="0.0" y="312" width="414" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="참여 캐릭터 설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifo-or-Yfg">
                                         <rect key="frame" x="16" y="8.5" width="382" height="17"/>
@@ -3019,7 +3019,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ULh-n2-c6D">
-                                <rect key="frame" x="0.0" y="170" width="414" height="88"/>
+                                <rect key="frame" x="0.0" y="170" width="414" height="132"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTg-2S-lmW">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -3074,6 +3074,55 @@
                                             <constraint firstAttribute="trailing" secondItem="cwa-8Q-pha" secondAttribute="trailing" constant="10" id="vcc-wp-p5f"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LS0-9N-BNm">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="• 획득 골드" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtI-Hb-3p3">
+                                                <rect key="frame" x="16" y="15" width="54" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F3K-Iy-fd3">
+                                                <rect key="frame" x="86" y="0.0" width="312" height="44"/>
+                                                <subviews>
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7I-b7-hiU">
+                                                        <rect key="frame" x="16" y="0.0" width="256" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content.icon.33" translatesAutoresizingMaskIntoConstraints="NO" id="2cm-xk-7wQ">
+                                                        <rect key="frame" x="272" y="6" width="32" height="32"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="1Qu-ub-izp"/>
+                                                            <constraint firstAttribute="width" constant="32" id="D5a-99-BQh"/>
+                                                        </constraints>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="2cm-xk-7wQ" firstAttribute="leading" secondItem="p7I-b7-hiU" secondAttribute="trailing" id="ItY-DP-BhI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2cm-xk-7wQ" secondAttribute="trailing" constant="8" id="KtU-Ij-MYO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="p7I-b7-hiU" secondAttribute="bottom" id="X0W-DV-1Yh"/>
+                                                    <constraint firstItem="p7I-b7-hiU" firstAttribute="top" secondItem="F3K-Iy-fd3" secondAttribute="top" id="lLn-h9-Ocn"/>
+                                                    <constraint firstItem="p7I-b7-hiU" firstAttribute="leading" secondItem="F3K-Iy-fd3" secondAttribute="leading" constant="16" id="oAF-DB-nNO"/>
+                                                    <constraint firstItem="2cm-xk-7wQ" firstAttribute="centerY" secondItem="F3K-Iy-fd3" secondAttribute="centerY" id="uGb-zm-sup"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="F3K-Iy-fd3" secondAttribute="bottom" id="3JT-Rr-ipB"/>
+                                            <constraint firstAttribute="height" constant="44" id="LeV-td-iCN"/>
+                                            <constraint firstItem="NtI-Hb-3p3" firstAttribute="leading" secondItem="LS0-9N-BNm" secondAttribute="leading" constant="16" id="Mxp-8a-czO"/>
+                                            <constraint firstItem="F3K-Iy-fd3" firstAttribute="leading" secondItem="NtI-Hb-3p3" secondAttribute="trailing" constant="16" id="Quw-O8-3df"/>
+                                            <constraint firstAttribute="trailing" secondItem="F3K-Iy-fd3" secondAttribute="trailing" constant="16" id="Z3C-hT-nvw"/>
+                                            <constraint firstItem="F3K-Iy-fd3" firstAttribute="top" secondItem="LS0-9N-BNm" secondAttribute="top" id="ns0-8O-S7w"/>
+                                            <constraint firstItem="NtI-Hb-3p3" firstAttribute="centerY" secondItem="LS0-9N-BNm" secondAttribute="centerY" id="ypp-mw-GIM"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -3099,6 +3148,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="goldView" destination="F3K-Iy-fd3" id="qxV-jC-L1t"/>
                         <outlet property="iconImageView" destination="HIa-vf-prI" id="kVj-iK-gS1"/>
                         <outlet property="iconView" destination="4L8-oa-MOl" id="Y8u-ze-kVb"/>
                         <outlet property="segmentedControl" destination="cwa-8Q-pha" id="vTM-RX-fSg"/>
@@ -3109,7 +3159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDt-8n-qMY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="151" y="2866"/>
+            <point key="canvasLocation" x="150.72463768115944" y="2865.4017857142858"/>
         </scene>
         <!--Notification View Controller-->
         <scene sceneID="4dZ-7J-gKB">
@@ -3575,6 +3625,7 @@
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="content.icon.0" width="64" height="64"/>
         <image name="content.icon.26" width="64" height="64"/>
+        <image name="content.icon.33" width="64" height="64"/>
         <image name="content.icon.6" width="64" height="64"/>
         <image name="content.icon.8" width="64" height="64"/>
         <image name="ellipsis.bubble" catalog="system" width="128" height="110"/>

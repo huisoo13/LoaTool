@@ -47,6 +47,16 @@ class CharacterViewController: UIViewController, Storyboarded {
         helpView.isHidden = !(isMainCharacter && text == "")
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { _ in
+            self.collectionView.reloadData()
+        }, completion: { _ in
+            self.collectionView.reloadData()
+        })
+    }
+    
     fileprivate func setupViewModelObserver() {
         viewModel.result.bind { result in
             self.collectionView.reloadData()
