@@ -41,11 +41,12 @@
                             <constraint firstAttribute="width" constant="32" id="veM-IQ-TvW"/>
                         </constraints>
                     </view>
-                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stamp.complete" translatesAutoresizingMaskIntoConstraints="NO" id="SnC-Yf-eCP">
-                        <rect key="frame" x="0.0" y="18" width="40" height="40"/>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stamp.mococo.complete" translatesAutoresizingMaskIntoConstraints="NO" id="SnC-Yf-eCP">
+                        <rect key="frame" x="4" y="14" width="32" height="32"/>
+                        <color key="tintColor" red="0.7073706021212568" green="0.23140871914820738" blue="0.18498463636556553" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="IAo-uW-5yx"/>
-                            <constraint firstAttribute="height" constant="40" id="jV2-YI-2gB"/>
+                            <constraint firstAttribute="width" constant="32" id="IAo-uW-5yx"/>
+                            <constraint firstAttribute="height" constant="32" id="jV2-YI-2gB"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -55,7 +56,7 @@
                 <constraint firstItem="SnC-Yf-eCP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="DuP-kX-RLD"/>
                 <constraint firstItem="BXU-pZ-lyH" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Iuu-cC-2Tg"/>
                 <constraint firstItem="bFV-5i-XrZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ldr-nB-MiY"/>
-                <constraint firstItem="SnC-Yf-eCP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="8" id="RiN-18-mtt"/>
+                <constraint firstItem="SnC-Yf-eCP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="RiN-18-mtt"/>
                 <constraint firstItem="BXU-pZ-lyH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="7" id="URq-cE-RQl"/>
                 <constraint firstItem="bFV-5i-XrZ" firstAttribute="top" secondItem="BXU-pZ-lyH" secondAttribute="bottom" constant="2" id="f5Y-6r-F7Y"/>
                 <constraint firstAttribute="trailing" secondItem="bFV-5i-XrZ" secondAttribute="trailing" id="zui-JO-e7r"/>
@@ -71,7 +72,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="stamp.complete" width="40" height="40"/>
+        <image name="stamp.mococo.complete" width="64" height="64"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

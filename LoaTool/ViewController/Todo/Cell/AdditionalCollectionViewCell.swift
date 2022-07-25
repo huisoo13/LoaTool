@@ -30,7 +30,7 @@ class AdditionalCollectionViewCell: UICollectionViewCell {
                 return
             }
 
-            self.alpha = completed ? 0.7 : 1
+            self.alpha = completed ? 0.9 : 1
             clearStamp.isHidden = !completed
         }
     }
