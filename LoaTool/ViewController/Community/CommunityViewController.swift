@@ -8,7 +8,7 @@
 import UIKit
 
 class CommunityViewController: UIViewController, Storyboarded {
-    @IBOutlet weak var testView: UIView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     weak var coordinator: AppCoordinator?

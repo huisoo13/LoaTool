@@ -109,6 +109,10 @@ class CommunityTableViewCell: UITableViewCell {
             self.coordinator?.presentToImageViewerViewController(imageURL: self.data?.imageURL, animated: true)
         }
         
+        commentButton.addGestureRecognizer { _ in
+            self.coordinator?.pushToPostViewController(self.data, animated: true)
+        }
+        
         moveView.addGestureRecognizer { _ in
             self.coordinator?.pushToPostViewController(self.data, animated: true)
         }

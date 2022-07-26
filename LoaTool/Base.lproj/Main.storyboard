@@ -1370,7 +1370,7 @@
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PS2-rv-uWQ">
                                                         <rect key="frame" x="16" y="8" width="340" height="34"/>
-                                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <color key="backgroundColor" name="TextField Background"/>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3250,7 +3250,7 @@
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mOs-c7-Cqu">
                                                         <rect key="frame" x="16" y="8" width="340" height="34"/>
-                                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <color key="backgroundColor" name="TextField Background"/>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3639,6 +3639,9 @@
         <namedColor name="Text Blue">
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="TextField Background">
+            <color red="0.81499999761581421" green="0.82700002193450928" blue="0.8529999852180481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -3659,9 +3662,6 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
