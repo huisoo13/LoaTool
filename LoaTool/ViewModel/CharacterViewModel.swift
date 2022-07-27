@@ -20,17 +20,19 @@ class CharacterViewModel {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false, block: { (_) in
             if showIndicator { IndicatorView.showLoadingView(target) }
-            Parsing.shared.downloadHTML(text, type: [.stats, .equip, .engrave, .gem, .card]) { data, error in                
-                
+            Parsing.shared.downloadHTML(text, type: [.stats, .equip, .engrave, .gem, .card]) { data, error in
                 switch error {
                 case .notFound:
                     Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "데이터 불러오기 실패", description: "캐릭터명을 다시 확인해주세요.").present()
+                    IndicatorView.hideLoadingView()
                 case .websiteInspect:
                     if showIndicator {
                         Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "데이터 불러오기 실패", description: "로스트아크 공식 홈페이지가 점검 중입니다.").present()
                     }
+                    IndicatorView.hideLoadingView()
                 case .unknown:
                     Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "데이터 불러오기 실패", description: "알 수 없는 오류가 발생했습니다.").present()
+                    IndicatorView.hideLoadingView()
                 default:
                     Parsing.shared.downloadHTML(parsingSkillWith: text) { skill in
                         IndicatorView.hideLoadingView()

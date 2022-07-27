@@ -47,7 +47,7 @@ class Parsing: NSObject {
                 
                 let elements: Elements = try document.select("#lostark-wrapper")
                 for element in elements {
-                    let isInspection = try element.select("div > main > div > div > div > p.check_time").text().contains("점검")
+                    let isInspection = try element.select("div > p.check_time").text().contains("점검")
                     if isInspection {
                         completionHandler(nil, .websiteInspect)
                         debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
