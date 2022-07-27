@@ -93,8 +93,8 @@ class InfoTableViewCell: UITableViewCell {
     fileprivate func convertEngraveToString(_ data: Engrave) -> String {
         var string = ""
         data.effect.components(separatedBy: "\n").forEach { engrave in
-            let key = engrave.components(separatedBy: " Lv. ").first ?? ""
-            let value = Int(engrave.components(separatedBy: " Lv. ").last ?? "0") ?? 0
+            guard let key = engrave.components(separatedBy: " Lv. ").first,
+                  let value = Int(engrave.components(separatedBy: " Lv. ").last ?? "0") else { return }
             
             let isPenalty = String.engrave(true).contains(key)
             

@@ -63,10 +63,10 @@
             </constraints>
             <size key="customSize" width="32" height="59"/>
             <connections>
-                <outlet property="clearStamp" destination="SnC-Yf-eCP" id="jT4-EQ-YjX"/>
                 <outlet property="jobImageView" destination="WwU-68-mOz" id="4ha-r0-2vu"/>
                 <outlet property="jobView" destination="BXU-pZ-lyH" id="ijv-Sp-qso"/>
                 <outlet property="nameLabel" destination="bFV-5i-XrZ" id="GRI-dx-m9K"/>
+                <outlet property="stampImageView" destination="SnC-Yf-eCP" id="jT4-EQ-YjX"/>
             </connections>
             <point key="canvasLocation" x="124.6376811594203" y="150.66964285714286"/>
         </collectionViewCell>

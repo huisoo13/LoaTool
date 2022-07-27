@@ -55,7 +55,6 @@ class ImagePickerViewController: UIViewController, Storyboarded {
         debug("\(#fileID): \(#function)")
 
         setupCollectionView()
-        setupTableView()
         setupItemViewModelObserver()
         setupNavigationItem()
 
@@ -122,8 +121,10 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
         switch PHPhotoLibrary.authorizationStatus(for: PHAccessLevel.readWrite) {
         case .authorized:
             viewModel.configure()
+            setupTableView()
         case .limited:
             viewModel.configure()
+            setupTableView()
             PHPhotoLibrary.shared().register(self)
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization(for: PHAccessLevel.readWrite) { _ in self.requestAuthorization() }

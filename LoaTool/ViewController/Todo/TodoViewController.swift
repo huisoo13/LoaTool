@@ -145,8 +145,8 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let imageAttachment = NSTextAttachment()
             imageAttachment.image = showDailyContents
-            ? UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))
-            : UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))
+            ? UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))?.withTintColor(.label)
+            : UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))?.withTintColor(.label)
 
             imageAttachment.bounds = CGRect(x: 0, y: 0, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
 
@@ -163,8 +163,8 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let imageAttachment = NSTextAttachment()
             imageAttachment.image = showSpectialContents
-            ? UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))
-            : UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))
+            ? UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))?.withTintColor(.label)
+            : UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .light))?.withTintColor(.label)
 
             imageAttachment.bounds = CGRect(x: 0, y: 0, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
 
