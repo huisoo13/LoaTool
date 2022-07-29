@@ -12,6 +12,9 @@ class ImageViewerViewController: UIViewController, Storyboarded {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var leftButton: UIButton!
+    @IBOutlet weak var rightButton: UIButton!
+    
     weak var coordinator: AppCoordinator?
     
     var images: [UIImage]?
@@ -19,6 +22,7 @@ class ImageViewerViewController: UIViewController, Storyboarded {
     
     var panGestureRecognizer = UIPanGestureRecognizer()
     var initialCenter: CGPoint = .zero
+    var selectedIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,7 @@ class ImageViewerViewController: UIViewController, Storyboarded {
         
         setupCollectionView()
         setupGestureRecognizer()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,10 +40,48 @@ class ImageViewerViewController: UIViewController, Storyboarded {
 
     }
     
+    func setupView() {
+        if let images = self.images { rightButton.isHidden = images.count == 0 }
+        if let imageURL = self.imageURL { rightButton.isHidden = imageURL.count == 0 }
+
+        leftButton.isHidden = true
+        
+        leftButton.transform = CGAffineTransform(scaleX: 0.7, y: 1)
+        rightButton.transform = CGAffineTransform(scaleX: 0.7, y: 1)
+    }
+    
     func setupGestureRecognizer() {
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(fullToDismiss(_:)))
         panGestureRecognizer.delegate = self
         collectionView.addGestureRecognizer(panGestureRecognizer)
+        
+        leftButton.addGestureRecognizer { _ in
+            let index = max(0, self.selectedIndex - 1)
+            self.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
+            
+            self.selectedIndex = index
+            
+            if let images = self.images { self.rightButton.isHidden = images.count == self.selectedIndex + 1 }
+            if let imageURL = self.imageURL { self.rightButton.isHidden = imageURL.count == self.selectedIndex + 1 }
+            self.leftButton.isHidden = self.selectedIndex == 0
+
+        }
+        
+        rightButton.addGestureRecognizer { _ in
+            var count = 0
+            
+            if let images = self.images { count = images.count }
+            if let imageURL = self.imageURL { count = imageURL.count }
+
+            let index = min(count, self.selectedIndex + 1)
+            self.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
+            
+            self.selectedIndex = index
+            
+            if let images = self.images { self.rightButton.isHidden = images.count == self.selectedIndex + 1 }
+            if let imageURL = self.imageURL { self.rightButton.isHidden = imageURL.count == self.selectedIndex + 1 }
+            self.leftButton.isHidden = self.selectedIndex == 0
+        }
     }
     
     @objc func fullToDismiss(_ sender: UIPanGestureRecognizer) {
@@ -134,6 +177,13 @@ extension ImageViewerViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         panGestureRecognizer.isEnabled = true
+        
+        let index = Int(targetContentOffset.pointee.x / scrollView.bounds.width)
+        selectedIndex = index
+        
+        if let images = self.images { rightButton.isHidden = images.count == selectedIndex + 1 }
+        if let imageURL = self.imageURL { rightButton.isHidden = imageURL.count == selectedIndex + 1 }
+        leftButton.isHidden = selectedIndex == 0
     }
 }
 
@@ -153,6 +203,4 @@ extension ImageViewerViewController: UIGestureRecognizerDelegate {
         
         return true
     }
-    
-    
 }

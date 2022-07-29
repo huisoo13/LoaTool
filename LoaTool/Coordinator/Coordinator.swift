@@ -279,7 +279,7 @@ class AppCoordinator: Coordinator {
         
         router?.present(viewController, animated: animated)
     }
-
+    
     // MARK: - Dismiss
     func dismiss(animated: Bool) {
         router?.dismiss(animated: animated)

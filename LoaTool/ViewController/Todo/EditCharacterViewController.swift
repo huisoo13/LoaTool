@@ -289,7 +289,11 @@ extension EditCharacterViewController: UIPickerViewDelegate, UIPickerViewDataSou
         RealmManager.shared.update {
             guard let content = self.data?.contents[safe: pickerView.tag / 10] else { return }
             
-            if pickerView.tag % 10 == 0 { content.bonusValue = row * 10 }
+            if pickerView.tag % 10 == 0 {
+                content.bonusValue = row * 10
+                content.originBonusValue = row * 10
+            }
+            
             if pickerView.tag % 10 == 1 { content.minBonusValue = row * 10 }
         }
     }

@@ -67,7 +67,6 @@ class TodoViewModel {
             if content.type < 20 {
                 RealmManager.shared.update {
                     content.completed.removeAll()
-                    
                 }
             }
         }
