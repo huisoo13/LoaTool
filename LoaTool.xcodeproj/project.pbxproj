@@ -102,6 +102,7 @@
 		F11FA78626A518DB00C13633 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11FA77826A518DB00C13633 /* Extension.swift */; };
 		F11FA79126A534E000C13633 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F11FA79026A534E000C13633 /* Color.xcassets */; };
 		F12309F428092C81002E8F35 /* EditContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12309F328092C81002E8F35 /* EditContentViewController.swift */; };
+		F12331772893B0F800D140EA /* SpotlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12331762893B0F800D140EA /* SpotlightViewController.swift */; };
 		F124F18227F285D600ADF95F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F124F18127F285D600ADF95F /* SearchViewController.swift */; };
 		F124F18427F285E100ADF95F /* PartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F124F18327F285E100ADF95F /* PartyViewController.swift */; };
 		F124F18B27F2863600ADF95F /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F124F18A27F2863600ADF95F /* CharacterListViewController.swift */; };
@@ -285,6 +286,7 @@
 		F11FA77826A518DB00C13633 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		F11FA79026A534E000C13633 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		F12309F328092C81002E8F35 /* EditContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContentViewController.swift; sourceTree = "<group>"; };
+		F12331762893B0F800D140EA /* SpotlightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightViewController.swift; sourceTree = "<group>"; };
 		F124F18127F285D600ADF95F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F124F18327F285E100ADF95F /* PartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyViewController.swift; sourceTree = "<group>"; };
 		F124F18A27F2863600ADF95F /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
@@ -596,6 +598,7 @@
 				F115AD06280650E0006CE991 /* JobPickerViewController.swift */,
 				F115AD0C28065C79006CE991 /* IconPickerViewController.swift */,
 				F138572B2822188200CF87BD /* ImageViewerViewController.swift */,
+				F12331762893B0F800D140EA /* SpotlightViewController.swift */,
 				F138572A2822182A00CF87BD /* Cell */,
 			);
 			path = Popup;
@@ -1122,6 +1125,7 @@
 				F182258027FFD43800546864 /* MoreTableViewCell.swift in Sources */,
 				F114C20C285AC57B0035B892 /* WCLLoadingView.swift in Sources */,
 				F11FA78626A518DB00C13633 /* Extension.swift in Sources */,
+				F12331772893B0F800D140EA /* SpotlightViewController.swift in Sources */,
 				F114C213285AC57B0035B892 /* NormalHeaderAnimator.swift in Sources */,
 				F11FA78026A518DB00C13633 /* Regex+Extension.swift in Sources */,
 				F1FEC38027F418BD00D56518 /* TableViewHeaderView.swift in Sources */,
@@ -1320,7 +1324,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LoaTool/LoaTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = YJ4XY4GYA8;
 				INFOPLIST_FILE = LoaTool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1344,7 +1348,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LoaTool/LoaTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = YJ4XY4GYA8;
 				INFOPLIST_FILE = LoaTool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

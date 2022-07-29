@@ -23,13 +23,13 @@ class ViewController: UIViewController, Storyboarded {
         
         setupCoordinator()
         setupViewControllers()
-        setupTabBarView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         debug("\(#fileID): \(#function)")
         
+        setupTabBarView()
     }
 }
 
@@ -106,7 +106,6 @@ extension ViewController: CharacterListDelegate {
             break
         case 2:
             coordinator?.pushToTodoManagementViewController(animated: true)
-
         case 3:
             if User.shared.isConnected {
                 if sender.tag == 0 {

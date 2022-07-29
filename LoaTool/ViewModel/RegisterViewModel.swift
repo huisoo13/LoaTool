@@ -102,12 +102,22 @@ extension RegisterViewModel: WKNavigationDelegate {
                     }
                 }
 
+                if elements.count == 0 {
+                    IndicatorView.hideLoadingView()
+                    return
+                }
+                
                 for element in elements {
                     let name = try element.select("div > main > div > div.library-userinfo > div.library-userinfo__user > div > div.character-info > span.character-info__name").text()
+                    IndicatorView.hideLoadingView()
+                    
+                    if name == "" {
+                        Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "대표 캐릭터 미설정", description: "대표 캐릭터 설정이 되어있지 않습니다.").present()
+                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 대표 캐릭터 미설정")
+                        return
+                    }
                     
                     self.result.value = name
-                    
-                    IndicatorView.hideLoadingView()
                 }
             } catch {
                 debug("\(#file) - \(#function): \(error)")
