@@ -113,9 +113,9 @@ class TodoViewModel {
         guard let data = self.result.value else { return }
         let calculate = DateManager.shared.calculateDate(data.lastUpdate)
 
+        self.sortedIncludedMember()
 
         RealmManager.shared.update {
-            self.sortedIncludedMember()
             
             if calculate > 0 {
                 self.updateDailyContent(data, calculate: calculate)

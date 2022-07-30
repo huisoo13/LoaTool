@@ -123,7 +123,7 @@ class Parsing: NSObject {
             let guild = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__guild > span:nth-child(2)").text()
             let isMaster = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__guild > span:nth-child(2) > img").attr("src").contains("guild")
             let stronghold = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__wisdom > span:nth-child(3)").text()
-            let memberList = try element.select("#expand-character-list > ul").text().replacingOccurrences(of: "Lv.[0-9]+", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+            let memberList = try element.select("#expand-character-list > ul > li > span > button > span").text().trimmingCharacters(in: .whitespacesAndNewlines)
 
             character.name = name
             character.server = server
