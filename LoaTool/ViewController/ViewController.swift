@@ -273,21 +273,23 @@ extension ViewController {
             // 이동
             viewController.didMove(toParent: self)
             
-            // 어느 버튼을 눌렀느냐에 따라 탭바의 변경사항을 적용
-            switch sender.tag {
-            case 0:
-                setupTitleForCharacter()
-            case 1:
-                setupTitleForSearch()
-            case 2:
-                setupTitleForTodo()
-            case 3:
-                setupTitleForCommunity()
-            case 4:
-                setupTitleForMore()
-            default:
-                break
-            }
+
+        }
+      
+        // 어느 버튼을 눌렀느냐에 따라 탭바의 변경사항을 적용
+        switch sender.tag {
+        case 0:
+            setupTitleForCharacter()
+        case 1:
+            setupTitleForSearch()
+        case 2:
+            setupTitleForTodo()
+        case 3:
+            setupTitleForCommunity()
+        case 4:
+            setupTitleForMore()
+        default:
+            break
         }
         
         sender.alpha = 1
