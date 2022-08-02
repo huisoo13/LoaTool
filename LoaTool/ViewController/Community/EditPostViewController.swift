@@ -138,6 +138,13 @@ extension EditPostViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         guard let text = textView.text else { return }
+        self.navigationItem.rightBarButtonItem?.isEnabled = text != ""
+
+        // 문제: text 또는 attributedText를 설정하면 Curser position이 가장 마지막으로 변경되기 떄문에 변경 전에 미리 값을 저장 후 다시 불러와야한다.
+        // STEP 1: 위치값 저장
+        guard let selectedTextRange = textView.selectedTextRange else { return }
+        
+        // STEP 2: 코드 실행 후 위치값 변경
         textView.attributedText = text.attributed(of: text, key: .foregroundColor, value: UIColor.label)
             .addAttribute(using: "(?:^|\\s|$|[.])@[\\p{L}0-9_]*", key: .foregroundColor, value: UIColor.custom.qualityBlue)
             .addAttribute(using: "(^|[\\s.:;?\\-\\]<\\(])" +
@@ -145,7 +152,10 @@ extension EditPostViewController: UITextViewDelegate {
                           "(?=$|[\\s',\\|\\(\\).:;?\\-\\[\\]>\\)])", key: .foregroundColor, value: UIColor.systemBlue)
             .addAttribute(using: gateway != "" ? "\\b북마크\\b" : "\\b", key: .foregroundColor, value: UIColor.custom.qualityOrange)
         
-        self.navigationItem.rightBarButtonItem?.isEnabled = text != ""
+        // STEP 3: 저장한 위치값 불러오기
+        if let selectedTextRange = textView.position(from: selectedTextRange.start, offset: 0) {
+            textView.selectedTextRange = textView.textRange(from: selectedTextRange, to: selectedTextRange)
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
