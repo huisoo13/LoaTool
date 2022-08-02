@@ -13,12 +13,13 @@ class DailyTableViewCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var button: UIButton!
 
-    @IBOutlet weak var contentsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
 
     @IBOutlet weak var camelLabel: TGPCamelLabels!
     @IBOutlet weak var slider: TGPDiscreteSlider!
     
+    weak var coordinator: AppCoordinator?
+
     var cellSize: CGSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 168)
     let minimumLineSpacing: CGFloat = 8
     
@@ -152,7 +153,7 @@ extension DailyTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyCollectionViewCell", for: indexPath) as! DailyCollectionViewCell
                 
         cell.data = filter[safe: indexPath.row]
-        
+        cell.coordinator = coordinator
         return cell
     }
 }

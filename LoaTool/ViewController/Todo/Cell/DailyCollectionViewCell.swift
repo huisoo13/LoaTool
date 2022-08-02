@@ -15,8 +15,11 @@ class DailyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var serverLabel: UILabel!
         
+    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var stackView: UIStackView!
     
+    weak var coordinator: AppCoordinator?
+
     var data: Member? {
         didSet {            
             guard let data = data else { return }
@@ -88,6 +91,10 @@ class DailyCollectionViewCell: UICollectionViewCell {
                 
                 self.data = data
             }
+        }
+        
+        button.addGestureRecognizer { _ in
+            self.coordinator?.pushToEditCharacterViewController(self.data, animated: true)
         }
     }
 }

@@ -1078,6 +1078,14 @@
                                     <constraint firstAttribute="height" constant="0.5" id="fvH-tU-O5u"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ilH-2q-gkS">
+                                <rect key="frame" x="301" y="819.5" width="10" height="9"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="qDX-i9-i5D"/>
+                                    <constraint firstAttribute="height" constant="10" id="tPI-Va-4uH"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oVo-bY-hta"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1088,6 +1096,8 @@
                             <constraint firstItem="VJ3-TH-XgP" firstAttribute="trailing" secondItem="oVo-bY-hta" secondAttribute="trailing" id="H1i-zD-ugW"/>
                             <constraint firstItem="Xzt-eS-tsw" firstAttribute="leading" secondItem="bPT-fS-ejS" secondAttribute="leading" id="KS5-cZ-soc"/>
                             <constraint firstItem="zeh-5i-jRw" firstAttribute="leading" secondItem="oVo-bY-hta" secondAttribute="leading" id="NTN-ci-zXR"/>
+                            <constraint firstItem="ilH-2q-gkS" firstAttribute="centerY" secondItem="NBI-y0-4i9" secondAttribute="centerY" constant="-16" id="R2b-iR-xyI"/>
+                            <constraint firstItem="ilH-2q-gkS" firstAttribute="centerX" secondItem="NBI-y0-4i9" secondAttribute="centerX" constant="16" id="RSe-j4-9gC"/>
                             <constraint firstItem="VJ3-TH-XgP" firstAttribute="top" secondItem="KEa-qf-2h3" secondAttribute="bottom" id="Wmw-Ld-tP6"/>
                             <constraint firstItem="VJ3-TH-XgP" firstAttribute="leading" secondItem="oVo-bY-hta" secondAttribute="leading" id="aM7-OG-53S"/>
                             <constraint firstItem="KEa-qf-2h3" firstAttribute="leading" secondItem="oVo-bY-hta" secondAttribute="leading" id="bVS-32-z8w"/>
@@ -1098,6 +1108,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="badgeView" destination="ilH-2q-gkS" id="EWt-q0-isQ"/>
                         <outlet property="contentView" destination="KEa-qf-2h3" id="n2X-i7-njr"/>
                         <outlet property="stackView" destination="xf5-lh-FGb" id="s9B-Ea-P9h"/>
                         <outlet property="tabBarView" destination="VJ3-TH-XgP" id="RFa-so-ZrE"/>
@@ -3622,6 +3633,7 @@
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="chevron.right.2" catalog="system" width="128" height="105"/>
         <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="content.icon.0" width="64" height="64"/>
         <image name="content.icon.26" width="64" height="64"/>
@@ -3640,7 +3652,7 @@
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TextField Background">
-            <color red="0.81499999761581421" green="0.82700002193450928" blue="0.8529999852180481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94999998807907104" green="0.94999998807907104" blue="0.94999998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3665,6 +3677,9 @@
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

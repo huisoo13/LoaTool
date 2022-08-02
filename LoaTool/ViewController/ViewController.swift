@@ -11,6 +11,7 @@ class ViewController: UIViewController, Storyboarded {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tabBarView: UIView!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var badgeView: UIImageView!
     
     weak var coordinator: AppCoordinator?
 
@@ -69,13 +70,19 @@ extension ViewController: CharacterListDelegate {
     fileprivate func setupTitleForCommunity() {
         setTitle("커뮤니티".localized, size: 20)
 
-        let filter = UIBarButtonItem(image: UIImage(systemName: "bell", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
-        filter.tag = 0
-
+        let showBadge = UserDefaults.standard.bool(forKey: "showBadge")
+        
+        let symbolConfiguration = showBadge
+                    ? UIImage.SymbolConfiguration.preferringMulticolor().applying(UIImage.SymbolConfiguration(paletteColors: [.systemRed, .label])).applying(UIImage.SymbolConfiguration(pointSize: 18, weight: .thin))
+                    : UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)
+        let image = UIImage(systemName: showBadge ? "bell.badge" : "bell", withConfiguration: symbolConfiguration)
+        let bell = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
+        bell.tag = 0
+                
         let edit = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
         edit.tag = 1
 
-        addRightBarButtonItems([edit, filter])
+        addRightBarButtonItems([edit, bell])
     }
 
     fileprivate func setupTitleForMore() {
@@ -90,7 +97,6 @@ extension ViewController: CharacterListDelegate {
         let barButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .thin)), primaryAction: nil, menu: menu)
         
         addRightBarButtonItems([barButtonItem])
-
     }
     
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
@@ -171,6 +177,9 @@ extension ViewController {
     fileprivate func setupTabBarView() {
         debug("\(#fileID): \(#function)")
         
+        let showBadge = UserDefaults.standard.bool(forKey: "showBadge")
+        badgeView.isHidden = !showBadge
+        
         stackView.arrangedSubviews.enumerated().forEach { i, button in
             guard let button = button as? UIButton else { return }
             
@@ -238,7 +247,7 @@ extension ViewController {
         
         if sender.isSelected {
             // 선택한 버튼이 이미 선택 중인 경우
-            debug("Now view")
+            // debug("Now view")
         } else {
             // 새로운 버튼을 선택한 경우
             // 이전에 선택되어 있던 버튼의 index 저장

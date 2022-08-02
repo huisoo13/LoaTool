@@ -41,8 +41,8 @@ class ImageViewerViewController: UIViewController, Storyboarded {
     }
     
     func setupView() {
-        if let images = self.images { rightButton.isHidden = images.count == 0 }
-        if let imageURL = self.imageURL { rightButton.isHidden = imageURL.count == 0 }
+        if let images = self.images { rightButton.isHidden = images.count == 1 }
+        if let imageURL = self.imageURL { rightButton.isHidden = imageURL.count == 1 }
 
         leftButton.isHidden = true
         
