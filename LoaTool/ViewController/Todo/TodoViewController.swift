@@ -242,6 +242,7 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
 
             if let data = viewModel.result.value {
                 cell.data = Array(data.member.filter { $0.category != 0 })
+                cell.coordinator = coordinator
                 cell.contentView.isHidden = !showDailyContents
             }
             

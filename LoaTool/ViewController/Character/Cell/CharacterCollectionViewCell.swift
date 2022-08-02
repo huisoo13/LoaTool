@@ -15,6 +15,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     var selectedInfo: Bool = false
     var selectedEquip: Int = -1
     var selectedAccessory: Int = -1
+    var selectedGem: Bool = false
 
     var data: Character? {
         didSet {
@@ -157,12 +158,23 @@ extension CharacterCollectionViewCell: UITableViewDelegate, UITableViewDataSourc
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "GemTableViewCell", for: indexPath) as! GemTableViewCell
             
-            cell.chartView.values = data?.gem.map { $0 }
-            
+            cell.isSelectedItem = selectedGem
+            cell.data = data
+        
             return cell
 
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 3:     // 보석이 없는 경우 아이템이 안보이기 때문에 별도로 작성
+            self.selectedGem = !self.selectedGem
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: indexPath.section)], with: .fade)
+        default:
+            break
         }
     }
 }

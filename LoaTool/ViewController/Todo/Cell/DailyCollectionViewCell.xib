@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -83,10 +83,23 @@
                                     <constraint firstAttribute="height" constant="0.5" id="GLh-K9-Sam"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avN-el-hPO">
+                                <rect key="frame" x="304" y="10" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="3FB-21-aGi"/>
+                                    <constraint firstAttribute="height" constant="44" id="RKS-w5-74N"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="gearshape.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium" weight="thin"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9Ba-u9-0Bw" firstAttribute="top" secondItem="ZEd-6S-Pj2" secondAttribute="top" constant="4" id="1uq-8j-o9g"/>
+                            <constraint firstItem="avN-el-hPO" firstAttribute="centerY" secondItem="NO6-We-JjK" secondAttribute="centerY" id="5ME-48-zXd"/>
                             <constraint firstAttribute="height" constant="64" id="Eof-Xx-EyF"/>
                             <constraint firstAttribute="bottom" secondItem="ZEd-6S-Pj2" secondAttribute="bottom" constant="10" id="Eor-Ej-20L"/>
                             <constraint firstItem="9Ba-u9-0Bw" firstAttribute="leading" secondItem="ZEd-6S-Pj2" secondAttribute="trailing" constant="10" id="Q6K-zh-akK"/>
@@ -96,6 +109,7 @@
                             <constraint firstItem="ZEd-6S-Pj2" firstAttribute="top" secondItem="hr6-0a-gW5" secondAttribute="top" constant="10" id="eOn-cd-huq"/>
                             <constraint firstItem="ZEd-6S-Pj2" firstAttribute="leading" secondItem="hr6-0a-gW5" secondAttribute="leading" constant="10" id="ggy-ld-dLR"/>
                             <constraint firstItem="mSa-1R-KFY" firstAttribute="leading" secondItem="hr6-0a-gW5" secondAttribute="leading" id="wKa-Nf-5tU"/>
+                            <constraint firstAttribute="trailing" secondItem="avN-el-hPO" secondAttribute="trailing" constant="10" id="zBg-KB-iDW"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ahy-1E-0NC">
@@ -361,6 +375,7 @@
             </constraints>
             <size key="customSize" width="358" height="170"/>
             <connections>
+                <outlet property="button" destination="avN-el-hPO" id="KLG-Bt-cLr"/>
                 <outlet property="jobImageView" destination="NO6-We-JjK" id="qad-hC-FW5"/>
                 <outlet property="jobView" destination="ZEd-6S-Pj2" id="xoI-IC-tQ6"/>
                 <outlet property="levelLabel" destination="7tz-fn-l37" id="hTO-Qn-Vtr"/>
@@ -375,6 +390,7 @@
         <image name="content.icon.0" width="64" height="64"/>
         <image name="content.icon.6" width="64" height="64"/>
         <image name="content.icon.8" width="64" height="64"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Text Blue">
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
