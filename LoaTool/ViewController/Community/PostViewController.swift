@@ -93,6 +93,7 @@ class PostViewController: UIViewController, Storyboarded {
         API.get.selectSingleComment(self, identifier: data.comment) { comment in
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             cell.data = comment
+            cell.isNotification = true
 
             cell.commentView.addGestureRecognizer { _ in
                 self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: true)
@@ -103,6 +104,19 @@ class PostViewController: UIViewController, Storyboarded {
             self.stackView.arrangedSubviews.forEach {
                 $0.sizeToFit()
                 $0.layoutIfNeeded()
+            }
+                        
+            if let indexPathsForVisibleRows = self.tableView.indexPathsForVisibleRows {
+                var isHidden = false
+                indexPathsForVisibleRows.forEach { indexPath in
+                    guard let data = self.viewModel.result.value else { return }
+                    
+                    if data[safe: indexPath.row]?.identifier == self.notification?.comment && self.notification != nil {
+                        isHidden = true
+                    }
+                }
+                
+                self.stackView.arrangedSubviews.first?.isHidden = self.stackView.arrangedSubviews.first?.isHidden ?? false ? true : isHidden
             }
         }
     }
@@ -305,6 +319,8 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             
             setupGestureRecognizer(tableView, cell: cell, cellForRowAt: indexPath)
             
+            cell.isNotification = data?.identifier == notification?.comment && notification != nil
+
             return cell
         default:
             break

@@ -96,12 +96,27 @@ class CommentViewController: UIViewController, Storyboarded {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             cell.data = comment
             cell.commentView.isHidden = true
+            cell.isNotification = true
 
             self.stackView.backgroundColor = .secondarySystemGroupedBackground
             self.stackView.insertArrangedSubview(cell.contentView, at: 0)
             self.stackView.arrangedSubviews.forEach {
                 $0.sizeToFit()
                 $0.layoutIfNeeded()
+            }
+            
+            
+            if let indexPathsForVisibleRows = self.tableView.indexPathsForVisibleRows {
+                var isHidden = false
+                indexPathsForVisibleRows.forEach { indexPath in
+                    guard let data = self.viewModel.result.value else { return }
+                    
+                    if data[safe: indexPath.row]?.identifier == self.notification?.reply && self.notification != nil {
+                        isHidden = true
+                    }
+                }
+                
+                self.stackView.arrangedSubviews.first?.isHidden = self.stackView.arrangedSubviews.first?.isHidden ?? false ? true : isHidden
             }
         }
     }
@@ -284,8 +299,10 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.data = data
         cell.coordinator = coordinator
         cell.commentView.isHidden = true
-        
+
         setupGestureRecognizer(tableView, cell: cell, cellForRowAt: indexPath)
+
+        cell.isNotification = data?.identifier == notification?.reply && notification != nil
 
         return cell
     }

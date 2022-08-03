@@ -12,6 +12,9 @@ class NotificationViewModel {
     
     func configure(_ target: UIViewController) {
         API.get.selectNotification(target) { data in
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            UserDefaults.standard.set(false, forKey: "showBadge")
+            
             self.result.value = data
         }
     }

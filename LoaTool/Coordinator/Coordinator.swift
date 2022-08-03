@@ -179,6 +179,12 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
+    func pushToOptionViewController(animated: Bool) {
+        let viewController = OptionViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
     /*
      - 일반적인 Push
      let viewController = ViewController.instantiate()
