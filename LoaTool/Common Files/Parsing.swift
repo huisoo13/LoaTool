@@ -232,7 +232,7 @@ class Parsing: NSObject {
                                 equip.engrave = option
                             }
                         case "IndentStringGroup":
-                            /* 수정 2: 22. 07. 27 패치로 장비에 트라이포드 삭제 - 새로운 옵션이 추가될 가능성이 있으므로 코드는 주석처리
+                            /* 수정 - 002: 22. 07. 27 패치로 장비에 트라이포드 삭제 - 새로운 옵션이 추가될 가능성이 있으므로 코드는 주석처리
 
                             let data = value["Element_000"]["contentStr"].dictionaryValue.sorted(by: { $0 < $1 })
                             var option = ""

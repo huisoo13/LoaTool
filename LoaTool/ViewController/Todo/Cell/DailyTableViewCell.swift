@@ -93,9 +93,10 @@ class DailyTableViewCell: UITableViewCell {
     }
     
     fileprivate func setupSlider() {
-        
+        let showUnselectedItem = UserDefaults.standard.bool(forKey: "showUnselectedItem")
+        camelLabel.downFontColor = showUnselectedItem ? .systemGray2 : .clear
+        camelLabel.regularLayout = NSLayoutConstraint.Attribute.centerY.rawValue
         camelLabel.names = filter.count != 0 ? filter.map { $0.name } : [" ", " ", " "]
-        
         slider.tickCount = camelLabel.names.count <= 1 ? 3 : camelLabel.names.count
         slider.ticksListener = camelLabel
         

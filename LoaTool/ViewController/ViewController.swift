@@ -31,6 +31,19 @@ class ViewController: UIViewController, Storyboarded {
         debug("\(#fileID): \(#function)")
         
         setupTabBarView()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(showBadge(_:)), name: NSNotification.Name("showBadge"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+
+    @objc func showBadge(_ sender: NSNotification) {
+        setupTabBarView()
     }
 }
 
@@ -91,10 +104,14 @@ extension ViewController: CharacterListDelegate {
         let block = UIAction(title: "", subtitle: "차단 관리", image: nil, identifier: nil) { _ in
             self.coordinator?.pushToBlockViewController(animated: true)
         }
-
-        let menu = UIMenu(title: "관리하기", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: [block])
         
-        let barButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .thin)), primaryAction: nil, menu: menu)
+        let option = UIAction(title: "", subtitle: "환경 설정", image: nil, identifier: nil) { _ in
+            self.coordinator?.pushToOptionViewController(animated: true)
+        }
+
+        let menu = UIMenu(title: "관리하기", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: [block, option])
+        
+        let barButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), primaryAction: nil, menu: menu)
         
         addRightBarButtonItems([barButtonItem])
     }

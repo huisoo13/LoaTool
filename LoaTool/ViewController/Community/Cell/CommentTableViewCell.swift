@@ -25,6 +25,7 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var commentLabel: UILabel!
     
     @IBOutlet weak var ownerLabel: UILabel!
+    @IBOutlet weak var notificationView: UIImageView!
     
     weak var coordinator: AppCoordinator?
     
@@ -41,6 +42,18 @@ class CommentTableViewCell: UITableViewCell {
             ownerLabel.isHidden = !isOwner
         }
     }
+    
+    var isNotification: Bool? {
+        didSet {
+            guard let isNotification = isNotification else {
+                return
+            }
+
+            notificationView.isHidden = !isNotification
+        }
+    }
+    
+    
     var data: Comment? {
         didSet {
             guard let data = data else {
@@ -73,7 +86,6 @@ class CommentTableViewCell: UITableViewCell {
         
         if data.type != 0 {
             commentView.isHidden = true
-            // contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0))
         }
     }
     
@@ -84,9 +96,6 @@ class CommentTableViewCell: UITableViewCell {
         backgroundColor = .secondarySystemGroupedBackground
         
         setupActiveLabel()
-        
-        // backgroundColor = .systemGroupedBackground
-        // contentView.backgroundColor = .secondarySystemGroupedBackground
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

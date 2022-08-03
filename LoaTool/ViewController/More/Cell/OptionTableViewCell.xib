@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="OptionTableViewCell" customModule="LoaTool" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="QHR-S4-Q8a">
+                        <rect key="frame" x="16" y="8" width="223" height="28"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff7-wG-ooD">
+                                <rect key="frame" x="0.0" y="0.0" width="223" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pN8-bR-TYN">
+                                <rect key="frame" x="0.0" y="14" width="223" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <switch opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Mqy-3a-fZr">
+                        <rect key="frame" x="255" y="6.5" width="51" height="31"/>
+                        <color key="onTintColor" name="Text Blue"/>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Mqy-3a-fZr" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AsZ-dh-w2m"/>
+                    <constraint firstItem="Mqy-3a-fZr" firstAttribute="leading" secondItem="QHR-S4-Q8a" secondAttribute="trailing" constant="16" id="I3B-bp-a8k"/>
+                    <constraint firstItem="QHR-S4-Q8a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="IC4-v2-Blz"/>
+                    <constraint firstAttribute="trailing" secondItem="Mqy-3a-fZr" secondAttribute="trailing" constant="16" id="beb-dc-vx2"/>
+                    <constraint firstAttribute="bottom" secondItem="QHR-S4-Q8a" secondAttribute="bottom" constant="8" id="coA-a4-3MT"/>
+                    <constraint firstItem="QHR-S4-Q8a" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fr1-5J-QwP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="pN8-bR-TYN" id="xDG-1W-UXc"/>
+                <outlet property="switchButton" destination="Mqy-3a-fZr" id="Vh4-qX-f8S"/>
+                <outlet property="titleLabel" destination="Ff7-wG-ooD" id="aOK-fJ-TqN"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="148.66071428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="Text Blue">
+            <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

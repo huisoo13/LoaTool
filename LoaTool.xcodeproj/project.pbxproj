@@ -139,6 +139,9 @@
 		F13A193E27F1A5400095444D /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A193D27F1A5400095444D /* MoreViewController.swift */; };
 		F13FF99C2856D0C10067FD9D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13FF99B2856D0C10067FD9D /* API.swift */; };
 		F1421839286C1B9D007BE6B1 /* AD.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1421838286C1B9D007BE6B1 /* AD.swift */; };
+		F1453340289A2E6C000D1108 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F145333F289A2E6B000D1108 /* OptionViewController.swift */; };
+		F1453343289A334E000D1108 /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1453341289A334E000D1108 /* OptionTableViewCell.swift */; };
+		F1453344289A334E000D1108 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1453342289A334E000D1108 /* OptionTableViewCell.xib */; };
 		F14F165527FE7FCA008C078D /* MainCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F165427FE7FCA008C078D /* MainCharacterViewController.swift */; };
 		F14F22A127C8B1D900F75749 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F22A027C8B1D900F75749 /* Todo.swift */; };
 		F14F22A327C8BF6D00F75749 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F22A227C8BF6D00F75749 /* Character.swift */; };
@@ -323,6 +326,9 @@
 		F13A193D27F1A5400095444D /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		F13FF99B2856D0C10067FD9D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		F1421838286C1B9D007BE6B1 /* AD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AD.swift; sourceTree = "<group>"; };
+		F145333F289A2E6B000D1108 /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
+		F1453341289A334E000D1108 /* OptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
+		F1453342289A334E000D1108 /* OptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionTableViewCell.xib; sourceTree = "<group>"; };
 		F14F165427FE7FCA008C078D /* MainCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCharacterViewController.swift; sourceTree = "<group>"; };
 		F14F22A027C8B1D900F75749 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		F14F22A227C8BF6D00F75749 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -615,6 +621,8 @@
 				F11B9AB6280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.xib */,
 				F1B0DD8A286AC50B00127AB7 /* BlockTableViewCell.swift */,
 				F1B0DD8B286AC50B00127AB7 /* BlockTableViewCell.xib */,
+				F1453341289A334E000D1108 /* OptionTableViewCell.swift */,
+				F1453342289A334E000D1108 /* OptionTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -791,6 +799,7 @@
 				F11B9AB3280D4B6300C5D0BA /* OpenSourceLibraryViewController.swift */,
 				F1839B6128530AA900CCC2B4 /* RegisterViewController.swift */,
 				F1B0DD88286ABC8800127AB7 /* BlockViewController.swift */,
+				F145333F289A2E6B000D1108 /* OptionViewController.swift */,
 				F11B9AB2280D4B2700C5D0BA /* Cell */,
 			);
 			path = More;
@@ -956,6 +965,7 @@
 				F11FA75C26A5069300C13633 /* Assets.xcassets in Resources */,
 				F1FEC39E27F4237F00D56518 /* AdditionalTableViewCell.xib in Resources */,
 				F11B9AB8280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.xib in Resources */,
+				F1453344289A334E000D1108 /* OptionTableViewCell.xib in Resources */,
 				F115AD0B280659B2006CE991 /* CollectionViewCell.xib in Resources */,
 				F117FB0528040D5A00EF30BB /* AdditionalCollectionViewCell.xib in Resources */,
 				F124F19127F2D78900ADF95F /* CharacterCollectionViewCell.xib in Resources */,
@@ -1072,6 +1082,7 @@
 				F119B964281A1D2400F25F4B /* UIImage+Extension.swift in Sources */,
 				F11B9AB7280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.swift in Sources */,
 				F11FA77926A518DB00C13633 /* Locailzed.swift in Sources */,
+				F1453343289A334E000D1108 /* OptionTableViewCell.swift in Sources */,
 				F114C20B285AC57B0035B892 /* SlackLoadingAnimator.swift in Sources */,
 				F138572C2822188200CF87BD /* ImageViewerViewController.swift in Sources */,
 				F119B96D281A1D2400F25F4B /* ContentPreviewViewController.swift in Sources */,
@@ -1157,6 +1168,7 @@
 				F119B962281A1D2400F25F4B /* ImagePickerViewModel.swift in Sources */,
 				F114C21B285AC57B0035B892 /* CRRefreshFooterView.swift in Sources */,
 				F114C216285AC57B0035B892 /* CRRefreshBundle.swift in Sources */,
+				F1453340289A2E6C000D1108 /* OptionViewController.swift in Sources */,
 				F13A193A27F174920095444D /* TodoViewController.swift in Sources */,
 				F11FA75526A5069100C13633 /* SceneDelegate.swift in Sources */,
 				F114C219285AC57B0035B892 /* CRRefreshProtocol.swift in Sources */,
@@ -1332,7 +1344,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.08.02;
+				MARKETING_VERSION = 22.08.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1356,7 +1368,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.08.02;
+				MARKETING_VERSION = 22.08.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

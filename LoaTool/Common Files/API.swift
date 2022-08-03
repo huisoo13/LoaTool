@@ -50,6 +50,25 @@ class API {
         }
     }
     
+    func selectBadge() {
+        let parameters: Parameters = [
+            "owner": User.shared.identifier
+        ]
+        
+        AF.request(_SERVER + "selectBadge.php", method: method, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                                
+                let result = json["result"].boolValue
+                UserDefaults.standard.set(result, forKey: "showBadge")
+                if result { NotificationCenter.default.post(name: NSNotification.Name("showBadge"), object: nil) }
+            case .failure(let error):
+                debug(error)
+            }
+        }
+    }
+    
     func selectPost(_ target: UIViewController, page number: Int = 0, filter option: FilterOption = FilterOption(), completionHandler: ((_ data: [Community])->())? = nil) {
         guard Network.isConnected else {
             Alert.networkError(target)

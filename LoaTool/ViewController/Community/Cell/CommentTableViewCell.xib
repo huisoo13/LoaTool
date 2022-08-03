@@ -124,6 +124,15 @@
                         <color key="textColor" name="Quality Orange"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bell.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zdX-JH-Acb">
+                        <rect key="frame" x="350" y="34" width="24" height="23.5"/>
+                        <color key="tintColor" name="Quality Orange"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="Sym-Vi-toU"/>
+                            <constraint firstAttribute="height" constant="24" id="nig-U6-cUm"/>
+                        </constraints>
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="be0-fX-16Y" secondAttribute="trailing" constant="16" id="06f-je-ohb"/>
@@ -134,10 +143,12 @@
                     <constraint firstAttribute="bottom" secondItem="Xma-rm-eAW" secondAttribute="bottom" id="PGE-0q-sOs"/>
                     <constraint firstItem="Xma-rm-eAW" firstAttribute="top" secondItem="3Nh-E5-FGt" secondAttribute="bottom" constant="4" id="WKL-f0-Qj7"/>
                     <constraint firstAttribute="trailing" secondItem="dLP-41-ntz" secondAttribute="trailing" constant="16" id="X2C-ha-VSS"/>
+                    <constraint firstAttribute="trailing" secondItem="zdX-JH-Acb" secondAttribute="trailing" constant="16" id="YQc-R5-OCC"/>
                     <constraint firstItem="EZF-bM-Z4S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="abc-QL-qdo"/>
                     <constraint firstAttribute="trailing" secondItem="Xma-rm-eAW" secondAttribute="trailing" id="gMN-2h-iru"/>
                     <constraint firstItem="Xma-rm-eAW" firstAttribute="top" secondItem="dLP-41-ntz" secondAttribute="bottom" constant="12" id="h4Y-oE-Xhe"/>
                     <constraint firstAttribute="trailing" secondItem="XFp-mG-ais" secondAttribute="trailing" constant="16" id="hGJ-Td-I5L"/>
+                    <constraint firstItem="zdX-JH-Acb" firstAttribute="top" secondItem="be0-fX-16Y" secondAttribute="bottom" constant="8" id="lXB-Sd-tmD"/>
                     <constraint firstItem="3Nh-E5-FGt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="p01-9i-lRg"/>
                     <constraint firstItem="3Nh-E5-FGt" firstAttribute="top" secondItem="XFp-mG-ais" secondAttribute="bottom" constant="4" id="sFJ-nN-l3q"/>
                     <constraint firstItem="6b1-D9-aYu" firstAttribute="leading" secondItem="3Nh-E5-FGt" secondAttribute="trailing" constant="16" id="yha-yw-ka7"/>
@@ -157,6 +168,7 @@
                 <outlet property="jobImageView" destination="R1z-NI-eig" id="aQS-iH-lGI"/>
                 <outlet property="levelLabel" destination="ZmC-Ad-v1T" id="NGp-lt-LSo"/>
                 <outlet property="nameLabel" destination="kfv-cX-JkV" id="K2f-Uk-6av"/>
+                <outlet property="notificationView" destination="zdX-JH-Acb" id="5rc-M7-Swx"/>
                 <outlet property="ownerLabel" destination="dLP-41-ntz" id="YbG-ju-p7Q"/>
                 <outlet property="serverLabel" destination="WFG-M8-kIO" id="iIQ-c8-jwy"/>
             </connections>
@@ -169,6 +181,7 @@
         </designable>
     </designables>
     <resources>
+        <image name="bell.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="text.bubble.rtl" catalog="system" width="128" height="110"/>
         <namedColor name="Quality Orange">

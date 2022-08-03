@@ -33,7 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Setup notification center
         UNUserNotificationCenter.current().delegate = self
-                
+        API.get.selectBadge()
+
         return true
     }
     
@@ -86,9 +87,23 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         let userInfo = notification.request.content.userInfo
-        debug(userInfo)
         
-        completionHandler([.list, .banner])
+        guard let payload = userInfo["aps"] as? [String: AnyObject],
+              let category = payload["category"] as? String else { return }
+        
+        switch category {
+        case "LOATOOL_NOTIFICATION":
+            UserDefaults.standard.set(true, forKey: "showBadge")
+            NotificationCenter.default.post(name: NSNotification.Name("showBadge"), object: nil)
+        case "OTHER":
+            // 나중에 무언가 추가되면 이런식으로 추가하기
+            break
+        default:
+            break
+        }
+
+        
+        completionHandler([.list, .banner, .badge])
     }
     
     // 알림을 누른 경우
