@@ -1351,6 +1351,35 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="767.5"/>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TM3-Fi-2hq">
+                                <rect key="frame" x="0.0" y="651.5" width="414" height="160"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uw9-I5-RoF">
+                                        <rect key="frame" x="282" y="16" width="116" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="uw9-I5-RoF" secondAttribute="height" constant="-12" id="DIw-tR-pD6"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dww-pD-W3t">
+                                        <rect key="frame" x="382" y="8.5" width="24" height="23"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" name="Text Blue"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="7We-2a-T5V"/>
+                                            <constraint firstAttribute="height" constant="24" id="SHi-Uq-ZRE"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="uw9-I5-RoF" secondAttribute="trailing" constant="16" id="8ut-5Q-Dpj"/>
+                                    <constraint firstItem="uw9-I5-RoF" firstAttribute="top" secondItem="TM3-Fi-2hq" secondAttribute="top" constant="16" id="CFL-jz-PWw"/>
+                                    <constraint firstItem="Dww-pD-W3t" firstAttribute="trailing" secondItem="uw9-I5-RoF" secondAttribute="trailing" constant="8" id="NjI-5N-JtL"/>
+                                    <constraint firstAttribute="bottom" secondItem="uw9-I5-RoF" secondAttribute="bottom" constant="16" id="qwK-O9-8li"/>
+                                    <constraint firstAttribute="height" constant="160" id="vKP-ze-1GW"/>
+                                    <constraint firstItem="Dww-pD-W3t" firstAttribute="top" secondItem="uw9-I5-RoF" secondAttribute="top" constant="-8" id="yth-wm-uyR"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejj-IJ-k32">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
                                 <subviews>
@@ -1380,7 +1409,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PS2-rv-uWQ">
-                                                        <rect key="frame" x="16" y="8" width="340" height="34"/>
+                                                        <rect key="frame" x="58" y="8" width="298" height="34"/>
                                                         <color key="backgroundColor" name="TextField Background"/>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1399,12 +1428,33 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
                                                         </state>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waI-lV-b6Y">
+                                                        <rect key="frame" x="8" y="0.0" width="50" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="tST-Qk-Q1x"/>
+                                                            <constraint firstAttribute="width" secondItem="waI-lV-b6Y" secondAttribute="height" id="z3C-lc-czX"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <imageReference key="image" image="plus.circle" catalog="system" symbolScale="large"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
+                                                        </state>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="plus.circle" catalog="system" symbolScale="large"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="thin"/>
+                                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                        </buttonConfiguration>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="waI-lV-b6Y" secondAttribute="bottom" id="7de-Lc-3vW"/>
                                                     <constraint firstItem="njg-o4-lCI" firstAttribute="leading" secondItem="PS2-rv-uWQ" secondAttribute="trailing" id="8na-2M-oiz"/>
                                                     <constraint firstAttribute="trailing" secondItem="njg-o4-lCI" secondAttribute="trailing" constant="8" id="E7k-pg-k2i"/>
-                                                    <constraint firstItem="PS2-rv-uWQ" firstAttribute="leading" secondItem="pS2-q1-Rku" secondAttribute="leading" constant="16" id="NHP-gy-DHH"/>
+                                                    <constraint firstItem="PS2-rv-uWQ" firstAttribute="leading" secondItem="waI-lV-b6Y" secondAttribute="trailing" id="EZA-YQ-OPc"/>
+                                                    <constraint firstItem="waI-lV-b6Y" firstAttribute="leading" secondItem="pS2-q1-Rku" secondAttribute="leading" constant="8" id="LJB-3x-JL4"/>
                                                     <constraint firstAttribute="bottom" secondItem="njg-o4-lCI" secondAttribute="bottom" id="Nwq-ig-nmR"/>
                                                     <constraint firstAttribute="height" constant="50" id="VUz-Cq-N4a"/>
                                                     <constraint firstItem="PS2-rv-uWQ" firstAttribute="top" secondItem="pS2-q1-Rku" secondAttribute="top" constant="8" id="bFv-yJ-xVY"/>
@@ -1450,6 +1500,9 @@
                             <constraint firstAttribute="trailing" secondItem="Sgo-JQ-ddI" secondAttribute="trailing" id="Qcw-ns-bhJ"/>
                             <constraint firstItem="no8-M3-0c4" firstAttribute="top" secondItem="yoH-vl-6Lb" secondAttribute="bottom" id="Ycq-dL-gMD"/>
                             <constraint firstItem="Ejj-IJ-k32" firstAttribute="leading" secondItem="24K-Pn-lzs" secondAttribute="leading" id="ZNS-W3-OFl"/>
+                            <constraint firstItem="no8-M3-0c4" firstAttribute="top" secondItem="TM3-Fi-2hq" secondAttribute="bottom" id="f8r-sh-LsQ"/>
+                            <constraint firstItem="24K-Pn-lzs" firstAttribute="trailing" secondItem="TM3-Fi-2hq" secondAttribute="trailing" id="gd5-xY-kMa"/>
+                            <constraint firstItem="TM3-Fi-2hq" firstAttribute="leading" secondItem="24K-Pn-lzs" secondAttribute="leading" id="kMu-kj-BVT"/>
                             <constraint firstItem="yoH-vl-6Lb" firstAttribute="leading" secondItem="24K-Pn-lzs" secondAttribute="leading" id="pwB-fe-S04"/>
                             <constraint firstItem="24K-Pn-lzs" firstAttribute="trailing" secondItem="yoH-vl-6Lb" secondAttribute="trailing" id="qr9-KS-qwL"/>
                             <constraint firstItem="Sgo-JQ-ddI" firstAttribute="leading" secondItem="dfg-Z6-BFx" secondAttribute="leading" id="x9O-ue-8ZV"/>
@@ -1461,6 +1514,8 @@
                         <outlet property="button" destination="njg-o4-lCI" id="wd3-ex-MZt"/>
                         <outlet property="heightAnchor" destination="VUz-Cq-N4a" id="8Mn-86-4gM"/>
                         <outlet property="mentionView" destination="UjH-ed-Lyc" id="xsf-f4-h1g"/>
+                        <outlet property="menuButton" destination="waI-lV-b6Y" id="J2Q-CA-A1G"/>
+                        <outlet property="preview" destination="TM3-Fi-2hq" id="iim-3Z-cdQ"/>
                         <outlet property="stackView" destination="625-pG-gsS" id="jLV-a5-LOA"/>
                         <outlet property="tableView" destination="yoH-vl-6Lb" id="hFX-fV-6Hy"/>
                         <outlet property="textView" destination="PS2-rv-uWQ" id="6BZ-7s-gkg"/>
@@ -3885,8 +3940,10 @@
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="photo.on.rectangle.angled" catalog="system" width="128" height="100"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Text Blue">
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -3895,6 +3952,9 @@
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

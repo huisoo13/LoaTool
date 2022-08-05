@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class PostViewController: UIViewController, Storyboarded {
     
@@ -16,16 +17,22 @@ class PostViewController: UIViewController, Storyboarded {
     @IBOutlet weak var mentionView: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
+
+    @IBOutlet weak var preview: UIView!
     
     @IBOutlet weak var bottomAnchor: NSLayoutConstraint!
     @IBOutlet weak var heightAnchor: NSLayoutConstraint!
-        
+    
+    var imagePickerView: ImagePickerView?
+    
     weak var coordinator: AppCoordinator?
     
     var data: Community?
     var notification: Notification?
     
     var viewModel: CommentViewModel = CommentViewModel()
+    var selectedImage: Image?
     
     var page: Int = 0
 
@@ -122,6 +129,23 @@ class PostViewController: UIViewController, Storyboarded {
     }
     
     func setupGestureRecognizer() {
+        menuButton.addGestureRecognizer { _ in
+            self.menuButton.isSelected = !self.menuButton.isSelected
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                self.menuButton.transform = self.menuButton.isSelected ? CGAffineTransform(rotationAngle: .pi / 4) : .identity
+            })
+            
+            self.imagePickerView = ImagePickerView()
+            self.imagePickerView?.delegate = self
+            self.imagePickerView?.coordinator = self.coordinator
+            
+            self.textView.inputView = self.menuButton.isSelected ? self.imagePickerView : nil
+            self.textView.inputView?.autoresizingMask = .flexibleHeight
+            self.textView.becomeFirstResponder()
+            self.textView.reloadInputViews()
+        }
+        
         button.addGestureRecognizer { _ in
             guard User.shared.isConnected else {
                 Alert.message(self, title: "캐릭터 인증 필요", message: "댓글을 달기 위해서는\n대표 캐릭터 인증을 해야합니다.") { _ in
@@ -135,6 +159,10 @@ class PostViewController: UIViewController, Storyboarded {
                 return
             }
 
+            
+            // 수정 - 003 : DB 테이블 수정 이미지 타입 나눠서 바꾸기
+            //             댓글 정보 가져오는 API 수정
+            //             댓글 UI 수정
             self.button.isEnabled = false
             API.post.insertComment(self, type: 0, post: data.identifier, mention: "", input: text) { result in
                 self.textView.text = ""
@@ -142,9 +170,26 @@ class PostViewController: UIViewController, Storyboarded {
                 
                 self.textView.endEditing(true)
                 self.viewModel.configure(self, identifier: data.identifier, page: 0)
+                self.selectedImage = nil
                 self.tableView.setContentOffset(.zero, animated: true)
                 self.button.isEnabled = true
             }
+        }
+        
+        guard let button = preview.subviews.last as? UIImageView else { return }
+        
+        button.layer.cornerRadius = button.bounds.height / 2
+        button.isUserInteractionEnabled = true
+        button.addGestureRecognizer { _ in
+            self.preview.isHidden = true
+            self.selectedImage = nil
+            
+            guard let text = self.textView.text else { return }
+            let image = text == "" || self.selectedImage != nil
+            ? UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
+            : UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+            self.button.setImage(image, for: .normal)
+            self.button.tintColor = text == "" ? .label : .custom.textBlue
         }
     }
 
@@ -159,7 +204,8 @@ class PostViewController: UIViewController, Storyboarded {
         let window = UIApplication.shared.connectedScenes.flatMap({ ($0 as? UIWindowScene)?.windows ?? [] }).first { $0.isKeyWindow }
         let bottomPadding = window?.safeAreaInsets.bottom ?? 0
         
-        bottomAnchor.constant = keyboardHeight - bottomPadding
+        self.bottomAnchor.constant = keyboardHeight - bottomPadding
+        
         UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) {
             self.view.layoutIfNeeded()
         }
@@ -171,9 +217,14 @@ class PostViewController: UIViewController, Storyboarded {
         guard let keyboardAnimationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
                 
         self.bottomAnchor.constant = 0
+        self.menuButton.isSelected = false
+
         UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) {
+            self.menuButton.transform = .identity
             self.view.layoutIfNeeded()
         }
+        
+        textView.inputView = nil
     }
 }
 
@@ -198,8 +249,6 @@ extension PostViewController: UITextViewDelegate {
         textView.layer.borderWidth = 0.5
                 
         button.setImage(UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), for: .normal)
-        
-
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -219,7 +268,7 @@ extension PostViewController: UITextViewDelegate {
         
         if numberOfLines > 30 { text.removeLast() }
         
-        let image = text == ""
+        let image = text == "" || selectedImage != nil
         ? UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
         : UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
         button.setImage(image, for: .normal)
@@ -235,6 +284,30 @@ extension PostViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
 
+    }
+}
+
+extension PostViewController: ImagePickerViewDelegate {
+    func imagePicker(_ picker: ImagePickerViewController, didFinishPickingAssets assets: [PHAsset]) {
+        let uuid = UUID().uuidString
+        let stove = User.shared.stove
+
+        guard let asset = assets.first,
+              let origin = ImageManager.shared.requestImage(for: asset, isThumbnail: false),
+              let imageView = preview.subviews.first as? UIImageView else {
+            
+            preview.isHidden = true
+            return
+        }
+        
+        preview.isHidden = false
+        imageView.image = origin
+        
+        let model = Image(fileName: "\(stove)-\(uuid)-\(String(format: "%02d", 0))", image: origin)
+        selectedImage = model
+
+        button.setImage(UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light)), for: .normal)
+        button.tintColor = .custom.textBlue
     }
 }
 

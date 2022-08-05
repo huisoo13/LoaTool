@@ -26,14 +26,13 @@ class ImagePickerViewController: UIViewController, Storyboarded {
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var albumView: UIView!
     
     // MARK: configure
     let numberOfItemInLine: Int = 4
     let minimumLineSpacing: CGFloat = 1
-    let numberOfItemMaxSelection: Int = 20
+    var numberOfItemMaxSelection: Int = 20
     let fileMaximumSize: Double = 20        // Mb
     let totalMaximumSize: Double = 40       // 해당 값 변경 시 php.ini 파일 수정해서 업로드 시 문제 발생 없도록 하기
     

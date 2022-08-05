@@ -168,6 +168,8 @@
 		F1B0DD91286AC71700127AB7 /* BlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0DD90286AC71700127AB7 /* BlockViewModel.swift */; };
 		F1C5516127F6C8060018EC45 /* GemBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C5515F27F6C8050018EC45 /* GemBarChartView.swift */; };
 		F1C5516227F6C8060018EC45 /* GemBarChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1C5516027F6C8060018EC45 /* GemBarChartView.xib */; };
+		F1CCAE07289CD048003D3556 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCAE06289CD047003D3556 /* ImagePickerView.swift */; };
+		F1CCAE09289CD5A2003D3556 /* ImagePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */; };
 		F1EB224628769BB100C4553F /* CloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB224528769BB100C4553F /* CloudManager.swift */; };
 		F1EEF78F27D728D4008D51DC /* NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EEF78E27D728D4008D51DC /* NavigationItem.swift */; };
 		F1FE1EBC281B7932005BAAE4 /* UITableView+Reorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE1EB6281B7931005BAAE4 /* UITableView+Reorder.swift */; };
@@ -359,6 +361,8 @@
 		F1B0DD90286AC71700127AB7 /* BlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewModel.swift; sourceTree = "<group>"; };
 		F1C5515F27F6C8050018EC45 /* GemBarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GemBarChartView.swift; sourceTree = "<group>"; };
 		F1C5516027F6C8060018EC45 /* GemBarChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GemBarChartView.xib; sourceTree = "<group>"; };
+		F1CCAE06289CD047003D3556 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerView.xib; sourceTree = "<group>"; };
 		F1EB224528769BB100C4553F /* CloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManager.swift; sourceTree = "<group>"; };
 		F1EEF78E27D728D4008D51DC /* NavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItem.swift; sourceTree = "<group>"; };
 		F1FE1EB6281B7931005BAAE4 /* UITableView+Reorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Reorder.swift"; sourceTree = "<group>"; };
@@ -582,6 +586,8 @@
 			isa = PBXGroup;
 			children = (
 				F119B955281A1D2400F25F4B /* PaddingLabel.swift */,
+				F1CCAE06289CD047003D3556 /* ImagePickerView.swift */,
+				F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -590,9 +596,9 @@
 			isa = PBXGroup;
 			children = (
 				F119B95A281A1D2400F25F4B /* ImagePickerCollectionViewCell.xib */,
-				F119B95B281A1D2400F25F4B /* ImagePickerTableViewCell.swift */,
 				F119B95C281A1D2400F25F4B /* ImagePickerCollectionViewCell.swift */,
 				F119B95D281A1D2400F25F4B /* ImagePickerTableViewCell.xib */,
+				F119B95B281A1D2400F25F4B /* ImagePickerTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -951,6 +957,7 @@
 				F155FED12829E95E00274A9F /* NotificationTableViewCell.xib in Resources */,
 				F1FEC38227F418D100D56518 /* TableViewHeaderView.xib in Resources */,
 				F1FEC39627F4235E00D56518 /* SpecialDailyTableViewCell.xib in Resources */,
+				F1CCAE09289CD5A2003D3556 /* ImagePickerView.xib in Resources */,
 				F1C5516227F6C8060018EC45 /* GemBarChartView.xib in Resources */,
 				F182258127FFD43800546864 /* MoreTableViewCell.xib in Resources */,
 				F1FEC3A227F4305D00D56518 /* DailyCollectionViewCell.xib in Resources */,
@@ -1116,6 +1123,7 @@
 				F155FED02829E95E00274A9F /* NotificationTableViewCell.swift in Sources */,
 				F1198B24280FE94500A2FF50 /* CommunityViewController.swift in Sources */,
 				F11FA77B26A518DB00C13633 /* Bindable.swift in Sources */,
+				F1CCAE07289CD048003D3556 /* ImagePickerView.swift in Sources */,
 				F1421839286C1B9D007BE6B1 /* AD.swift in Sources */,
 				F11FA77A26A518DB00C13633 /* RealmManager.swift in Sources */,
 				F1FE1EC1281B7932005BAAE4 /* ReorderController+AutoScroll.swift in Sources */,
