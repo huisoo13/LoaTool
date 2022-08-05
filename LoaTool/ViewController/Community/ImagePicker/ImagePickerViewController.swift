@@ -76,7 +76,7 @@ class ImagePickerViewController: UIViewController, Storyboarded {
 // MARK: - Navigation Bar
 extension ImagePickerViewController {
     // MARK:- Navigation
-    fileprivate func setupNavigationItem() {
+    func setupNavigationItem() {
         // 타이틀 설정
         if let data = albums.first {
             selectedAlbum = data
@@ -121,10 +121,15 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
         switch PHPhotoLibrary.authorizationStatus(for: PHAccessLevel.readWrite) {
         case .authorized:
             viewModel.configure()
-            setupTableView()
+            DispatchQueue.main.async {
+                self.setupTableView()
+            }
         case .limited:
             viewModel.configure()
-            setupTableView()
+            DispatchQueue.main.async {
+                self.setupTableView()
+            }
+            
             PHPhotoLibrary.shared().register(self)
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization(for: PHAccessLevel.readWrite) { _ in self.requestAuthorization() }

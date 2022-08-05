@@ -59,6 +59,7 @@ class ImagePickerViewModel {
             
             if fetchResult.count > 0 {
                 let asset = fetchResult.object(at: 0)
+
                 albums.append(Album(identifier: "",
                                     title: collection.localizedTitle ?? "이름 없음",
                                     asset: asset,

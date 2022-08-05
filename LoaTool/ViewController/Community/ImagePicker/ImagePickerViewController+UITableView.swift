@@ -35,6 +35,7 @@ extension ImagePickerViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.register(UINib(nibName: "ImagePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "ImagePickerTableViewCell")
         
         albums = viewModel.getAlbumList()
+        setupNavigationItem()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -86,9 +87,9 @@ extension ImagePickerViewController: UITableViewDelegate, UITableViewDataSource 
             self.albumView.isHidden = !self.albumView.isHidden
         })
         
-        guard let button = self.navigationItem.titleView as? UIButton else { return }
+        guard let button = self.titleButton else { return }
         button.setTitle("\(data.title) ▾", for: .normal)
-        
+
         let width = button.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).width
         button.frame = CGRect(origin: .zero, size: CGSize(width: width, height: 500))
     }

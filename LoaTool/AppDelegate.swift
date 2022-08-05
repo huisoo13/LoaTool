@@ -184,17 +184,22 @@ extension AppDelegate {
 extension AppDelegate {
     func migrationForRealm() {
         let oldSchemaVersion = UserDefaults.standard.integer(forKey: "oldSchemaVersion")
-        let newSchemaVersion = 8
+        let newSchemaVersion = 9
         
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
             migrationBlock: { migration, oldSchemaVersion in
                 debug("업데이트 시작")
                 if oldSchemaVersion < newSchemaVersion {
+                    migration.enumerateObjects(ofType: Member.className()) { oldObject, newObject in
+                        newObject!["cube"] = 0
+                        newObject!["boss"] = 0
+                    }
+                    
                     UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")
                 }
-            },
-            deleteRealmIfMigrationNeeded: true
+            }/* ,
+            deleteRealmIfMigrationNeeded: true */
         )
         
         Realm.Configuration.defaultConfiguration = configuration
