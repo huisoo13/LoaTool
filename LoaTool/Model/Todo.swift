@@ -58,7 +58,9 @@ class Member: Object, NSItemProviderWriting {
     @objc dynamic var name: String = ""
     @objc dynamic var job: String = ""
     @objc dynamic var level: Double = 0
-    
+    @objc dynamic var cube: Int = 0
+    @objc dynamic var boss: Int = 0
+
     var contents = List<Content>()
     
     var parent = LinkingObjects(fromType: Todo.self, property: "member")
@@ -232,6 +234,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
     @objc dynamic var type: Int = 1
     @objc dynamic var icon: Int = 0
     @objc dynamic var level: Double = 0
+    // @objc dynamic var limit: Double = 0
     @objc dynamic var gold: Int = 0
 
     var included = List<String>()

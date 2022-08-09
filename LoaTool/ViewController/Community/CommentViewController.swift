@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class CommentViewController: UIViewController, Storyboarded {
     @IBOutlet weak var tableView: UITableView!
@@ -16,16 +17,23 @@ class CommentViewController: UIViewController, Storyboarded {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIButton!
     
+    @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var preview: UIView!
+    
     @IBOutlet weak var bottomAnchor: NSLayoutConstraint!
     @IBOutlet weak var heightAnchor: NSLayoutConstraint!
     
     weak var coordinator: AppCoordinator?
     
+    var imagePickerView: ImagePickerView?
+
     var post: Community?
     var comment: Comment?
     var viewModel = CommentViewModel()
 
     var notification: Notification?
+
+    var selectedImage: Image?
 
     var page: Int = 0
     
@@ -122,6 +130,23 @@ class CommentViewController: UIViewController, Storyboarded {
     }
     
     func setupGestureRecognizer() {
+        menuButton.addGestureRecognizer { _ in
+            self.menuButton.isSelected = !self.menuButton.isSelected
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                self.menuButton.transform = self.menuButton.isSelected ? CGAffineTransform(rotationAngle: .pi / 4) : .identity
+            })
+            
+            self.imagePickerView = ImagePickerView()
+            self.imagePickerView?.delegate = self
+            self.imagePickerView?.coordinator = self.coordinator
+            
+            self.textView.inputView = self.menuButton.isSelected ? self.imagePickerView : nil
+            self.textView.inputView?.autoresizingMask = .flexibleHeight
+            self.textView.becomeFirstResponder()
+            self.textView.reloadInputViews()
+        }
+        
         button.addGestureRecognizer { _ in
             guard User.shared.isConnected else {
                 Alert.message(self, title: "캐릭터 인증 필요", message: "댓글을 달기 위해서는\n대표 캐릭터 인증을 해야합니다.") { _ in
@@ -137,15 +162,28 @@ class CommentViewController: UIViewController, Storyboarded {
             }
 
             self.button.isEnabled = false
-            API.post.insertComment(self, type: 1, post: post.identifier, mention: data.identifier, input: text) { result in
+            API.post.uploadImageForComment(self, type: 1, post: post.identifier, mention: data.identifier, input: text, input: [self.selectedImage ?? Image()]) { result in
                 self.textView.text = ""
                 self.textViewDidChange(self.textView)
                 
+                self.preview.isHidden = true
+                self.selectedImage = nil
+
                 self.textView.endEditing(true)
                 self.viewModel.configure(self, type: 1, identifier: data.identifier, page: 0)
+                
                 self.tableView.setContentOffset(.zero, animated: true)
                 self.button.isEnabled = true
             }
+        }
+        
+        guard let button = preview.subviews.last as? UIImageView else { return }
+        
+        button.layer.cornerRadius = button.bounds.height / 2
+        button.isUserInteractionEnabled = true
+        button.addGestureRecognizer { _ in
+            self.preview.isHidden = true
+            self.selectedImage = nil
         }
     }
 
@@ -218,12 +256,12 @@ extension CommentViewController: UITextViewDelegate {
         
         if numberOfLines > 30 { text.removeLast() }
         
-        let image = text == ""
-        ? UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
-        : UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+        let image = text != ""
+        ? UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+        : UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
         button.setImage(image, for: .normal)
-        button.tintColor = text == "" ? .label : .custom.textBlue
-        
+        button.tintColor = text != "" ? .custom.textBlue : .label
+
         textView.attributedText = text.attributed(of: text, key: .foregroundColor, value: UIColor.label)
             .addAttribute(using: "(?:^|\\s|$|[.])@[\\p{L}0-9_]*", key: .foregroundColor, value: UIColor.custom.qualityBlue)
             .addAttribute(using: "(^|[\\s.:;?\\-\\]<\\(])" +
@@ -237,6 +275,28 @@ extension CommentViewController: UITextViewDelegate {
     }
 
 }
+
+extension CommentViewController: ImagePickerViewDelegate {
+    func imagePicker(_ picker: ImagePickerViewController, didFinishPickingAssets assets: [PHAsset]) {
+        let uuid = UUID().uuidString
+        let stove = User.shared.stove
+
+        guard let asset = assets.first,
+              let origin = ImageManager.shared.requestImage(for: asset, isThumbnail: false),
+              let imageView = preview.subviews.first as? UIImageView else {
+            
+            preview.isHidden = true
+            return
+        }
+        
+        preview.isHidden = false
+        imageView.image = origin
+        
+        let model = Image(fileName: "\(stove)-\(uuid)-\(String(format: "%02d", 0))", image: origin)
+        selectedImage = model
+    }
+}
+
 
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func setupTableView() {

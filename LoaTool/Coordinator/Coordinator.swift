@@ -250,10 +250,12 @@ class AppCoordinator: Coordinator {
         router?.present(viewController, animated: animated)
     }
     
-    func presentToImagePickerViewController(_ delegate: ImagePickerViewDelegate?, animated: Bool) {
+    func presentToImagePickerViewController(_ delegate: ImagePickerViewDelegate?, numberOfItemMaxSelection: Int = 20, animated: Bool) {
         let viewController = ImagePickerViewController.instantiate("ImagePicker")
         
         viewController.coordinator = self
+        viewController.numberOfItemMaxSelection = numberOfItemMaxSelection
+
         ImagePickerViewController.delegate = delegate
         
         viewController.modalPresentationStyle = .overCurrentContext

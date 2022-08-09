@@ -13,6 +13,7 @@ class EditCharacterViewController: UIViewController, Storyboarded {
     @IBOutlet weak var textFieldStackView: UIStackView!
     
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var ticketView: UIStackView!
     
     weak var coordinator: AppCoordinator?
 
@@ -74,6 +75,28 @@ class EditCharacterViewController: UIViewController, Storyboarded {
                 pickerView.dataSource = self
                 
                 pickerView.tag = (i * 10) + j
+                
+                pickerView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
+                pickerView.tintColor = .clear
+                pickerView.showsLargeContentViewer = true
+            }
+        }
+        
+        ticketView.arrangedSubviews.enumerated().forEach { i, view in
+            guard let iconView = view.subviews.first,
+                  let stackView = view.subviews.last as? UIStackView else { return }
+            
+            iconView.layer.cornerRadius = 6
+            iconView.layer.borderWidth = 0.5
+            iconView.layer.borderColor = UIColor.systemGray4.cgColor
+
+            stackView.arrangedSubviews.enumerated().forEach { j, view in
+                guard let pickerView = view.subviews.last as? UIPickerView else { return }
+                
+                pickerView.delegate = self
+                pickerView.dataSource = self
+                
+                pickerView.tag = 100 + (i * 10) + j
                 
                 pickerView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
                 pickerView.tintColor = .clear
@@ -146,6 +169,17 @@ class EditCharacterViewController: UIViewController, Storyboarded {
                 let row = j == 0 ? data.contents[safe: i]?.bonusValue : data.contents[safe: i]?.minBonusValue else { return }
 
                 pickerView.selectRow(row / 10, inComponent: 0, animated: false)
+            }
+        }
+        
+        ticketView.arrangedSubviews.enumerated().forEach { i, view in
+            guard let stackView = view.subviews.last as? UIStackView else { return }
+            
+            stackView.arrangedSubviews.enumerated().forEach { j, view in
+                guard let pickerView = view.subviews.last as? UIPickerView else { return }
+                
+                let row = i == 0 ? data.cube : data.boss
+                pickerView.selectRow(row, inComponent: 0, animated: false)
             }
         }
     }
@@ -264,7 +298,11 @@ extension EditCharacterViewController: UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        pickerView.tag % 10 == 0 ? bonus.count : limit.count
+        if pickerView.tag < 100 {
+            return pickerView.tag % 10 == 0 ? bonus.count : limit.count
+        } else {
+            return 100
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -274,27 +312,48 @@ extension EditCharacterViewController: UIPickerViewDelegate, UIPickerViewDataSou
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        let titles = pickerView.tag % 10 == 0 ? bonus : limit
-        label.text = titles[row]
-        label.textColor = .custom.textBlue
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textAlignment = .center
-        
-        label.transform = CGAffineTransform(rotationAngle: .pi / 2)
+
+        if pickerView.tag < 100 {
+            let titles = pickerView.tag % 10 == 0 ? bonus : limit
+            label.text = titles[row]
+            label.textColor = .custom.textBlue
+            label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            label.textAlignment = .center
+            
+            label.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        } else {
+            label.text = "\(row)"
+            label.textColor = .custom.textBlue
+            label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            label.textAlignment = .center
+            
+            label.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        }
         
         return label
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {        
         RealmManager.shared.update {
-            guard let content = self.data?.contents[safe: pickerView.tag / 10] else { return }
-            
-            if pickerView.tag % 10 == 0 {
-                content.bonusValue = row * 10
-                content.originBonusValue = row * 10
+            if pickerView.tag < 100 {
+                guard let content = self.data?.contents[safe: pickerView.tag / 10] else { return }
+                
+                if pickerView.tag % 10 == 0 {
+                    content.bonusValue = row * 10
+                    content.originBonusValue = row * 10
+                }
+                
+                if pickerView.tag % 10 == 1 { content.minBonusValue = row * 10 }
+            } else {                
+                switch pickerView.tag {
+                case 100:
+                    self.data?.cube = row
+                case 110:
+                    self.data?.boss = row
+                default:
+                    break
+                }
             }
-            
-            if pickerView.tag % 10 == 1 { content.minBonusValue = row * 10 }
         }
     }
 }

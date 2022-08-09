@@ -14,6 +14,7 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var serverLabel: UILabel!
     
+    @IBOutlet weak var contentImageView: UIImageView!
     @IBOutlet weak var contentLabel: ActiveLabel!
     @IBOutlet weak var dateLabel: UILabel!
     
@@ -67,7 +68,13 @@ class CommentTableViewCell: UITableViewCell {
             serverLabel.text = data.server
             
             contentLabel.text = data.text
+            contentImageView.kf.setImage(with: URL(string: "http://15.164.244.43/\(data.imageURL.first ?? "")"),
+                                         options: [
+                                            .scaleFactor(UIScreen.main.scale),
+                                            .transition(.fade(1))
+                                         ])
             
+            contentImageView.superview?.isHidden = (data.imageURL.first ?? "") == ""
             dateLabel.text = DateManager.shared.currentDistance(data.date)
             
             heartImageView.image = data.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
@@ -96,12 +103,20 @@ class CommentTableViewCell: UITableViewCell {
         backgroundColor = .secondarySystemGroupedBackground
         
         setupActiveLabel()
+        setupGestureRecognizer()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setupGestureRecognizer() {
+        contentImageView.isUserInteractionEnabled = true
+        contentImageView.addGestureRecognizer { _ in
+            self.coordinator?.presentToImageViewerViewController(imageURL: self.data?.imageURL, animated: true)
+        }
     }
     
     func setupActiveLabel() {
