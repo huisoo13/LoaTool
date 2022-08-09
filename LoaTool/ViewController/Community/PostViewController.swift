@@ -159,18 +159,17 @@ class PostViewController: UIViewController, Storyboarded {
                 return
             }
 
-            
-            // 수정 - 003 : DB 테이블 수정 이미지 타입 나눠서 바꾸기
-            //             댓글 정보 가져오는 API 수정
-            //             댓글 UI 수정
             self.button.isEnabled = false
-            API.post.insertComment(self, type: 0, post: data.identifier, mention: "", input: text) { result in
+            API.post.uploadImageForComment(self, type: 0, post: data.identifier, mention: "", input: text, input: [self.selectedImage ?? Image()]) { result in
                 self.textView.text = ""
                 self.textViewDidChange(self.textView)
                 
                 self.textView.endEditing(true)
                 self.viewModel.configure(self, identifier: data.identifier, page: 0)
+                
                 self.selectedImage = nil
+                self.preview.isHidden = true
+                
                 self.tableView.setContentOffset(.zero, animated: true)
                 self.button.isEnabled = true
             }
@@ -183,13 +182,6 @@ class PostViewController: UIViewController, Storyboarded {
         button.addGestureRecognizer { _ in
             self.preview.isHidden = true
             self.selectedImage = nil
-            
-            guard let text = self.textView.text else { return }
-            let image = text == "" || self.selectedImage != nil
-            ? UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
-            : UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
-            self.button.setImage(image, for: .normal)
-            self.button.tintColor = text == "" ? .label : .custom.textBlue
         }
     }
 
@@ -268,11 +260,11 @@ extension PostViewController: UITextViewDelegate {
         
         if numberOfLines > 30 { text.removeLast() }
         
-        let image = text == "" || selectedImage != nil
-        ? UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
-        : UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+        let image = text != ""
+        ? UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+        : UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))
         button.setImage(image, for: .normal)
-        button.tintColor = text == "" ? .label : .custom.textBlue
+        button.tintColor = text != "" ? .custom.textBlue : .label
         
         textView.attributedText = text.attributed(of: text, key: .foregroundColor, value: UIColor.label)
             .addAttribute(using: "(?:^|\\s|$|[.])@[\\p{L}0-9_]*", key: .foregroundColor, value: UIColor.custom.qualityBlue)
@@ -305,9 +297,6 @@ extension PostViewController: ImagePickerViewDelegate {
         
         let model = Image(fileName: "\(stove)-\(uuid)-\(String(format: "%02d", 0))", image: origin)
         selectedImage = model
-
-        button.setImage(UIImage(systemName: "plus.bubble.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light)), for: .normal)
-        button.tintColor = .custom.textBlue
     }
 }
 

@@ -82,6 +82,7 @@ class Comment {
     var level: Double
     var server: String
     
+    var imageURL: [String]
     var text: String
     
     var date: String
@@ -107,7 +108,7 @@ class Comment {
         - isLiked: 좋아요 여부
         - date: 날짜
      */
-    init(identifier: String, target: String, type: Int, mention: String, owner: String, name: String, job: String, level: Double, server: String, text: String, numberOfComment: Int, numberOfLiked: Int, isLiked: Bool, date: String) {
+    init(identifier: String, target: String, type: Int, mention: String, owner: String, name: String, job: String, level: Double, server: String, imageURL: [String] = [], text: String, numberOfComment: Int, numberOfLiked: Int, isLiked: Bool, date: String) {
         self.identifier = identifier
         self.target = target
         self.type = type
@@ -117,13 +118,13 @@ class Comment {
         self.job = job
         self.level = level
         self.server = server
+        self.imageURL = imageURL
         self.text = text
         self.numberOfComment = numberOfComment
         self.numberOfLiked = numberOfLiked
         self.isLiked = isLiked
         self.date = date
     }
-
 }
 
 class FilterOption {

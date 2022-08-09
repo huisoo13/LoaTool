@@ -233,6 +233,8 @@ class API {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
+                
+                debug(json)
                                 
                 let result = json["result"].boolValue
                 let array = json["data"].arrayValue
@@ -243,13 +245,13 @@ class API {
                 for data in array {
                     let identifier = data["identifier"].stringValue
                     let target = data["target"].stringValue
-                    let type = data["type"].intValue
                     let mention = data["mention"].stringValue
                     let owner = data["owner"].stringValue
                     let name = data["name"].stringValue
                     let server = data["server"].stringValue
                     let job = data["job"].stringValue
                     let level = data["level"].doubleValue
+                    let imageURL = data["image"].stringValue
                     let text = data["text"].stringValue
                     let numberOfComment = data["numberOfComment"].intValue
                     let numberOfLike = data["numberOfLike"].intValue
@@ -265,6 +267,7 @@ class API {
                                            job: job,
                                            level: level,
                                            server: server,
+                                           imageURL: [imageURL],
                                            text: text,
                                            numberOfComment: numberOfComment,
                                            numberOfLiked: numberOfLike,
@@ -491,7 +494,7 @@ class API {
         }
     }
     
-    func uploadImage(_ target: UIViewController, input text: String, input image: [Image], gateway: String, completionHandler: ((_ result: Bool)->())? = nil) {
+    func uploadImageForPost(_ target: UIViewController, input text: String, input image: [Image], gateway: String, completionHandler: ((_ result: Bool)->())? = nil) {
         guard Network.isConnected else {
             Alert.networkError(target)
             return
@@ -500,7 +503,8 @@ class API {
         let post = UUID().uuidString
 
         let headers: HTTPHeaders = ["Content-type": "multipart/form-data"]
-        let parameters = ["target": post]
+        let parameters = ["target": post,
+                          "category": "0"]
 
         AF.upload(
             multipartFormData: { multipartFormData in
@@ -522,8 +526,7 @@ class API {
                 case .success(let value):
                     let json = JSON(value)
                     let result = json["result"].boolValue
-
-                    debug(json)
+                    
                     if result {
                         self.insertPost(target, post: post, input: text, gateway: gateway) { result in completionHandler?(result) }
                     } else {
@@ -555,7 +558,7 @@ class API {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                
+
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
@@ -565,11 +568,58 @@ class API {
         }
     }
     
-    func insertComment(_ target: UIViewController, type: Int, post identifier: String, mention: String = "", input text: String, completionHandler: ((_ result: Bool)->())? = nil) {
+    func uploadImageForComment(_ target: UIViewController, type: Int, post: String, mention: String = "", input text: String, input image: [Image], completionHandler: ((_ result: Bool)->())? = nil) {
+        guard Network.isConnected else {
+            Alert.networkError(target)
+            return
+        }
+        
+        let identifier = UUID().uuidString
+
+        let headers: HTTPHeaders = ["Content-type": "multipart/form-data"]
+        let parameters = ["target": identifier,
+                          "category": "1"]
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                image.enumerated().forEach { i, item in
+                    guard let data = item.image.jpegData(compressionQuality: 0.9) else { return }
+                    multipartFormData.append(data, withName: "\(i)", fileName: "\(item.fileName).jpg", mimeType: "image/jpg")
+                }
+                
+                for (key, value) in parameters {
+                    multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                }
+            },
+            to: _SERVER + "uploadImageFile.php",
+            method: method,
+            headers: headers).uploadProgress(queue: .global(qos: .background)) { progress in
+                debug("Upload Progress: \(progress.fractionCompleted)")
+            }.responseData { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    let result = json["result"].boolValue
+
+                    if result {
+                        self.insertComment(target, identifier: identifier, type: type, post: post, mention: mention, input: text) { result in completionHandler?(result) }
+                    } else {
+                        completionHandler?(false)
+                    }
+                case .failure(let error):
+                    debug(error)
+                    Alert.unknownError(target)
+                }
+            }
+        
+    }
+    
+    func insertComment(_ target: UIViewController, identifier: String = "", type: Int, post: String, mention: String = "", input text: String, completionHandler: ((_ result: Bool)->())? = nil) {
         guard let data = RealmManager.shared.readAll(Character.self).last?.info else { return }
         
         let parameters: Parameters = [
-            "target": identifier,
+            "identifier": identifier,
+            "target": post,
             "type": type,
             "mention": mention,
             "owner": User.shared.identifier,

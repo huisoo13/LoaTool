@@ -117,7 +117,7 @@ extension EditPostViewController {
         guard let text = textView.text else { return }
 
         IndicatorView.showLoadingView(self, title: "새 게시글을 작성 중입니다.")
-        API.post.uploadImage(self, input: text, input: self.image, gateway: self.gateway) { _ in
+        API.post.uploadImageForPost(self, input: text, input: self.image, gateway: self.gateway) { _ in
             CommunityViewController.reloadToData = true
             CommunityViewController.options = FilterOption()
 
