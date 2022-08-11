@@ -25,6 +25,7 @@ class CommentViewController: UIViewController, Storyboarded {
     
     weak var coordinator: AppCoordinator?
     
+    var hiddenTextView: UITextView = UITextView()
     var imagePickerView: ImagePickerView?
 
     var post: Community?
@@ -131,33 +132,31 @@ class CommentViewController: UIViewController, Storyboarded {
     
     func setupGestureRecognizer() {
         menuButton.addGestureRecognizer { _ in
-            self.menuButton.isSelected = !self.menuButton.isSelected
-            
             UIView.animate(withDuration: 0.1, animations: {
-                self.menuButton.transform = self.menuButton.isSelected ? CGAffineTransform(rotationAngle: .pi / 4) : .identity
+                self.menuButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
             })
             
             self.imagePickerView = ImagePickerView()
             self.imagePickerView?.delegate = self
             self.imagePickerView?.coordinator = self.coordinator
             
-            self.textView.inputView = self.menuButton.isSelected ? self.imagePickerView : nil
-            self.textView.inputView?.autoresizingMask = .flexibleHeight
-            self.textView.becomeFirstResponder()
-            self.textView.reloadInputViews()
+            self.hiddenTextView.inputView = self.imagePickerView
+            self.hiddenTextView.inputView?.autoresizingMask = .flexibleHeight
+            self.hiddenTextView.becomeFirstResponder()
+            self.hiddenTextView.reloadInputViews()
         }
         
         button.addGestureRecognizer { _ in
+            guard let post = self.post,
+                  let data = self.comment,
+                  let text = self.textView.text, text != "" else {
+                return
+            }
+            
             guard User.shared.isConnected else {
                 Alert.message(self, title: "캐릭터 인증 필요", message: "댓글을 달기 위해서는\n대표 캐릭터 인증을 해야합니다.") { _ in
                     self.coordinator?.pushToRegisterViewController(animated: true)
                 }
-                return
-            }
-            
-            guard let post = self.post,
-                  let data = self.comment,
-                  let text = self.textView.text, text != "" else {
                 return
             }
 
@@ -210,7 +209,9 @@ class CommentViewController: UIViewController, Storyboarded {
         guard let keyboardAnimationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
                 
         self.bottomAnchor.constant = 0
+
         UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) {
+            self.menuButton.transform = .identity
             self.view.layoutIfNeeded()
         }
     }
@@ -236,8 +237,18 @@ extension CommentViewController: UITextViewDelegate {
         
         button.setImage(UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), for: .normal)
         
-
+        view.addSubview(hiddenTextView)
+        hiddenTextView.isHidden = true
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView == self.textView {
+            UIView.animate(withDuration: 0.1) {
+                self.menuButton.transform = .identity
+            }
+        }
+    }
+
     
     func textViewDidChange(_ textView: UITextView) {
         guard var text = textView.text else { return }

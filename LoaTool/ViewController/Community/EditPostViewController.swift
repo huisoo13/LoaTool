@@ -17,8 +17,11 @@ class EditPostViewController: UIViewController, Storyboarded {
     @IBOutlet weak var bookmarkLabel: UILabel!
     
     weak var coordinator: AppCoordinator?
+    
     var image: [Image] = []
     var gateway: String = ""
+    
+    var community: Community?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +32,8 @@ class EditPostViewController: UIViewController, Storyboarded {
         setupGestureRecognizer()
         setupTextView()
         setupHideKeyboardOnTap()
-        
+        setupData()
+
         DispatchQueue.global(qos: .background).async {
             CharacterViewModel().configure(self, search: User.shared.name, isMain: true, showIndicator: false)
         }
@@ -56,6 +60,22 @@ class EditPostViewController: UIViewController, Storyboarded {
         imageView.layer.cornerRadius = 2
         imageLabel.text = "선택한 사진이 없습니다."
         bookmarkLabel.text = "선택한 북마크가 없습니다."
+    }
+    
+    func setupData() {
+        guard let community = community else {
+            return
+        }
+
+        textView.text = community.text
+        imageLabel.text = "사진은 변경할 수 없습니다."
+        bookmarkLabel.text = "북마크는 변경할 수 없습니다."
+        
+        stackView.arrangedSubviews.enumerated().forEach { i, view in
+            view.isUserInteractionEnabled = false
+        }
+        
+        self.navigationItem.rightBarButtonItem?.isEnabled = community.text != ""
     }
     
     func setupGestureRecognizer() {
@@ -116,13 +136,25 @@ extension EditPostViewController {
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
         guard let text = textView.text else { return }
 
-        IndicatorView.showLoadingView(self, title: "새 게시글을 작성 중입니다.")
-        API.post.uploadImageForPost(self, input: text, input: self.image, gateway: self.gateway) { _ in
-            CommunityViewController.reloadToData = true
-            CommunityViewController.options = FilterOption()
+        let title = community == nil ? "새 게시글을 작성 중입니다." : "게시글을 수정 중입니다."
+        IndicatorView.showLoadingView(self, title: title)
+        
+        if let community = self.community {
+            API.post.updatePost(community.identifier, text: text, forKey: "UPDATE") { _ in
+                CommunityViewController.reloadToData = true
+                CommunityViewController.options = FilterOption()
 
-            IndicatorView.hideLoadingView()
-            self.coordinator?.popViewController(animated: true)
+                IndicatorView.hideLoadingView()
+                self.coordinator?.popViewController(animated: true)
+            }
+        } else {
+            API.post.uploadImageForPost(self, input: text, input: self.image, gateway: self.gateway) { _ in
+                CommunityViewController.reloadToData = true
+                CommunityViewController.options = FilterOption()
+
+                IndicatorView.hideLoadingView()
+                self.coordinator?.popViewController(animated: true)
+            }
         }
     }
 }

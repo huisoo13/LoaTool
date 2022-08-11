@@ -1360,10 +1360,10 @@
                                             <constraint firstAttribute="width" secondItem="uw9-I5-RoF" secondAttribute="height" constant="-12" id="DIw-tR-pD6"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dww-pD-W3t">
-                                        <rect key="frame" x="382" y="8.5" width="24" height="23"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" name="Text Blue"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dww-pD-W3t">
+                                        <rect key="frame" x="16" y="18" width="24" height="19.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="7We-2a-T5V"/>
                                             <constraint firstAttribute="height" constant="24" id="SHi-Uq-ZRE"/>
@@ -1373,11 +1373,11 @@
                                 <color key="backgroundColor" systemColor="placeholderTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="uw9-I5-RoF" secondAttribute="trailing" constant="16" id="8ut-5Q-Dpj"/>
+                                    <constraint firstItem="Dww-pD-W3t" firstAttribute="leading" secondItem="TM3-Fi-2hq" secondAttribute="leading" constant="16" id="CBu-3a-PSa"/>
                                     <constraint firstItem="uw9-I5-RoF" firstAttribute="top" secondItem="TM3-Fi-2hq" secondAttribute="top" constant="16" id="CFL-jz-PWw"/>
-                                    <constraint firstItem="Dww-pD-W3t" firstAttribute="trailing" secondItem="uw9-I5-RoF" secondAttribute="trailing" constant="8" id="NjI-5N-JtL"/>
+                                    <constraint firstItem="Dww-pD-W3t" firstAttribute="top" secondItem="TM3-Fi-2hq" secondAttribute="top" constant="16" id="kBL-RX-6h9"/>
                                     <constraint firstAttribute="bottom" secondItem="uw9-I5-RoF" secondAttribute="bottom" constant="16" id="qwK-O9-8li"/>
                                     <constraint firstAttribute="height" constant="160" id="vKP-ze-1GW"/>
-                                    <constraint firstItem="Dww-pD-W3t" firstAttribute="top" secondItem="uw9-I5-RoF" secondAttribute="top" constant="-8" id="yth-wm-uyR"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejj-IJ-k32">
@@ -3495,10 +3495,10 @@
                                             <constraint firstAttribute="width" secondItem="MFQ-Eu-phR" secondAttribute="height" constant="-12" id="iIk-ZR-TFT"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5gY-BA-8Ro">
-                                        <rect key="frame" x="382" y="8.5" width="24" height="23"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" name="Text Blue"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5gY-BA-8Ro">
+                                        <rect key="frame" x="16" y="18" width="24" height="19.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="oCH-W7-VV2"/>
                                             <constraint firstAttribute="width" constant="24" id="q90-Gq-enB"/>
@@ -3510,9 +3510,9 @@
                                     <constraint firstAttribute="trailing" secondItem="MFQ-Eu-phR" secondAttribute="trailing" constant="16" id="4zu-32-mYT"/>
                                     <constraint firstItem="MFQ-Eu-phR" firstAttribute="top" secondItem="whO-NG-wQX" secondAttribute="top" constant="16" id="Bq5-CO-3nU"/>
                                     <constraint firstAttribute="bottom" secondItem="MFQ-Eu-phR" secondAttribute="bottom" constant="16" id="Hwx-wW-k1b"/>
+                                    <constraint firstItem="5gY-BA-8Ro" firstAttribute="top" secondItem="whO-NG-wQX" secondAttribute="top" constant="16" id="Ru4-AC-tzv"/>
                                     <constraint firstAttribute="height" constant="160" id="TFs-DL-wB0"/>
-                                    <constraint firstItem="5gY-BA-8Ro" firstAttribute="trailing" secondItem="MFQ-Eu-phR" secondAttribute="trailing" constant="8" id="hvf-kP-Np9"/>
-                                    <constraint firstItem="5gY-BA-8Ro" firstAttribute="top" secondItem="MFQ-Eu-phR" secondAttribute="top" constant="-8" id="uzU-Fc-HwO"/>
+                                    <constraint firstItem="5gY-BA-8Ro" firstAttribute="leading" secondItem="whO-NG-wQX" secondAttribute="leading" constant="16" id="xrI-Y7-NPc"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTj-oP-4Kh">
@@ -3658,7 +3658,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qRS-FT-Yt4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1039" y="2155"/>
+            <point key="canvasLocation" x="1037.68115942029" y="2154.9107142857142"/>
         </scene>
         <!--Report View Controller-->
         <scene sceneID="0oM-Vi-rlv">
@@ -3998,7 +3998,6 @@
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Text Blue">
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

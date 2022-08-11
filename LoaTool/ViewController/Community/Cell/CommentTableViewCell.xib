@@ -131,14 +131,23 @@
                         <rect key="frame" x="16" y="36" width="358" height="200.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qm0-C6-gcw">
-                                <rect key="frame" x="0.0" y="0.0" width="358" height="160"/>
+                                <rect key="frame" x="0.0" y="0.0" width="358" height="132"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1m5-GX-LNn">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="132"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="1m5-GX-LNn" secondAttribute="height" id="TGX-Jn-6s9"/>
-                                            <constraint firstAttribute="width" constant="160" id="apZ-HK-BTn"/>
+                                            <constraint firstAttribute="width" secondItem="1m5-GX-LNn" secondAttribute="height" constant="-12" id="TGX-Jn-6s9"/>
+                                            <constraint firstAttribute="width" constant="120" id="apZ-HK-BTn"/>
                                         </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="eMV-X9-QF9">
+                                        <rect key="frame" x="100" y="112.5" width="16" height="15"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="hCM-VH-mRS"/>
+                                            <constraint firstAttribute="width" constant="16" id="ooo-eW-4P6"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -146,10 +155,12 @@
                                     <constraint firstItem="1m5-GX-LNn" firstAttribute="top" secondItem="qm0-C6-gcw" secondAttribute="top" id="D7l-tm-aZV"/>
                                     <constraint firstAttribute="bottom" secondItem="1m5-GX-LNn" secondAttribute="bottom" id="R77-wJ-Qmz"/>
                                     <constraint firstItem="1m5-GX-LNn" firstAttribute="leading" secondItem="qm0-C6-gcw" secondAttribute="leading" id="a9V-h5-dPa"/>
+                                    <constraint firstItem="eMV-X9-QF9" firstAttribute="bottom" secondItem="1m5-GX-LNn" secondAttribute="bottom" constant="-4" id="dVi-yX-FTq"/>
+                                    <constraint firstItem="eMV-X9-QF9" firstAttribute="trailing" secondItem="1m5-GX-LNn" secondAttribute="trailing" constant="-4" id="lBl-3E-XQ6"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFp-mG-ais" customClass="ActiveLabel" customModule="ActiveLabel">
-                                <rect key="frame" x="0.0" y="168" width="358" height="32.5"/>
+                                <rect key="frame" x="0.0" y="140" width="358" height="60.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -205,6 +216,7 @@
         </designable>
     </designables>
     <resources>
+        <image name="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="128" height="115"/>
         <image name="bell.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="text.bubble.rtl" catalog="system" width="128" height="110"/>
