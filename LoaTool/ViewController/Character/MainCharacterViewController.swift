@@ -83,7 +83,7 @@ class MainCharacterViewController: UIViewController, Storyboarded {
     func parsingUserData() {
         if text == "" { return }
 
-        IndicatorView.showLoadingView(self)
+        IndicatorView.showLoadingView()
         Parsing.shared.downloadHTML(text, type: [.stats, .equip, .engrave, .gem, .card]) { data, error in
             self.data = data
             

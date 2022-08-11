@@ -52,7 +52,7 @@ extension NotificationViewController {
     }
         
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
-        IndicatorView.showLoadingView(self, title: "확인 중입니다.")
+        IndicatorView.showLoadingView(title: "확인 중입니다.")
         API.post.updateNotification() { result in
             self.viewModel.configure(self)
             self.tableView.reloadData()

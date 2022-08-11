@@ -553,7 +553,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         
         delete.backgroundColor = .custom.qualityRed
         delete.image = UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))?.withTintColor(.systemGray6).withRenderingMode(.alwaysOriginal)
-        
+         
         let report = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
             guard User.shared.isConnected else {
                 Alert.message(self, title: "캐릭터 인증 필요", message: "신고를 하기 위해서는\n대표 캐릭터 인증을 해야합니다.") { _ in

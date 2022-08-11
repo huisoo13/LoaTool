@@ -19,7 +19,7 @@ class CharacterViewModel {
                 
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false, block: { (_) in
-            if showIndicator { IndicatorView.showLoadingView(target) }
+            if showIndicator { IndicatorView.showLoadingView() }
             Parsing.shared.downloadHTML(text, type: [.stats, .equip, .engrave, .gem, .card]) { data, error in
                 switch error {
                 case .notFound:

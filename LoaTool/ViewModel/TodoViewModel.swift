@@ -127,12 +127,12 @@ class TodoViewModel {
         }
     }
     
-    func updateMemberInfo(_ target: UIViewController) {
+    func updateMemberInfo() {
         guard let todo = self.result.value else { return }
 
         let memberList = Array(todo.member.filter({ $0.category != 0 }).map { $0.name })
         
-        IndicatorView.showLoadingView(target)
+        IndicatorView.showLoadingView()
         Parsing.shared.downloadHTML(parsingMemberListWith: memberList) { data in
             let member = todo.member
             

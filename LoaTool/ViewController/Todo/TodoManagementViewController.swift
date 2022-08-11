@@ -42,7 +42,7 @@ class TodoManagementViewController: UIViewController, Storyboarded {
     
     @objc func beginUpdateRealmFromCloudKit(_ sender: NSNotification) {
         DispatchQueue.main.async {
-            IndicatorView.showLoadingView(self)
+            IndicatorView.showLoadingView()
         }
     }
     
@@ -145,7 +145,7 @@ extension TodoManagementViewController: UITableViewDelegate, UITableViewDataSour
         let alert = UIAlertController(title: "정보 갱신", message: "캐릭터의 정보를 갱신합니다.\n등록 캐릭터의 수가 많을수록 시간이 오래 걸립니다.", preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "갱신", style: .default) { _ in
-            self.viewModel.updateMemberInfo(self)
+            self.viewModel.updateMemberInfo()
         }
         
         let no = UIAlertAction(title: "취소", style: .destructive) { _ in }

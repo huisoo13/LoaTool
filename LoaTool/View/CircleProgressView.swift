@@ -24,7 +24,6 @@ class CircleProgressView: UIView {
     var text: String? = nil
     
     override func draw(_ rect: CGRect) {
-
         let bezierPath = UIBezierPath()
         
         bezierPath.addArc(withCenter: CGPoint(x: rect.midX, y: rect.midY), radius: rect.midX - ((lineWidth - 1) / 2), startAngle: 0, endAngle: .pi * 2, clockwise: true)
