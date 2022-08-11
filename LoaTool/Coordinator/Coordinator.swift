@@ -58,10 +58,7 @@ class AppCoordinator: Coordinator {
         let viewController = ViewController.instantiate()
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: false)
-        
     }
-    
-    
     
     // MARK: - Push
     func popToRootViewController(animated: Bool) {
@@ -144,9 +141,10 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
-    func pushToEditPostViewController(animated: Bool) {
+    func pushToEditPostViewController(_ post: Community? = nil, animated: Bool) {
         let viewController = EditPostViewController.instantiate()
         viewController.coordinator = self
+        viewController.community = post
         navigationController.pushViewController(viewController, animated: animated)
     }
     
@@ -291,5 +289,14 @@ class AppCoordinator: Coordinator {
     // MARK: - Dismiss
     func dismiss(animated: Bool) {
         router?.dismiss(animated: animated)
+    }
+    
+    // MARK: - Remove
+    func removeLastDidPush() {
+        navigationController.viewControllers.remove(at: navigationController.viewControllers.count - 2)
+    }
+    
+    func removeLastWillPush() {
+        navigationController.viewControllers.removeLast()
     }
 }

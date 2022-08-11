@@ -216,11 +216,15 @@ extension CommunityViewController: UITableViewDelegate, UITableViewDataSource {
         
         let delete = UIAction(title: "게시글 삭제", subtitle: nil, image: nil, identifier: nil) { action in
             Alert.message(self, title: "삭제하기", message: "해당 게시글을 삭제할까요?\n삭제된 게시글을 복구가 불가능합니다.", option: .successAndCancelAction) { _ in
-                API.post.updatePost(data.identifier) { result in
+                API.post.updatePost(data.identifier, forKey: "DELETE") { result in
                     guard result else { return }
                     self.viewModel.result.value?.remove(at: indexPath.row)
                 }
             }
+        }
+        
+        let update = UIAction(title: "게시글 수정", subtitle: nil, image: nil, identifier: nil) { action in
+            self.coordinator?.pushToEditPostViewController(data, animated: true)
         }
         
         let report = UIAction(title: "게시글 신고", subtitle: nil, image: nil, identifier: nil) { action in
@@ -250,8 +254,7 @@ extension CommunityViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        let menu = UIMenu(title: "더보기", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: isMine ? [delete] : [report, block])
-        
+        let menu = UIMenu(title: "더보기", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: isMine ? [delete, update] : [report, block])
         
         cell.menuButton.menu = menu
         cell.menuButton.showsMenuAsPrimaryAction = true

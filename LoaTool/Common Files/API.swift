@@ -526,7 +526,7 @@ class API {
                 case .success(let value):
                     let json = JSON(value)
                     let result = json["result"].boolValue
-                    
+
                     if result {
                         self.insertPost(target, post: post, input: text, gateway: gateway) { result in completionHandler?(result) }
                     } else {
@@ -707,11 +707,28 @@ class API {
         }
     }
     
-    func updatePost(_ identifier: String, completionHandler: ((_ result: Bool)->())? = nil) {
-        let parameters: Parameters = [
-            "owner": User.shared.identifier,
-            "identifier": identifier
-        ]
+    func updatePost(_ identifier: String, text: String = "", forKey: String, completionHandler: ((_ result: Bool)->())? = nil) {
+        var parameters: Parameters = [:]
+        
+        switch forKey {
+        case "DELETE":
+            parameters = [
+                "owner": User.shared.identifier,
+                "identifier": identifier,
+                "key": forKey
+            ]
+        case "UPDATE":
+            parameters = [
+                "owner": User.shared.identifier,
+                "identifier": identifier,
+                "text": text,
+                "key": forKey
+            ]
+        default:
+            return
+        }
+        
+
         
         AF.request(_SERVER + "updatePost.php", method: method, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData { response in
             switch response.result {

@@ -32,9 +32,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>영상 촬영 중 소리를 녹음하기 위해 마이크 사용 권한을 요청합니다.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>앨범에 사진 및 영상 추가를 위해 앨범 사용 권한을 요청합니다.</string>
+	<string>앨범에 촬영한 사진 및 영상 추가를 위해 앨범 사용 권한을 요청합니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>앨범에서 사진을 가져오기 위하여 앨범 사용 권한을 요청합니다.</string>
+	<string>글 및 댓글 작성 중 사진을 포함시키기 위해 앨범 사용 권한을 요청합니다.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -24,6 +24,7 @@ class PostViewController: UIViewController, Storyboarded {
     @IBOutlet weak var bottomAnchor: NSLayoutConstraint!
     @IBOutlet weak var heightAnchor: NSLayoutConstraint!
     
+    var hiddenTextView: UITextView = UITextView()
     var imagePickerView: ImagePickerView?
     
     weak var coordinator: AppCoordinator?
@@ -130,32 +131,30 @@ class PostViewController: UIViewController, Storyboarded {
     
     func setupGestureRecognizer() {
         menuButton.addGestureRecognizer { _ in
-            self.menuButton.isSelected = !self.menuButton.isSelected
-            
             UIView.animate(withDuration: 0.1, animations: {
-                self.menuButton.transform = self.menuButton.isSelected ? CGAffineTransform(rotationAngle: .pi / 4) : .identity
+                self.menuButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
             })
             
             self.imagePickerView = ImagePickerView()
             self.imagePickerView?.delegate = self
             self.imagePickerView?.coordinator = self.coordinator
             
-            self.textView.inputView = self.menuButton.isSelected ? self.imagePickerView : nil
-            self.textView.inputView?.autoresizingMask = .flexibleHeight
-            self.textView.becomeFirstResponder()
-            self.textView.reloadInputViews()
+            self.hiddenTextView.inputView = self.imagePickerView
+            self.hiddenTextView.inputView?.autoresizingMask = .flexibleHeight
+            self.hiddenTextView.becomeFirstResponder()
+            self.hiddenTextView.reloadInputViews()
         }
         
         button.addGestureRecognizer { _ in
+            guard let data = self.data,
+                  let text = self.textView.text, text != "" else {
+                return
+            }
+            
             guard User.shared.isConnected else {
                 Alert.message(self, title: "캐릭터 인증 필요", message: "댓글을 달기 위해서는\n대표 캐릭터 인증을 해야합니다.") { _ in
                     self.coordinator?.pushToRegisterViewController(animated: true)
                 }
-                return
-            }
-            
-            guard let data = self.data,
-                  let text = self.textView.text, text != "" else {
                 return
             }
 
@@ -209,14 +208,11 @@ class PostViewController: UIViewController, Storyboarded {
         guard let keyboardAnimationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
                 
         self.bottomAnchor.constant = 0
-        self.menuButton.isSelected = false
 
         UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) {
             self.menuButton.transform = .identity
             self.view.layoutIfNeeded()
         }
-        
-        textView.inputView = nil
     }
 }
 
@@ -241,6 +237,17 @@ extension PostViewController: UITextViewDelegate {
         textView.layer.borderWidth = 0.5
                 
         button.setImage(UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), for: .normal)
+        
+        view.addSubview(hiddenTextView)
+        hiddenTextView.isHidden = true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView == self.textView {
+            UIView.animate(withDuration: 0.1) {
+                self.menuButton.transform = .identity
+            }
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -489,12 +496,17 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         
         let delete = UIAction(title: "게시글 삭제", subtitle: nil, image: nil, identifier: nil) { action in
             Alert.message(self, title: "삭제하기", message: "해당 게시글을 삭제할까요?\n삭제된 게시글은 복구가 불가능합니다.", option: .successAndCancelAction) { _ in
-                API.post.updatePost(data.identifier) { result in
+                API.post.updatePost(data.identifier, forKey: "DELETE") { result in
                     guard result else { return }
                     CommunityViewController.reloadToData = true
                     self.coordinator?.popViewController(animated: true)
                 }
             }
+        }
+        
+        let update = UIAction(title: "게시글 수정", subtitle: nil, image: nil, identifier: nil) { action in
+            self.coordinator?.pushToEditPostViewController(data, animated: true)
+            self.coordinator?.removeLastDidPush()
         }
         
         let report = UIAction(title: "게시글 신고", subtitle: nil, image: nil, identifier: nil) { action in
@@ -517,8 +529,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        let menu = UIMenu(title: "더보기", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: isMine ? [delete] : [report, block])
-        
+        let menu = UIMenu(title: "더보기", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: isMine ? [delete, update] : [report, block])
         
         cell.menuButton.menu = menu
         cell.menuButton.showsMenuAsPrimaryAction = true
@@ -578,7 +589,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         
         block.backgroundColor = .separator
         block.image = UIImage(systemName: "speaker.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))?.withTintColor(.systemGray6).withRenderingMode(.alwaysOriginal)
-
         
         let swipeAction = UISwipeActionsConfiguration(actions: isMine ? [delete] : [block, report])
         swipeAction.performsFirstActionWithFullSwipe = false
