@@ -20,6 +20,10 @@ class AdditionalTableViewCell: UITableViewCell {
     
     let numberOfLimitCompleted = 3
 
+    // 수정 - 003: 스크롤 변경
+    // desciptionLabel 항상 안보이도록
+    var isDragging: Bool = false
+    //
     var data: AdditionalContent? {
         didSet {
             guard let data = data else {
@@ -39,6 +43,8 @@ class AdditionalTableViewCell: UITableViewCell {
                 break
             }
             
+            let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+
             addObserver()
             
             iconImageView.image = UIImage(named: "content.icon.\(data.icon)")
@@ -47,8 +53,14 @@ class AdditionalTableViewCell: UITableViewCell {
             
             updatedView(data)
 
-            showCharacterList = nil
+            showCharacterList = showExcludedMember ? true : nil
+            button.isHidden = showExcludedMember
+            
             collectionView.reloadData()
+            
+            let contentOffset: CGPoint = data.type % 10 != 0 ? CGPoint(x: UserDefaults.standard.double(forKey: "additionalContentOffsetX"), y: 0) : .zero
+            collectionView.contentOffset = contentOffset
+
         }
     }
     
@@ -68,6 +80,13 @@ class AdditionalTableViewCell: UITableViewCell {
 
                 self.button.transform = showCharacterList ? CGAffineTransform(rotationAngle:  .pi / 4) : .identity
             })
+                        
+
+            let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+            if !showExcludedMember {
+                collectionView.reloadData()
+                collectionView.contentOffset = .zero
+            }
         }
     }
     
@@ -77,6 +96,7 @@ class AdditionalTableViewCell: UITableViewCell {
         
         setupView()
         setupCollectionView()
+        addObserver()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -90,118 +110,20 @@ class AdditionalTableViewCell: UITableViewCell {
         iconView.layer.cornerRadius = 6
         iconView.layer.borderWidth = 0.5
         iconView.layer.borderColor = UIColor.systemGray4.cgColor
-            
-    }
-}
-
-extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    fileprivate func setupCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        collectionView.showsHorizontalScrollIndicator = false
-
-        collectionView.register(UINib(nibName: "AdditionalCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AdditionalCollectionViewCell")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data?.included.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let data = self.data,
-              let identifier = data.included[safe: indexPath.item] else { return .zero }
-        
-        let member = RealmManager.shared.read(Member.self, identifier: identifier).first
-        let count = member?.name.count ?? 4
-        let width = max(40, CGFloat(10 * count))
-        
-        return CGSize(width: width, height: 60)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? AdditionalCollectionViewCell,
-              let data = self.data,
-              let identifier = data.included[safe: indexPath.item] else { return }
-
-        cell.completed = data.completed.contains(identifier)
-        
-        if data.type >= 40 {
-            guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-            
-            var numberOfCompleted = 0
-            additional.forEach { content in
-                if content.type >= 40 && content.completed.contains(identifier) {
-                    numberOfCompleted += 1
-                }
-            }
-            
-            cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier)
-            ? .systemRed
-            : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? .systemPurple : .label)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdditionalCollectionViewCell", for: indexPath) as! AdditionalCollectionViewCell
-        
-        if let data = self.data,
-           let identifier = data.included[safe: indexPath.item] {
-            let member = RealmManager.shared.read(Member.self, identifier: identifier).first
-            cell.data = member
-        }
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? AdditionalCollectionViewCell,
-              let data = self.data,
-              let identifier = data.included[safe: indexPath.item] else { return }
-              
-        var isExceeded = false
-        
-        RealmManager.shared.update {
-            if data.completed.contains(identifier) {
-                guard let index = data.completed.firstIndex(of: identifier) else { return }
-                data.completed.remove(at: index)
-            } else {
-                if data.type >= 40 {
-                    var numberOfCompleted = 0
-
-                    guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                    additional.forEach { content in
-                        if content.type >= 40 && content.completed.contains(identifier) {
-                            numberOfCompleted += 1
-                        }
-                    }
-                    
-                    if numberOfCompleted >= self.numberOfLimitCompleted {
-                        isExceeded = true
-                        return
-                    }
-                }
-                
-                data.completed.append(identifier)
-            }
-        }
-        
-        if isExceeded { return }
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
-        
-        let member = RealmManager.shared.read(Member.self, identifier: identifier).first
-        cell.data = member
-        cell.completed = data.completed.contains(identifier)
     }
     
     func addObserver() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reloadData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(_:)), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+        
+        // 수정 - 003
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "additionalDidScroll"), object: nil)
+        
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if let data = self.data, data.type % 10 != 0, showExcludedMember {
+            NotificationCenter.default.addObserver(self, selector: #selector(additionalDidScroll(_:)), name: NSNotification.Name(rawValue: "additionalDidScroll"), object: nil)
+        }
+        //
     }
     
     @objc func reloadData(_ sender: NSNotification) {
@@ -210,6 +132,13 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         guard let data = self.data else { return }
         updatedView(data)
     }
+    
+    // 수정 - 003
+    @objc func additionalDidScroll(_ sender: NSNotification) {
+        let contentOffset = sender.object as? CGPoint ?? .zero
+        collectionView.contentOffset = contentOffset
+    }
+    //
     
     func updatedView(_ data: AdditionalContent) {
         let numberOfOverflow = inspectionNumberOfOverflow(data)
@@ -259,4 +188,248 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
 
         return numberOfOverflow
     }
+
 }
+
+extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    fileprivate func setupCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = showExcludedMember ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16) : .zero
+
+        collectionView.register(UINib(nibName: "AdditionalCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AdditionalCollectionViewCell")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if showExcludedMember {
+            // 수정 - 003
+            guard let data = self.data,
+                  let member = RealmManager.shared.readAll(Todo.self).first?.member else { return 0 }
+
+            let filter = Array(member).filter({ data.type % 10 == $0.category })
+            return filter.count
+        } else {
+            guard let data = self.data else { return 0 }
+            return data.included.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if showExcludedMember {
+            // 수정 - 003
+            guard let data = self.data,
+                  let member = RealmManager.shared.readAll(Todo.self).first?.member,
+                  let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return .zero }
+
+            let count = filter.name.count
+            let width = max(40, CGFloat(10 * count))
+            
+            return CGSize(width: width, height: 60)
+        } else {
+            guard let data = self.data,
+                  let identifier = data.included[safe: indexPath.item] else { return .zero }
+            
+            let member = RealmManager.shared.read(Member.self, identifier: identifier).first
+            let count = member?.name.count ?? 4
+            let width = max(40, CGFloat(10 * count))
+            
+            return CGSize(width: width, height: 60)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if showExcludedMember {
+            // 수정 - 003
+            guard let cell = cell as? AdditionalCollectionViewCell,
+                  let data = self.data,
+                  let member = RealmManager.shared.readAll(Todo.self).first?.member,
+                  let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return }
+            
+            let isIncluded = data.included.contains(filter.identifier)
+            cell.contentView.isHidden = !isIncluded
+            
+            cell.completed = data.completed.contains(filter.identifier)
+
+            if data.type >= 40 {
+                guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                
+                var numberOfCompleted = 0
+                additional.forEach { content in
+                    if content.type >= 40 && content.completed.contains(filter.identifier) {
+                        numberOfCompleted += 1
+                    }
+                }
+                
+                cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
+                ? .systemRed
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? .systemPurple : .label)
+            } else {
+                cell.nameLabel.textColor = .label
+            }
+            
+            //
+        } else {
+            guard let cell = cell as? AdditionalCollectionViewCell,
+                  let data = self.data,
+                  let identifier = data.included[safe: indexPath.item] else { return }
+
+            cell.contentView.isHidden = false
+            cell.completed = data.completed.contains(identifier)
+            
+            if data.type >= 40 {
+                guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                
+                var numberOfCompleted = 0
+                additional.forEach { content in
+                    if content.type >= 40 && content.completed.contains(identifier) {
+                        numberOfCompleted += 1
+                    }
+                }
+                
+                cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier)
+                ? .systemRed
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? .systemPurple : .label)
+            } else {
+                cell.nameLabel.textColor = .label
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdditionalCollectionViewCell", for: indexPath) as! AdditionalCollectionViewCell
+        
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if showExcludedMember {
+            // 수정 - 003
+            if let data = self.data,
+               let member = RealmManager.shared.readAll(Todo.self).first?.member,
+               let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] {
+                cell.data = filter
+            }
+            //
+        } else {
+            if let data = self.data,
+               let identifier = data.included[safe: indexPath.item] {
+                let member = RealmManager.shared.read(Member.self, identifier: identifier).first
+                cell.data = member
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if showExcludedMember {
+            // 수정 - 003
+            guard let cell = collectionView.cellForItem(at: indexPath) as? AdditionalCollectionViewCell,
+                  let data = self.data,
+                  let member = RealmManager.shared.readAll(Todo.self).first?.member,
+                  let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return }
+
+            var isExceeded = false
+
+            RealmManager.shared.update {
+                if data.completed.contains(filter.identifier) {
+                    guard let index = data.completed.firstIndex(of: filter.identifier) else { return }
+                    data.completed.remove(at: index)
+                } else {
+                    if data.type >= 40 {
+                        var numberOfCompleted = 0
+
+                        guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                        additional.forEach { content in
+                            if content.type >= 40 && content.completed.contains(filter.identifier) {
+                                numberOfCompleted += 1
+                            }
+                        }
+                        
+                        if numberOfCompleted >= self.numberOfLimitCompleted {
+                            isExceeded = true
+                            return
+                        }
+                    }
+                    
+                    data.completed.append(filter.identifier)
+                }
+            }
+            
+            if isExceeded { return }
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+            
+            cell.data = filter
+            cell.completed = data.completed.contains(filter.identifier)
+        } else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? AdditionalCollectionViewCell,
+                  let data = self.data,
+                  let identifier = data.included[safe: indexPath.item] else { return }
+                  
+            var isExceeded = false
+            
+            RealmManager.shared.update {
+                if data.completed.contains(identifier) {
+                    guard let index = data.completed.firstIndex(of: identifier) else { return }
+                    data.completed.remove(at: index)
+                } else {
+                    if data.type >= 40 {
+                        var numberOfCompleted = 0
+
+                        guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                        additional.forEach { content in
+                            if content.type >= 40 && content.completed.contains(identifier) {
+                                numberOfCompleted += 1
+                            }
+                        }
+                        
+                        if numberOfCompleted >= self.numberOfLimitCompleted {
+                            isExceeded = true
+                            return
+                        }
+                    }
+                    
+                    data.completed.append(identifier)
+                }
+            }
+            
+            if isExceeded { return }
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+            
+            let member = RealmManager.shared.read(Member.self, identifier: identifier).first
+            cell.data = member
+            cell.completed = data.completed.contains(identifier)
+        }
+    }
+}
+
+// 수정 - 003
+extension AdditionalTableViewCell: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        isDragging = showExcludedMember ? true : false
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        if !isDragging && !showExcludedMember { return }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "additionalDidScroll"), object: scrollView.contentOffset)
+        UserDefaults.standard.set(scrollView.contentOffset.x, forKey: "additionalContentOffsetX")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isDragging = false
+    }
+}
+//

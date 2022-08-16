@@ -66,7 +66,7 @@ extension OptionViewController: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        3
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -83,6 +83,9 @@ extension OptionViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let isOn = UserDefaults.standard.bool(forKey: "showUnselectedItem")
             cell.setup("선택 안된 캐릭터명 보기", description: "슬라이드에서 선택되지 않은 캐릭터명을 보여줍니다.", isOn: isOn, switchButton: false)
+        case 2:
+            let isOn = UserDefaults.standard.bool(forKey: "showExcludedMember")
+            cell.setup("추가 컨텐츠 스크롤 그룹화", description: "추가 컨텐츠의 보기 방식을 개별에서 그룹으로 변경합니다.", isOn: isOn, switchButton: false)
         default:
             break
         }
@@ -102,6 +105,11 @@ extension OptionViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let isOn = UserDefaults.standard.bool(forKey: "showUnselectedItem")
             UserDefaults.standard.set(!isOn, forKey: "showUnselectedItem")
+            
+            cell.switchButton.setOn(!isOn, animated: true)
+        case 2:
+            let isOn = UserDefaults.standard.bool(forKey: "showExcludedMember")
+            UserDefaults.standard.set(!isOn, forKey: "showExcludedMember")
             
             cell.switchButton.setOn(!isOn, animated: true)
         default:
