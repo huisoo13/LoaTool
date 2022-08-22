@@ -273,8 +273,10 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 수정 - 003
         let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
-
+        //
+        
         if indexPath.section == 2 && !showExcludedMember {
             let cell = tableView.cellForRow(at: indexPath) as! AdditionalTableViewCell
             cell.showCharacterList = !(cell.showCharacterList ?? false)
@@ -282,8 +284,9 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        // 수정 - 003
         let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
-
+        //
         if indexPath.section == 2 && !showExcludedMember {
             let cell = tableView.cellForRow(at: indexPath) as! AdditionalTableViewCell
             cell.showCharacterList = !(cell.showCharacterList ?? false)

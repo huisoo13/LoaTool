@@ -21,7 +21,7 @@ class AdditionalTableViewCell: UITableViewCell {
     let numberOfLimitCompleted = 3
 
     // 수정 - 003: 스크롤 변경
-    // desciptionLabel 항상 안보이도록
+    // 해당 부분 버그 발견 시 검토
     var isDragging: Bool = false
     //
     var data: AdditionalContent? {
