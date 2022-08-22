@@ -51,7 +51,7 @@ class SearchViewController: UIViewController, Storyboarded {
               text != "" else { return }
         
         self.text = text
-        viewModel.configure(self, search: text)
+        viewModel.configure(search: text)
         
     }
     

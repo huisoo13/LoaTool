@@ -137,7 +137,7 @@ extension EditPostViewController {
         guard let text = textView.text else { return }
 
         let title = community == nil ? "새 게시글을 작성 중입니다." : "게시글을 수정 중입니다."
-        IndicatorView.showLoadingView(self, title: title)
+        IndicatorView.showLoadingView(title: title)
         
         if let community = self.community {
             API.post.updatePost(community.identifier, text: text, forKey: "UPDATE") { _ in

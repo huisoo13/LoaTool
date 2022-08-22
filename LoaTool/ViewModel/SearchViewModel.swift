@@ -13,10 +13,10 @@ class SearchViewModel {
     
     var timer: Timer?
 
-    func configure(_ target: UIViewController, search text: String) {
+    func configure(search text: String) {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false, block: { (_) in
-            IndicatorView.showLoadingView(target)
+            IndicatorView.showLoadingView()
             
             Parsing.shared.downloadHTML(text, type: [.stats, .equip, .engrave, .gem, .card]) { data, error in
                 self.error = error

@@ -63,6 +63,8 @@ class PostViewController: UIViewController, Storyboarded {
 
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        IndicatorView.hideLoadingView()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -98,15 +100,18 @@ class PostViewController: UIViewController, Storyboarded {
     func setupNotification() {
         guard let data = notification, data.comment != "" else { return }
         
+        IndicatorView.showLoadingView()
         API.get.selectSingleComment(self, identifier: data.comment) { comment in
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             cell.data = comment
             cell.isNotification = true
 
+            self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: false)
+
             cell.commentView.addGestureRecognizer { _ in
-                self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: true)
+                self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: false)
             }
-                        
+            
             self.stackView.backgroundColor = .secondarySystemGroupedBackground
             self.stackView.insertArrangedSubview(cell.contentView, at: 0)
             self.stackView.arrangedSubviews.forEach {
@@ -273,11 +278,21 @@ extension PostViewController: UITextViewDelegate {
         button.setImage(image, for: .normal)
         button.tintColor = text != "" ? .custom.textBlue : .label
         
+        // 문제: text 또는 attributedText를 설정하면 Curser position이 가장 마지막으로 변경되기 떄문에 변경 전에 미리 값을 저장 후 다시 불러와야한다.
+        // STEP 1: 위치값 저장
+        guard let selectedTextRange = textView.selectedTextRange else { return }
+        
+        // STEP 2: 코드 실행 후 위치값 변경
         textView.attributedText = text.attributed(of: text, key: .foregroundColor, value: UIColor.label)
             .addAttribute(using: "(?:^|\\s|$|[.])@[\\p{L}0-9_]*", key: .foregroundColor, value: UIColor.custom.qualityBlue)
             .addAttribute(using: "(^|[\\s.:;?\\-\\]<\\(])" +
                           "((https?://|www\\.|pic\\.)[-\\w;/?:@&=+$\\|\\_.!~*\\|'()\\[\\]%#,☺]+[\\w/#](\\(\\))?)" +
                           "(?=$|[\\s',\\|\\(\\).:;?\\-\\[\\]>\\)])", key: .foregroundColor, value: UIColor.systemBlue)
+
+        // STEP 3: 저장한 위치값 불러오기
+        if let selectedTextRange = textView.position(from: selectedTextRange.start, offset: 0) {
+            textView.selectedTextRange = textView.textRange(from: selectedTextRange, to: selectedTextRange)
+        }
 
     }
     
@@ -553,7 +568,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         
         delete.backgroundColor = .custom.qualityRed
         delete.image = UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin))?.withTintColor(.systemGray6).withRenderingMode(.alwaysOriginal)
-        
+         
         let report = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
             guard User.shared.isConnected else {
                 Alert.message(self, title: "캐릭터 인증 필요", message: "신고를 하기 위해서는\n대표 캐릭터 인증을 해야합니다.") { _ in

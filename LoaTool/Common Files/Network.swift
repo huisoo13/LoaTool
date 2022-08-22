@@ -7,7 +7,7 @@
 
 /* Usage
  네트워크 연결상태 실시간 확인
- → application(_:, didFinishLaunchingWithOptions:)
+ → application(_:didFinishLaunchingWithOptions:)
  → Network.shared.addObserverNetwork() 입력
  
  현재 네트워크 연결 상태 확인

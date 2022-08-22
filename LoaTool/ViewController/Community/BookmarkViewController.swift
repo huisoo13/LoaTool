@@ -70,7 +70,6 @@ class BookmarkViewController: UIViewController, Storyboarded {
 extension BookmarkViewController {
     fileprivate func setupNavigationBar() {
         setTitle("북마크".localized, size: 20)
-        
     }
 }
 

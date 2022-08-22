@@ -233,8 +233,6 @@ class API {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                
-                debug(json)
                                 
                 let result = json["result"].boolValue
                 let array = json["data"].arrayValue

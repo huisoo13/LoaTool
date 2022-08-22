@@ -17,6 +17,7 @@ class TodoViewController: UIViewController, Storyboarded {
     
     let viewModel: TodoViewModel = TodoViewModel()
     
+
     var showDailyContents: Bool = UserDefaults.standard.bool(forKey: "showDailyContents")
     var showSpectialContents: Bool = UserDefaults.standard.bool(forKey: "showSpectialContents")
     var showAdditionalContents: Bool = UserDefaults.standard.bool(forKey: "showAdditionalContents")
@@ -272,14 +273,21 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        // 수정 - 003
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        //
+        
+        if indexPath.section == 2 && !showExcludedMember {
             let cell = tableView.cellForRow(at: indexPath) as! AdditionalTableViewCell
             cell.showCharacterList = !(cell.showCharacterList ?? false)
         }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        // 수정 - 003
+        let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        //
+        if indexPath.section == 2 && !showExcludedMember {
             let cell = tableView.cellForRow(at: indexPath) as! AdditionalTableViewCell
             cell.showCharacterList = !(cell.showCharacterList ?? false)
         }

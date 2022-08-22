@@ -90,10 +90,10 @@ class IndicatorView {
         return indicator
     }
     
-    static func showLoadingView(_ viewController: UIViewController, title: String = "데이터를 불러오는 중입니다.") {
+    static func showLoadingView(title: String = "데이터를 불러오는 중입니다.") {
         let window = UIApplication.shared.connectedScenes.flatMap({ ($0 as? UIWindowScene)?.windows ?? [] }).first { $0.isKeyWindow }
 
-        IndicatorView.loadingView.frame = CGRect(x: 0, y: 0, width: viewController.view.bounds.width, height: UIScreen.main.bounds.height)
+        IndicatorView.loadingView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         IndicatorView.loadingView.backgroundColor = .black.withAlphaComponent(0.5)
         IndicatorView.loadingView.alpha = 0
         

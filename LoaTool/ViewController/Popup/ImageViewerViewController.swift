@@ -163,7 +163,6 @@ extension ImageViewerViewController: UICollectionViewDelegate, UICollectionViewD
         
         return cell
     }
-
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         coordinator?.dismiss(animated: true)

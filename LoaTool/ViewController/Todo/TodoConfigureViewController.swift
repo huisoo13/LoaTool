@@ -116,7 +116,7 @@ extension TodoConfigureViewController {
     }
     
     func nextToStep() {
-        IndicatorView.showLoadingView(self)
+        IndicatorView.showLoadingView()
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { (_) in
             self.step = 2
             self.setupNavigationBar()
@@ -202,7 +202,7 @@ extension TodoConfigureViewController: TextFieldDelegate, JobPickerViewDelegate 
     func parsingUserData(_ text: String) {
         if text == "" { return }
         
-        IndicatorView.showLoadingView(self)
+        IndicatorView.showLoadingView()
         Parsing.shared.downloadHTML(text, type: [.stats, .equip, .engrave, .gem, .card]) { data, error in
             switch error {
             case .notFound:

@@ -34,7 +34,7 @@ class RegisterViewModel: NSObject {
             return
         }
         
-        IndicatorView.showLoadingView(target, title: "인증 코드를 확인 중 입니다.")
+        IndicatorView.showLoadingView(title: "인증 코드를 확인 중 입니다.")
         
         webView.navigationDelegate = self
         webView.load(URLRequest(url: URL(string: url)!))
