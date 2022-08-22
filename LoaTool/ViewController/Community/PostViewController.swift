@@ -63,6 +63,8 @@ class PostViewController: UIViewController, Storyboarded {
 
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        IndicatorView.hideLoadingView()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -98,15 +100,18 @@ class PostViewController: UIViewController, Storyboarded {
     func setupNotification() {
         guard let data = notification, data.comment != "" else { return }
         
+        IndicatorView.showLoadingView()
         API.get.selectSingleComment(self, identifier: data.comment) { comment in
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             cell.data = comment
             cell.isNotification = true
 
+            self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: false)
+
             cell.commentView.addGestureRecognizer { _ in
-                self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: true)
+                self.coordinator?.pushToCommentViewController(self.data, comment: comment, notification: self.notification, animated: false)
             }
-                        
+            
             self.stackView.backgroundColor = .secondarySystemGroupedBackground
             self.stackView.insertArrangedSubview(cell.contentView, at: 0)
             self.stackView.arrangedSubviews.forEach {

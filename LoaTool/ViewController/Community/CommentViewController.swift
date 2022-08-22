@@ -293,7 +293,6 @@ extension CommentViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
 
     }
-
 }
 
 extension CommentViewController: ImagePickerViewDelegate {
