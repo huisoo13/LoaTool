@@ -67,7 +67,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Cuc-DW-bsT" secondAttribute="trailing" id="Gb7-ck-nS0"/>
                                     <constraint firstAttribute="trailing" secondItem="AJy-Dg-LJE" secondAttribute="trailing" constant="16" id="afY-k9-zBW"/>
@@ -112,7 +112,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="GJD-qu-dlQ" firstAttribute="top" secondItem="uHL-44-lai" secondAttribute="top" id="8Pk-3j-Uhw"/>
                                     <constraint firstItem="KhF-Rf-gUU" firstAttribute="leading" secondItem="Upb-ex-whA" secondAttribute="leading" id="CgP-Am-FwA"/>
@@ -157,7 +157,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="PxJ-6C-Ckh" firstAttribute="centerY" secondItem="5gk-Pv-dct" secondAttribute="centerY" id="2wI-GU-RqG"/>
                                     <constraint firstAttribute="height" constant="44" id="3y5-qg-KcT"/>
@@ -202,7 +202,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="C2q-Ss-87Q" firstAttribute="top" secondItem="nYI-ad-wmC" secondAttribute="top" id="Ail-Pz-v6N"/>
                                     <constraint firstAttribute="trailing" secondItem="n8B-YV-vlU" secondAttribute="trailing" id="CUV-2y-42i"/>
@@ -247,7 +247,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="jyg-0b-7M0" secondAttribute="trailing" constant="16" id="1pU-3L-caa"/>
                                     <constraint firstItem="jyg-0b-7M0" firstAttribute="top" secondItem="4bX-JS-hMq" secondAttribute="bottom" constant="1" id="9Ls-w5-daU"/>
@@ -292,7 +292,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="E3n-yK-chf" firstAttribute="leading" secondItem="wQF-5v-P2j" secondAttribute="trailing" constant="10" id="7uA-HG-sey"/>
                                     <constraint firstAttribute="height" constant="44" id="AtD-nj-6r0"/>
@@ -337,7 +337,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Poj-ep-rix" firstAttribute="leading" secondItem="3vb-98-PYz" secondAttribute="trailing" constant="10" id="8sT-bB-45t"/>
                                     <constraint firstItem="3vb-98-PYz" firstAttribute="leading" secondItem="OYr-Iu-Hjn" secondAttribute="leading" constant="16" id="Ah2-W8-4M8"/>
@@ -382,7 +382,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="RXt-LO-fbb" secondAttribute="bottom" id="1Iw-QD-PKK"/>
                                     <constraint firstItem="Qf9-Qq-Wem" firstAttribute="top" secondItem="sj5-IQ-mSt" secondAttribute="top" id="42x-Ft-VRe"/>
@@ -427,7 +427,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="rX2-fl-TGZ" firstAttribute="leading" secondItem="cxf-R0-ZaW" secondAttribute="trailing" constant="10" id="2vv-ov-K3n"/>
                                     <constraint firstItem="rX2-fl-TGZ" firstAttribute="top" secondItem="M38-Bl-7Bj" secondAttribute="bottom" constant="1" id="Bst-Um-hrC"/>
@@ -472,7 +472,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="9L8-ru-K9G" firstAttribute="top" secondItem="Nua-fG-E6M" secondAttribute="top" id="DiA-Ex-fn7"/>
                                     <constraint firstAttribute="trailing" secondItem="FiC-xT-UEB" secondAttribute="trailing" id="MtB-D9-kfD"/>
@@ -510,7 +510,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="pMh-1P-ke3" firstAttribute="leading" secondItem="EFW-pw-3GH" secondAttribute="trailing" constant="10" id="1hA-nV-geh"/>
                                     <constraint firstItem="EFW-pw-3GH" firstAttribute="centerY" secondItem="V2m-tM-DlW" secondAttribute="centerY" id="5xf-aq-aJZ"/>
@@ -552,11 +552,11 @@
         </tableViewCell>
     </objects>
     <resources>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

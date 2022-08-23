@@ -239,7 +239,7 @@ extension EditContentViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.showsVerticalScrollIndicator = false
         tableView.tableFooterView = UIView()
         
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         tableView.separatorInset = .zero
         tableView.register(UINib(nibName: "CharacterListTableViewCell", bundle: nil), forCellReuseIdentifier: "CharacterListTableViewCell")

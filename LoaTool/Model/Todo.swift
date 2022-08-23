@@ -18,6 +18,7 @@ class Todo: Object {
     
     var member = List<Member>()
     var additional = List<AdditionalContent>()
+    var gold = List<String>()
     
     override class func primaryKey() -> String? {
         return "identifier"

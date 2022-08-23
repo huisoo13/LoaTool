@@ -27,7 +27,8 @@ class TodoViewModel {
         let calculate = DateManager.shared.calculateDate(data.lastUpdate)
         
         self.sortedIncludedMember()
-
+        self.addAcquiredMember()
+        
         if calculate > 0 {
             self.updateDailyContent(data, calculate: calculate)
             self.updateWeeklyContent(data)
@@ -150,5 +151,20 @@ class TodoViewModel {
             IndicatorView.hideLoadingView()
             self.configure()
         }
+    }
+    
+    fileprivate func addAcquiredMember() {
+        let isUpdateAcquiredGold = UserDefaults.standard.bool(forKey: "isUpdateAcquiredGold")
+        if isUpdateAcquiredGold { return }
+        
+        guard let todo = RealmManager.shared.readAll(Todo.self).first else { return }
+        
+        RealmManager.shared.update {
+            todo.gold.removeAll()
+            todo.gold.append(objectsIn: todo.member.map({ $0.identifier }))
+        }
+        
+        UserDefaults.standard.set(true, forKey: "isUpdateAcquiredGold")
+        print(todo.gold)
     }
 }
