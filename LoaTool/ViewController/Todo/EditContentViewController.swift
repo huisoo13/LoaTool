@@ -92,7 +92,7 @@ class EditContentViewController: UIViewController, Storyboarded {
         segmentedControl.selectedSegmentIndex = max(0, (data.type / 10) - 1)
         
         guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-        goldTextField.text = "\(data.gold)"
+        goldTextField.text = data.gold.withCommas()
     }
 
     
@@ -207,12 +207,13 @@ extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
         guard let textField = stackView.arrangedSubviews[safe: selectTextFieldAtIndex]?.subviews[safe: 1] as? UITextField else {
             
             guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-            goldTextField.text = text
             
             RealmManager.shared.update {
                 self.data?.gold = Int(text) ?? 0
             }
             
+            goldTextField.text = (Int(text) ?? 0).withCommas()
+
             return
         }
 
