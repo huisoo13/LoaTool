@@ -102,13 +102,18 @@ class TodoViewController: UIViewController, Storyboarded {
     
     
     @objc func reloadData(_ sender: NSNotification) {
-        goldLabel?.text = "\(totalClearGold())"
+        goldLabel?.text = totalClearGold().withCommas()
     }
     
     func totalClearGold() -> Int {
         var gold = 0
+        let acquired = viewModel.result.value?.gold
+        
         viewModel.result.value?.additional.forEach { additional in
-            gold += additional.gold * additional.completed.count
+            additional.completed.forEach { completed in
+                guard let allow = acquired?.contains(completed), allow else { return }
+                gold += additional.gold
+            }
         }
         
         return gold
@@ -183,7 +188,7 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
             header.label.text = "추가 컨텐츠"
             
             if let label = header.goldView.subviews[safe: 1] as? UILabel { goldLabel = label }
-            goldLabel?.text = "\(totalClearGold())"
+            goldLabel?.text = totalClearGold().withCommas()
         default:
             break
         }

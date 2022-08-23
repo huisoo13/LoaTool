@@ -184,18 +184,25 @@ extension AppDelegate {
 extension AppDelegate {
     func migrationForRealm() {
         let oldSchemaVersion = UserDefaults.standard.integer(forKey: "oldSchemaVersion")
-        let newSchemaVersion = 9
+        let newSchemaVersion = 11
         
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
             migrationBlock: { migration, oldSchemaVersion in
-                debug("업데이트 시작")
-                if oldSchemaVersion < newSchemaVersion {
+                debug("[LOATOOL][\(DateManager.shared.currentDate())] Realm migration")
+                
+                if oldSchemaVersion < 9 {
                     migration.enumerateObjects(ofType: Member.className()) { oldObject, newObject in
                         newObject!["cube"] = 0
                         newObject!["boss"] = 0
                     }
-                    
+                }
+                
+                if oldSchemaVersion < newSchemaVersion {
+                    migration.enumerateObjects(ofType: Todo.className()) { oldObject, newObject in
+                        newObject!["gold"] = List<String>()
+                    }
+
                     UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")
                 }
             }/* ,
@@ -203,12 +210,11 @@ extension AppDelegate {
         )
         
         Realm.Configuration.defaultConfiguration = configuration
-        
+
         if oldSchemaVersion != newSchemaVersion {
-            debug("업데이트 종료")
             UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")
         }
-        
+
         debug("\(#function): \(RealmManager.shared.getDocumentsDirectory())")
     }
 }

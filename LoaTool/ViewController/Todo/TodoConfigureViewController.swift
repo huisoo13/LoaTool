@@ -167,6 +167,8 @@ extension TodoConfigureViewController {
         todo.member.append(expedition)
         todo.member.append(objectsIn: members)
         todo.additional.append(objectsIn: contents)
+        todo.gold.append(objectsIn: members.map({ $0.identifier }))
+        
         todo.lastUpdate = DateManager.shared.currentDate()
         todo.nextLoaWeekday = DateManager.shared.nextLoaWeekday(DateManager.shared.currentDate())
         

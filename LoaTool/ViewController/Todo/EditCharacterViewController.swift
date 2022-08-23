@@ -15,6 +15,8 @@ class EditCharacterViewController: UIViewController, Storyboarded {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var ticketView: UIStackView!
     
+    @IBOutlet weak var switchButton: UISwitch!
+    
     weak var coordinator: AppCoordinator?
 
     var isUpdated: Bool = false
@@ -103,6 +105,9 @@ class EditCharacterViewController: UIViewController, Storyboarded {
                 pickerView.showsLargeContentViewer = true
             }
         }
+        
+        switchButton.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+
     }
     
     func setupData() {
@@ -182,6 +187,8 @@ class EditCharacterViewController: UIViewController, Storyboarded {
                 pickerView.selectRow(row, inComponent: 0, animated: false)
             }
         }
+        
+        switchButton.isOn = RealmManager.shared.readAll(Todo.self).first?.gold.contains(data.identifier) ?? false
     }
     
     func setupGestureRecognizer() {
@@ -205,6 +212,27 @@ class EditCharacterViewController: UIViewController, Storyboarded {
                 break
             }
         }
+        
+        switchButton.isUserInteractionEnabled = true
+        switchButton.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc func valueChanged(_ sender: UISwitch) {
+        let isOn = sender.isOn
+        if !self.isUpdated { return }
+        
+        guard let todo = RealmManager.shared.readAll(Todo.self).first,
+              let data = self.data else { return }
+        RealmManager.shared.update {
+            if isOn {
+                todo.gold.append(data.identifier)
+            } else {
+                guard let index = todo.gold.firstIndex(of: data.identifier) else { return }
+                todo.gold.remove(at: index)
+            }
+        }
+        
+        print(todo.gold)
     }
 }
 
@@ -234,6 +262,10 @@ extension EditCharacterViewController {
                         guard let index = content.completed.firstIndex(of: data.identifier) else { return }
                         content.completed.remove(at: index)
                     }
+                    
+                    guard let gold = RealmManager.shared.readAll(Todo.self).first?.gold,
+                          let index = gold.firstIndex(of: data.identifier) else { return }
+                    gold.remove(at: index)
                 }
                 
                 RealmManager.shared.delete(data)
@@ -257,6 +289,10 @@ extension EditCharacterViewController {
             RealmManager.shared.update {
                 let todo = RealmManager.shared.readAll(Todo.self).first
                 todo?.member.append(data)
+                
+                if self.switchButton.isOn {
+                    todo?.gold.append(data.identifier)
+                }
             }
                         
             self.coordinator?.popViewController(animated: true)

@@ -92,7 +92,7 @@ class EditContentViewController: UIViewController, Storyboarded {
         segmentedControl.selectedSegmentIndex = max(0, (data.type / 10) - 1)
         
         guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-        goldTextField.text = "\(data.gold)"
+        goldTextField.text = data.gold.withCommas()
     }
 
     
@@ -207,12 +207,13 @@ extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
         guard let textField = stackView.arrangedSubviews[safe: selectTextFieldAtIndex]?.subviews[safe: 1] as? UITextField else {
             
             guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-            goldTextField.text = text
             
             RealmManager.shared.update {
                 self.data?.gold = Int(text) ?? 0
             }
             
+            goldTextField.text = (Int(text) ?? 0).withCommas()
+
             return
         }
 
@@ -239,7 +240,7 @@ extension EditContentViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.showsVerticalScrollIndicator = false
         tableView.tableFooterView = UIView()
         
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         tableView.separatorInset = .zero
         tableView.register(UINib(nibName: "CharacterListTableViewCell", bundle: nil), forCellReuseIdentifier: "CharacterListTableViewCell")
