@@ -136,18 +136,31 @@ class PostViewController: UIViewController, Storyboarded {
     
     func setupGestureRecognizer() {
         menuButton.addGestureRecognizer { _ in
-            UIView.animate(withDuration: 0.1, animations: {
-                self.menuButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
-            })
-            
-            self.imagePickerView = ImagePickerView()
-            self.imagePickerView?.delegate = self
-            self.imagePickerView?.coordinator = self.coordinator
-            
-            self.hiddenTextView.inputView = self.imagePickerView
-            self.hiddenTextView.inputView?.autoresizingMask = .flexibleHeight
-            self.hiddenTextView.becomeFirstResponder()
-            self.hiddenTextView.reloadInputViews()
+            if self.menuButton.transform == .identity {
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.menuButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
+                })
+                
+                if self.hiddenTextView.inputView == nil {
+                    self.imagePickerView = ImagePickerView()
+                    self.imagePickerView?.delegate = self
+                    self.imagePickerView?.coordinator = self.coordinator
+                    
+                    self.hiddenTextView.inputView = self.imagePickerView
+                    self.hiddenTextView.inputView?.autoresizingMask = .flexibleHeight
+                    self.hiddenTextView.becomeFirstResponder()
+                    self.hiddenTextView.reloadInputViews()
+                } else {
+                    self.hiddenTextView.becomeFirstResponder()
+                }
+            } else {
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.menuButton.transform = .identity
+                })
+                
+                self.textView.becomeFirstResponder()
+            }
+
         }
         
         button.addGestureRecognizer { _ in
