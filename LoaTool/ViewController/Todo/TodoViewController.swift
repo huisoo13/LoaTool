@@ -100,7 +100,6 @@ class TodoViewController: UIViewController, Storyboarded {
         coordinator?.pushToTodoConfigureViewController(animated: true)
     }
     
-    
     @objc func reloadData(_ sender: NSNotification) {
         goldLabel?.text = totalClearGold().withCommas()
     }

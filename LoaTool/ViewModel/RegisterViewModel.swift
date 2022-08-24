@@ -112,7 +112,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                     IndicatorView.hideLoadingView()
                     
                     if name == "" {
-                        Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "대표 캐릭터 미설정", description: "대표 캐릭터 설정이 되어있지 않습니다.\n공식 홈페이지에서 대표 캐릭터 설정 후 재시도해주세요").present()
+                        Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "대표 캐릭터 미설정", description: "공식 홈페이지에서 대표 캐릭터 설정 후 재시도해주세요").present()
                         debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 대표 캐릭터 미설정")
                         return
                     }
