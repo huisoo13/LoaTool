@@ -340,6 +340,8 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
 
             var isExceeded = false
 
+            if !data.included.contains(filter.identifier) { return }
+            
             RealmManager.shared.update {
                 if data.completed.contains(filter.identifier) {
                     guard let index = data.completed.firstIndex(of: filter.identifier) else { return }
