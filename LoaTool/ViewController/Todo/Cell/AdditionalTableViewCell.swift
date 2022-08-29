@@ -287,7 +287,7 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
                 
                 cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
                 ? (isLinkingContentCompleted ? .label : .systemRed)
-                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? .systemPurple : .label)
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? .label : .systemPurple) : .label)
                 //
             } else {
                 cell.nameLabel.textColor = .label
@@ -328,7 +328,7 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
                 
                 cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier)
                 ? (isLinkingContentCompleted ? .label : .systemRed)
-                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? .systemPurple : .label)
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? (isLinkingContentCompleted ? .label : .systemPurple) : .label)
                 //
             } else {
                 cell.nameLabel.textColor = .label
