@@ -170,6 +170,7 @@
 		F1C5516227F6C8060018EC45 /* GemBarChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1C5516027F6C8060018EC45 /* GemBarChartView.xib */; };
 		F1CCAE07289CD048003D3556 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCAE06289CD047003D3556 /* ImagePickerView.swift */; };
 		F1CCAE09289CD5A2003D3556 /* ImagePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */; };
+		F1DC08A228BC881A00F1A22F /* AdvancedContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08A128BC881A00F1A22F /* AdvancedContentViewController.swift */; };
 		F1EB224628769BB100C4553F /* CloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB224528769BB100C4553F /* CloudManager.swift */; };
 		F1EEF78F27D728D4008D51DC /* NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EEF78E27D728D4008D51DC /* NavigationItem.swift */; };
 		F1FE1EBC281B7932005BAAE4 /* UITableView+Reorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE1EB6281B7931005BAAE4 /* UITableView+Reorder.swift */; };
@@ -363,6 +364,7 @@
 		F1C5516027F6C8060018EC45 /* GemBarChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GemBarChartView.xib; sourceTree = "<group>"; };
 		F1CCAE06289CD047003D3556 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerView.xib; sourceTree = "<group>"; };
+		F1DC08A128BC881A00F1A22F /* AdvancedContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedContentViewController.swift; sourceTree = "<group>"; };
 		F1EB224528769BB100C4553F /* CloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManager.swift; sourceTree = "<group>"; };
 		F1EEF78E27D728D4008D51DC /* NavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItem.swift; sourceTree = "<group>"; };
 		F1FE1EB6281B7931005BAAE4 /* UITableView+Reorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Reorder.swift"; sourceTree = "<group>"; };
@@ -785,6 +787,7 @@
 				F12B970F280536FD00013A3A /* TodoConfigureViewController.swift */,
 				F11AF0542807BDDF0079DA08 /* EditCharacterViewController.swift */,
 				F12309F328092C81002E8F35 /* EditContentViewController.swift */,
+				F1DC08A128BC881A00F1A22F /* AdvancedContentViewController.swift */,
 				F1FEC3A327F430A700D56518 /* Cell */,
 			);
 			path = Todo;
@@ -1123,6 +1126,7 @@
 				F155FED02829E95E00274A9F /* NotificationTableViewCell.swift in Sources */,
 				F1198B24280FE94500A2FF50 /* CommunityViewController.swift in Sources */,
 				F11FA77B26A518DB00C13633 /* Bindable.swift in Sources */,
+				F1DC08A228BC881A00F1A22F /* AdvancedContentViewController.swift in Sources */,
 				F1CCAE07289CD048003D3556 /* ImagePickerView.swift in Sources */,
 				F1421839286C1B9D007BE6B1 /* AD.swift in Sources */,
 				F11FA77A26A518DB00C13633 /* RealmManager.swift in Sources */,

@@ -184,7 +184,7 @@ extension AppDelegate {
 extension AppDelegate {
     func migrationForRealm() {
         let oldSchemaVersion = UserDefaults.standard.integer(forKey: "oldSchemaVersion")
-        let newSchemaVersion = 11
+        let newSchemaVersion = 12
         
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
@@ -198,9 +198,17 @@ extension AppDelegate {
                     }
                 }
                 
-                if oldSchemaVersion < newSchemaVersion {
+                if oldSchemaVersion < 11 {
                     migration.enumerateObjects(ofType: Todo.className()) { oldObject, newObject in
                         newObject!["gold"] = List<String>()
+                    }
+                }
+                
+                if oldSchemaVersion < newSchemaVersion {
+                    migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
+                        newObject!["limit"] = 0
+                        newObject!["allowLimit"] = false
+                        newObject!["link"] = ""
                     }
 
                     UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")

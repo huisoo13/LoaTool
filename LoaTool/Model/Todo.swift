@@ -235,10 +235,10 @@ class AdditionalContent: Object, NSItemProviderWriting {
     @objc dynamic var type: Int = 1
     @objc dynamic var icon: Int = 0
     @objc dynamic var level: Double = 0
-    // @objc dynamic var limit: Double = 0
-    // @objc dynamic var allowLimit: Bool = false
+    @objc dynamic var limit: Double = 0
+    @objc dynamic var allowLimit: Bool = false
     @objc dynamic var gold: Int = 0
-    // @objc dynamic var link: String = ""
+    @objc dynamic var link: String = ""
 
     var included = List<String>()
     var completed = List<String>()

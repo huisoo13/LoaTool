@@ -14,6 +14,7 @@ class ContentListTableViewCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
+    @IBOutlet weak var linkView: UIView!
     @IBOutlet weak var switchButton: UISwitch!
     @IBOutlet weak var chevronView: UIView!
     
@@ -62,6 +63,16 @@ class ContentListTableViewCell: UITableViewCell {
         }
     }
     
+    var showLinkView: Bool? {
+        didSet {
+            guard let showLinkView = showLinkView else {
+                return
+            }
+
+            linkView.isHidden = !showLinkView
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -75,6 +86,7 @@ class ContentListTableViewCell: UITableViewCell {
         switchButton.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
         switchButton.isHidden = !(showSwitchButton ?? false)
         chevronView.isHidden = !(showChevornView ?? false)
+        linkView.isHidden = !(showLinkView ?? false)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
