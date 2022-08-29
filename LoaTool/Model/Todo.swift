@@ -236,7 +236,9 @@ class AdditionalContent: Object, NSItemProviderWriting {
     @objc dynamic var icon: Int = 0
     @objc dynamic var level: Double = 0
     // @objc dynamic var limit: Double = 0
+    // @objc dynamic var allowLimit: Bool = false
     @objc dynamic var gold: Int = 0
+    // @objc dynamic var link: String = ""
 
     var included = List<String>()
     var completed = List<String>()
@@ -260,6 +262,11 @@ class AdditionalContent: Object, NSItemProviderWriting {
      - title: 컨텐츠 이름
      - type: 일일 / 주간 / 어비스 / 군단장 / 기타
      - icon: 아이콘
+     - level: 컨텐츠 제한 레벨
+     - limit: 골드 획득 제한 레벨
+     - allowLimit: 골드 획득 제한 사용
+     - gold: 획득 골드
+     - link: 연결 (동일 군단장 식별)
      - included: 미완료 캐릭터
      - completed: 완료 캐릭터
      - weekday: 요일

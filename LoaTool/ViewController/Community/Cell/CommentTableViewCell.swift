@@ -87,13 +87,7 @@ class CommentTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        guard let data = data else {
-            return
-        }
-        
-        if data.type != 0 {
-            commentView.isHidden = true
-        }
+
     }
     
     override func awakeFromNib() {

@@ -377,7 +377,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.isOwner = self.post?.owner == data?.owner
         cell.data = data
         cell.coordinator = coordinator
-        cell.commentView.isHidden = true
+        cell.commentView.isHidden = indexPath.section == 0
 
         setupGestureRecognizer(tableView, cell: cell, cellForRowAt: indexPath)
 
@@ -408,7 +408,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             API.post.updateLike(type: indexPath.section == 0 ? 1 : 2, identifier: data.identifier)
-            cell.data = indexPath.section == 0 ? self.comment : self.viewModel.result.value?[safe: indexPath.row]
+            cell.data = data
 
             if data.isLiked {
                 DispatchQueue.main.async {
@@ -422,6 +422,14 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
                     })
                 }
             }
+        }
+        
+        cell.commentView.addGestureRecognizer { _ in
+            self.textView.attributedText = ("@\(data.name) " + self.textView.text).attributed(of: "@\(data.name) " + self.textView.text, key: .foregroundColor, value: UIColor.label)
+                .addAttribute(using: "(?:^|\\s|$|[.])@[\\p{L}0-9_]*", key: .foregroundColor, value: UIColor.custom.qualityBlue)
+                .addAttribute(using: "(^|[\\s.:;?\\-\\]<\\(])" +
+                              "((https?://|www\\.|pic\\.)[-\\w;/?:@&=+$\\|\\_.!~*\\|'()\\[\\]%#,☺]+[\\w/#](\\(\\))?)" +
+                              "(?=$|[\\s',\\|\\(\\).:;?\\-\\[\\]>\\)])", key: .foregroundColor, value: UIColor.systemBlue)
         }
     }
     
