@@ -112,6 +112,13 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
+    func pushToAdvancedContentViewController(_ content: AdditionalContent?, animated: Bool) {
+        let viewController = AdvancedContentViewController.instantiate()
+        viewController.coordinator = self
+        viewController.data = content
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
     func pushToOpenSourceLibraryViewController(animated: Bool) {
         let viewController = OpenSourceLibraryViewController.instantiate()
         viewController.coordinator = self

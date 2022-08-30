@@ -14,7 +14,7 @@ class EditContentViewController: UIViewController, Storyboarded {
     
     @IBOutlet weak var switchButton: UISwitch!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var goldView: UIView!
+    @IBOutlet weak var advancedView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -90,9 +90,6 @@ class EditContentViewController: UIViewController, Storyboarded {
         
         switchButton.isOn = data.type % 10 == 0
         segmentedControl.selectedSegmentIndex = max(0, (data.type / 10) - 1)
-        
-        guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-        goldTextField.text = data.gold.withCommas()
     }
 
     
@@ -118,9 +115,8 @@ class EditContentViewController: UIViewController, Storyboarded {
             }
         }
         
-        goldView.addGestureRecognizer { _ in
-            self.selectTextFieldAtIndex = 2
-            self.coordinator?.presentToTextFieldViewController(self, title: "획득 골드", keyboardType: .numberPad, animated: true)
+        advancedView.addGestureRecognizer { _ in
+            self.coordinator?.pushToAdvancedContentViewController(self.data, animated: true)
         }
         
         switchButton.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
@@ -204,18 +200,7 @@ extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        guard let textField = stackView.arrangedSubviews[safe: selectTextFieldAtIndex]?.subviews[safe: 1] as? UITextField else {
-            
-            guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-            
-            RealmManager.shared.update {
-                self.data?.gold = Int(text) ?? 0
-            }
-            
-            goldTextField.text = (Int(text) ?? 0).withCommas()
-
-            return
-        }
+        guard let textField = stackView.arrangedSubviews[safe: selectTextFieldAtIndex]?.subviews[safe: 1] as? UITextField else { return }
 
         textField.text = text
         

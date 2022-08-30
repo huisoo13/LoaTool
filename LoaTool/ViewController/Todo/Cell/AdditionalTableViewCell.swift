@@ -264,16 +264,31 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
             if data.type >= 40 {
                 guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
                 
+                // 수정 - 004: 동일 군단장 설정 + AdvancedContentViewController
                 var numberOfCompleted = 0
+                var linkingContent: [String] = []
                 additional.forEach { content in
                     if content.type >= 40 && content.completed.contains(filter.identifier) {
                         numberOfCompleted += 1
+
+                        if linkingContent.contains(content.link) && content.link != "" {
+                            numberOfCompleted -= 1
+                        } else if content.link != "" {
+                            linkingContent.append(content.link)
+                        }
                     }
                 }
                 
+                let link = additional.filter { content in
+                    return content.type >= 40 && content.completed.contains(filter.identifier) && content.link != ""
+                }.map { content in content.link }
+                
+                let isLinkingContentCompleted = link.contains(data.link)
+                
                 cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
-                ? .systemRed
-                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? .systemPurple : .label)
+                ? (isLinkingContentCompleted ? .label : .systemRed)
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? .label : .systemPurple) : .label)
+                //
             } else {
                 cell.nameLabel.textColor = .label
             }
@@ -290,16 +305,31 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
             if data.type >= 40 {
                 guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
                 
+                // 수정 - 004
                 var numberOfCompleted = 0
+                var linkingContent: [String] = []
                 additional.forEach { content in
                     if content.type >= 40 && content.completed.contains(identifier) {
                         numberOfCompleted += 1
+
+                        if linkingContent.contains(content.link) && content.link != "" {
+                            numberOfCompleted -= 1
+                        } else if content.link != "" {
+                            linkingContent.append(content.link)
+                        }
                     }
                 }
                 
+                let link = additional.filter { content in
+                    return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+                }.map { content in content.link }
+                
+                let isLinkingContentCompleted = link.contains(data.link)
+                
                 cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier)
-                ? .systemRed
-                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? .systemPurple : .label)
+                ? (isLinkingContentCompleted ? .label : .systemRed)
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? (isLinkingContentCompleted ? .label : .systemPurple) : .label)
+                //
             } else {
                 cell.nameLabel.textColor = .label
             }
@@ -340,6 +370,8 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
 
             var isExceeded = false
 
+            if !data.included.contains(filter.identifier) { return }
+            
             RealmManager.shared.update {
                 if data.completed.contains(filter.identifier) {
                     guard let index = data.completed.firstIndex(of: filter.identifier) else { return }
@@ -349,16 +381,34 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
                         var numberOfCompleted = 0
 
                         guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                        // 수정 - 004
+                        var linkingContent: [String] = []
                         additional.forEach { content in
                             if content.type >= 40 && content.completed.contains(filter.identifier) {
                                 numberOfCompleted += 1
+
+                                if linkingContent.contains(content.link) && content.link != "" {
+                                    numberOfCompleted -= 1
+                                } else if content.link != "" {
+                                    linkingContent.append(content.link)
+                                }
                             }
                         }
                         
-                        if numberOfCompleted >= self.numberOfLimitCompleted {
+                        let link = additional.filter { content in
+                            return content.type >= 40 && content.completed.contains(filter.identifier) && content.link != ""
+                        }.map { content in content.link }
+                        
+                        let isLinkingContentCompleted = link.contains(data.link)
+                        
+                        switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted) {
+                        case (true, false):
                             isExceeded = true
                             return
+                        default:
+                            break
                         }
+                        //
                     }
                     
                     data.completed.append(filter.identifier)
@@ -387,16 +437,34 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
                         var numberOfCompleted = 0
 
                         guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                        // 수정 - 004
+                        var linkingContent: [String] = []
                         additional.forEach { content in
                             if content.type >= 40 && content.completed.contains(identifier) {
                                 numberOfCompleted += 1
+
+                                if linkingContent.contains(content.link) && content.link != "" {
+                                    numberOfCompleted -= 1
+                                } else if content.link != "" {
+                                    linkingContent.append(content.link)
+                                }
                             }
                         }
                         
-                        if numberOfCompleted >= self.numberOfLimitCompleted {
+                        let link = additional.filter { content in
+                            return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+                        }.map { content in content.link }
+                        
+                        let isLinkingContentCompleted = link.contains(data.link)
+                        
+                        switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted) {
+                        case (true, false):
                             isExceeded = true
                             return
+                        default:
+                            break
                         }
+                        //
                     }
                     
                     data.completed.append(identifier)
