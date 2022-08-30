@@ -18,14 +18,15 @@ class AdvancedContentViewController: UIViewController, Storyboarded {
     weak var coordinator: AppCoordinator?
     
     var data: AdditionalContent?
-    
+    var selectTextFieldAtIndex: Int = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         debug("\(#fileID): \(#function)")
         
         setupNavigationBar()
-        setupView()
         setupData()
+        setupView()
         setupGestureRecognizer()
         setupTableView()
     }
@@ -39,9 +40,9 @@ class AdvancedContentViewController: UIViewController, Storyboarded {
         switchButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
 
         guard let data = self.data else { return }
-
+        limitView.isUserInteractionEnabled = data.allowLimit
         limitView.subviews.forEach { view in
-            view.alpha = data.allowLimit ? 0.5 : 1
+            view.alpha = data.allowLimit ? 1 : 0.5
             view.isUserInteractionEnabled = data.allowLimit
         }
         
@@ -64,10 +65,12 @@ class AdvancedContentViewController: UIViewController, Storyboarded {
     
     func setupGestureRecognizer() {
         goldView.addGestureRecognizer { _ in
+            self.selectTextFieldAtIndex = 0
             self.coordinator?.presentToTextFieldViewController(self, title: "획득 골드", keyboardType: .numberPad, animated: true)
         }
         
         limitView.addGestureRecognizer { _ in
+            self.selectTextFieldAtIndex = 1
             self.coordinator?.presentToTextFieldViewController(self, title: "골드 획득 제한 레벨", keyboardType: .numberPad, animated: true)
         }
         
@@ -80,8 +83,9 @@ class AdvancedContentViewController: UIViewController, Storyboarded {
             self.data?.allowLimit = sender.isOn
         }
         
+        limitView.isUserInteractionEnabled = sender.isOn
         limitView.subviews.forEach { view in
-            view.alpha = sender.isOn ? 0.5 : 1
+            view.alpha = sender.isOn ? 1 : 0.5
             view.isUserInteractionEnabled = sender.isOn
         }
     }
@@ -97,14 +101,26 @@ extension AdvancedContentViewController {
 extension AdvancedContentViewController: TextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        
-        guard let goldTextField = goldView.subviews.first as? UITextField else { return }
-        
-        RealmManager.shared.update {
-            self.data?.gold = Int(text) ?? 0
+        switch selectTextFieldAtIndex {
+        case 0:
+            guard let textField = goldView.subviews.first as? UITextField else { return }
+            RealmManager.shared.update {
+                self.data?.gold = Int(text) ?? 0
+            }
+            
+            textField.text = (Int(text) ?? 0).withCommas()
+        case 1:
+            guard let textField = limitView.subviews.first as? UITextField else { return }
+            RealmManager.shared.update {
+                self.data?.limit = Double(text) ?? 0.0
+            }
+            
+            textField.text = text
+        default:
+            break
         }
         
-        goldTextField.text = (Int(text) ?? 0).withCommas()
+
     }
 }
 
@@ -141,7 +157,10 @@ extension AdvancedContentViewController: UITableViewDelegate, UITableViewDataSou
            let filter = Array(data.filter({  $0.type / 10 == 4 && $0.identifier != self.data?.identifier ?? "" }))[safe: indexPath.row] {
             
             cell.data = filter
-            cell.showLinkView = filter.link == self.data?.link ?? "" && self.data?.link != ""
+            cell.showLinkView = true
+            
+            guard let imageView = cell.linkView.subviews.last as? UIImageView else { return cell }
+            imageView.isHidden = filter.link != self.data?.link || filter.link == ""
         }
         
         return cell
@@ -161,8 +180,13 @@ extension AdvancedContentViewController: UITableViewDelegate, UITableViewDataSou
                 filter.link = self.data?.link == filter.link ? "" : link
             }
             
+            
             cell.linkView.isHidden = filter.link != self.data?.link || filter.link == ""
             cell.showLinkView = filter.link == self.data?.link && filter.link != ""
+            
+            guard let imageView = cell.linkView.subviews.last as? UIImageView else { return }
+            
+            imageView.isHidden = filter.link != self.data?.link || filter.link == ""
         }
     }
 }

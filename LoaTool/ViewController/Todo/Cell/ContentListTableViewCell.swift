@@ -70,6 +70,12 @@ class ContentListTableViewCell: UITableViewCell {
             }
 
             linkView.isHidden = !showLinkView
+            
+            guard let imageView = self.linkView.subviews.first as? UIImageView else { return }
+            
+            imageView.image = UIImage(named: "content.icon.26")?.withRenderingMode(.alwaysTemplate)
+            imageView.tintColor = .placeholderText
+
         }
     }
     

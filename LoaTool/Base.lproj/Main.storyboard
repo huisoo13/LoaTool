@@ -3171,7 +3171,6 @@
         <!--Edit Content View Controller-->
         <scene sceneID="OlL-FP-28l">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xDt-8n-qMY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="EditContentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j9q-qK-D5g" customClass="EditContentViewController" customModule="LoaTool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mRy-wv-zVu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -3515,6 +3514,7 @@
                         <outlet property="tableView" destination="s7s-7E-pg3" id="Aw5-1P-Fv2"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xDt-8n-qMY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="150.72463768115944" y="2865.4017857142858"/>
         </scene>
@@ -4159,7 +4159,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3RR-AU-wOw">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3RR-AU-wOw">
                                                 <rect key="frame" x="349" y="6.5" width="51" height="31"/>
                                                 <color key="onTintColor" name="Text Blue"/>
                                             </switch>
@@ -4183,10 +4183,10 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GdY-hu-w8X">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GdY-hu-w8X">
                                                 <rect key="frame" x="134" y="0.0" width="264" height="44"/>
                                                 <subviews>
-                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mms-L1-fUg">
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mms-L1-fUg">
                                                         <rect key="frame" x="16" y="0.0" width="224" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <textInputTraits key="textInputTraits"/>

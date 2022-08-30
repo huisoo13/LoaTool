@@ -110,8 +110,16 @@ class TodoViewController: UIViewController, Storyboarded {
         
         viewModel.result.value?.additional.forEach { additional in
             additional.completed.forEach { completed in
-                guard let allow = acquired?.contains(completed), allow else { return }
-                gold += additional.gold
+                guard let allow = acquired?.contains(completed),
+                      let member = RealmManager.shared.read(Member.self, identifier: completed).first,
+                      allow else { return }
+                
+                switch (additional.allowLimit, member.level < additional.limit) {
+                case (true, false):
+                    break
+                default:
+                    gold += additional.gold
+                }
             }
         }
         
