@@ -105,13 +105,23 @@ class InfoTableViewCell: UITableViewCell {
     }
     
     fileprivate func convertCardToString(_ data: [Card]) -> String {
+        let title = data.map { card in
+            card.title.replacingOccurrences(of: " [0-9]+세트", with: "_", options: .regularExpression)
+            .replacingOccurrences(of: "각성합계", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "_ ", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "_", with: "", options: .regularExpression)
+        }
+        
         let card = data.map { card in
             return card.title.replacingOccurrences(of: " [0-9]+세트", with: "_", options: .regularExpression).components(separatedBy: "_").first ?? ""
         }
-        
+
         var string = ""
         Set(card).sorted(by: { $0 < $1 }).forEach { card in
-            string += "\(card)\n"
+            if title.contains(card) {
+                guard let data = title.filter({ $0.contains(card)}).sorted(by: { ($0.count, $0) < ($1.count, $1) }).last else { return }
+                string += "\(data)\n"
+            }
         }
         
         return string.trimmingCharacters(in: .whitespacesAndNewlines)
