@@ -56,22 +56,22 @@ class Network {
         Network.nwPathMonitor.pathUpdateHandler = { path in
             if path.usesInterfaceType(.wifi) {
                 // Correctly goes to Wi-Fi via Access Point or Phone enabled hotspot
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] Wi-Fi를 이용하여 네트워크에 연결되었습니다.")
+                debug("Wi-Fi를 이용하여 네트워크에 연결되었습니다.")
                 Network.isConnectedToWifi = true
             } else if path.usesInterfaceType(.cellular) {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 셀룰러 데이터를 이용하여 네트워크에 연결되었습니다.")
+                debug("셀룰러 데이터를 이용하여 네트워크에 연결되었습니다.")
                 Network.isConnectedToWifi = false
             } else if path.usesInterfaceType(.wiredEthernet) {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 유선 이더넷을 이용하여 네트워크에 연결되었습니다.")
+                debug("유선 이더넷을 이용하여 네트워크에 연결되었습니다.")
                 Network.isConnectedToWifi = false
             } else if path.usesInterfaceType(.loopback) {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 루프백을 이용하여 네트워크에 연결되었습니다.")
+                debug("루프백을 이용하여 네트워크에 연결되었습니다.")
                 Network.isConnectedToWifi = false
             } else if path.usesInterfaceType(.other) {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 기타 방법을 이용하여 네트워크에 연결되었습니다.")
+                debug("기타 방법을 이용하여 네트워크에 연결되었습니다.")
                 Network.isConnectedToWifi = false
             } else {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 네트워크에 연결할 수 없습니다.")
+                debug("네트워크에 연결할 수 없습니다.")
                 Network.isConnectedToWifi = false
             }
         }

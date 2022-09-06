@@ -24,7 +24,6 @@ class TodoViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupTableView()
         setupViewModelObserver()
@@ -32,14 +31,16 @@ class TodoViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
         
         viewModel.configure()
         
-        /* 수정 - 001
         NotificationCenter.default.addObserver(self, selector: #selector(beginUpdateRealmFromCloudKit(_:)), name: NSNotification.Name("beginUpdateRealmFromCloudKit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(endUpdateRealmFromCloudKit(_:)), name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
-         */
+        
+        CloudManager.shared.pull([Todo.self]) { error in
+            guard error == nil else { return }
+            debug("iCloud 에서 할 일 정보 가져오기")
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(_:)), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
 
@@ -48,18 +49,15 @@ class TodoViewController: UIViewController, Storyboarded {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        /* 수정 - 001
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("beginUpdateRealmFromCloudKit"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
-         */
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reloadData"), object: nil)
     }
     
-    /* 수정 - 001
     @objc func beginUpdateRealmFromCloudKit(_ sender: NSNotification) {
         DispatchQueue.main.async {
-            IndicatorView.showLoadingView(self)
+            IndicatorView.showLoadingView()
         }
     }
     
@@ -71,7 +69,6 @@ class TodoViewController: UIViewController, Storyboarded {
             CloudManager.shared.timerForTodo?.invalidate()
         }
     }
-     */
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)

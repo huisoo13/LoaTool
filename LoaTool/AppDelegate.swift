@@ -72,7 +72,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         DispatchQueue.global(qos: .background).async {
             API.post.updateToken(token) { result in
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 토큰 갱신")
+                debug("토큰 갱신")
             }
         }
     }
@@ -133,19 +133,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 // MARK: - CloudKit
 extension AppDelegate {
     func setupCloudKit() {
-        /// 수정 - 001
-        /// Device 와 iCloud 간 데이터 교환 시 순서에 대해 오류 발생
-        /// Member 클래스의 순서가 기존의 순서와 다르게 가져오는 문제
-        /// 한번에 여러개를 완료 처리 할때 Timer를 통한 딜레이 후 데이터 전송 하는 방식은 딜레이 완료 전에 앱을 종료 시 데이터 전송 하지 않음 → 결국 앱 실행 시 업데이트가 되지 않은 상태로 돌아감
-        /// 관련 코드 주석 처리
-        
-        /*
-        CloudManager.shared.pull([Todo.self]) { error in
-            guard error == nil else { return }
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 할 일 정보 가져오기 완료")
-        }
-         */
-        
         CloudManager.shared.fetch()
         CloudManager.shared.addSubscription()
     }
@@ -163,12 +150,11 @@ extension AppDelegate {
             
             switch zoneName {
             case "todoZone":
-                /* 수정 - 001
                 CloudManager.shared.pull([Todo.self]) { error in
                     guard error == nil else { return }
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 할 일 정보 가져오기 완료")
+                    debug("iCloud 에서 할 일 정보 가져오기")
                 }
-                 */
+                
                 break
             default:
                 CloudManager.shared.fetch()
@@ -189,7 +175,7 @@ extension AppDelegate {
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
             migrationBlock: { migration, oldSchemaVersion in
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] Realm migration")
+                debug("Realm migration")
                 
                 if oldSchemaVersion < 9 {
                     migration.enumerateObjects(ofType: Member.className()) { oldObject, newObject in

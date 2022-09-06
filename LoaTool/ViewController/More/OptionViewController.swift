@@ -15,7 +15,6 @@ class OptionViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupNavigationBar()
         setupTableView()
@@ -23,7 +22,7 @@ class OptionViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
+
     }
 }
 

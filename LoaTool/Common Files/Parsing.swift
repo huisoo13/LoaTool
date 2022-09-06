@@ -30,12 +30,12 @@ class Parsing: NSObject {
     func downloadHTML(_ text: String, type: [Parsing.Category], completionHandler: @escaping (Character?, ParsingError?) -> Void) {
         guard let url = "https://lostark.game.onstove.com/Profile/Character/\(text)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file)\n\(#function) : URL Error")
+            debug("\(#function) : URL Error")
             return
         }
         
         let startTime = CFAbsoluteTimeGetCurrent()
-        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출")
+        debug("캐릭터 데이터 호출")
         
         AF.request(url, method: .post, encoding: URLEncoding.httpBody).responseString { (response) in
             guard let html = response.value else {
@@ -50,14 +50,14 @@ class Parsing: NSObject {
                     let isInspection = try element.select("div > p.check_time").text().contains("점검")
                     if isInspection {
                         completionHandler(nil, .websiteInspect)
-                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
+                        debug("캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
                         return
                     }
                 }
                 
                 if elements.count == 0 {
                     completionHandler(nil, .notFound)
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 데이터 없음")
+                    debug("캐릭터 데이터 호출 실패: 데이터 없음")
                     
                     return
                 }
@@ -97,12 +97,12 @@ class Parsing: NSObject {
                     user.lastUpdated = DateManager.shared.currentDate()
                     
                     let durationTime = CFAbsoluteTimeGetCurrent() - startTime
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
+                    debug("캐릭터 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
                     
                     completionHandler(user, nil)
                 }
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
                 completionHandler(nil, .unknown)
             }
         }
@@ -138,7 +138,7 @@ class Parsing: NSObject {
             
             character.memberList = memberList
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return character
@@ -165,7 +165,7 @@ class Parsing: NSObject {
                 stats.expertise = Int(battle[safe: 5] ?? "0") ?? 0
             }
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return stats
@@ -254,7 +254,7 @@ class Parsing: NSObject {
                 }
             }
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return equips
@@ -308,7 +308,7 @@ class Parsing: NSObject {
             engrave.effect = engrave.effect.trimmingCharacters(in: .whitespacesAndNewlines)
             
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return engrave
@@ -363,7 +363,7 @@ class Parsing: NSObject {
             }
             
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return gems
@@ -387,7 +387,7 @@ class Parsing: NSObject {
                 cards.append(card)
             }
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return cards
@@ -396,12 +396,12 @@ class Parsing: NSObject {
     func downloadHTML(parsingSkillWith text: String, completionHandler: @escaping ([Skill]?) -> Void) {
         guard let url = "https://m-lostark.game.onstove.com/Profile/Character/\(text)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file)\n\(#function) : URL Error")
+            debug("\(#function) : URL Error")
             return
         }
         
         let startTime = CFAbsoluteTimeGetCurrent()
-        debug("[LOATOOL][\(DateManager.shared.currentDate())] 스킬 데이터 호출")
+        debug("스킬 데이터 호출")
         
         AF.request(url, method: .post, encoding: URLEncoding.httpBody).responseString { (response) in
             guard let html = response.value else {
@@ -418,14 +418,14 @@ class Parsing: NSObject {
                     let isInspection = try element.select("div > main > div > div > div > p.check_time").text().contains("점검")
                     if isInspection {
                         completionHandler(nil)
-                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 스킬 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
+                        debug("스킬 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
                         return
                     }
                 }
                 
                 if elements.count == 0 {
                     completionHandler(nil)
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] 스킬 데이터 호출 실패: 데이터 없음")
+                    debug("스킬 데이터 호출 실패: 데이터 없음")
                     
                     return
                 }
@@ -496,12 +496,12 @@ class Parsing: NSObject {
                     }
                     
                     let durationTime = CFAbsoluteTimeGetCurrent() - startTime
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] 스킬 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
+                    debug("스킬 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
                     
                     completionHandler(skills)
                 }
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -511,12 +511,12 @@ class Parsing: NSObject {
         
         var subs: [Sub] = []
         let startTime = CFAbsoluteTimeGetCurrent()
-        debug("[LOATOOL][\(DateManager.shared.currentDate())] 보유 캐릭터 데이터 호출")
+        debug("보유 캐릭터 데이터 호출")
         
         text.forEach {
             guard let url = "https://m-lostark.game.onstove.com/Profile/Character/\($0)"
                 .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                debug("\(#file)\n\(#function) : URL Error")
+                debug("\(#function) : URL Error")
                 return
             }
             
@@ -546,14 +546,14 @@ class Parsing: NSObject {
                         
                         if text.count == subs.count {
                             let durationTime = CFAbsoluteTimeGetCurrent() - startTime
-                            debug("[LOATOOL][\(DateManager.shared.currentDate())] 보유 캐릭터 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
+                            debug("보유 캐릭터 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
                             
                             subs.sort(by: { ($0.server, $1.level, $0.name) < ($1.server, $0.level, $1.name) })
                             completionHandler(subs)
                         }
                     }
                 } catch {
-                    debug("\(#file) - \(#function): \(error)")
+                    debug("\(#function): \(error)")
                     completionHandler(nil)
                 }
             }
@@ -563,7 +563,7 @@ class Parsing: NSObject {
     func downloadHTMLForAD(completionHandler: @escaping ([AD]) -> Void) {
         guard let url = "https://www.smilegatefoundation.org/hope/index"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file)\n\(#function) : URL Error")
+            debug("\(#function) : URL Error")
             return
         }
         
@@ -595,7 +595,7 @@ class Parsing: NSObject {
                 
                 completionHandler(ad)
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
             }
         }
     }

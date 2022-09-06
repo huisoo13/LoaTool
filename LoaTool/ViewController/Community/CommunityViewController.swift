@@ -21,7 +21,6 @@ class CommunityViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupTableView()
         setupViewModelObserver()
@@ -29,7 +28,6 @@ class CommunityViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
         
         if CommunityViewController.reloadToData {
             viewModel.options.value = CommunityViewController.options

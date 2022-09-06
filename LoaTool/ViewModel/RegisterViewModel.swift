@@ -25,7 +25,7 @@ class RegisterViewModel: NSObject {
     func register(_ target: UIViewController, stove identifier: String, authentication code: String) {
         guard let url = "https://timeline.onstove.com/\(identifier)"
                 .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                    debug("\(#file) - \(#function): URL Error")
+                    debug("\(#function): URL Error")
                     return
                 }
         
@@ -48,7 +48,7 @@ extension RegisterViewModel: WKNavigationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             webView.evaluateJavaScript("document.body.innerHTML") { result, error in
                 guard let html = result, error == nil else {
-                    debug("\(#file) - \(#function): \(String(describing: error))")
+                    debug("\(#function): \(String(describing: error))")
                     Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "인증 실패", description: "알 수 없는 오류가 발생했습니다.\n 잠시 후 다시 시도해주세요.").present()
                     IndicatorView.hideLoadingView()
                     return
@@ -70,7 +70,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                         }
                     }
                 } catch {
-                    debug("\(#file) - \(#function): \(error)")
+                    debug("\(#function): \(error)")
                     IndicatorView.hideLoadingView()
                 }
             }
@@ -80,7 +80,7 @@ extension RegisterViewModel: WKNavigationDelegate {
     private func parsingMainCharacter(_ nickname: String) {
         guard let url = "https://lostark.game.onstove.com/Library/Tip/UserList?searchtext=\(nickname)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file) - \(#function) : URL Error")
+            debug("\(#function) : URL Error")
             IndicatorView.hideLoadingView()
             return
         }
@@ -96,7 +96,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                     let isInspection = try element.select("article > div > div.time_wraper > p.check_time").text().contains("점검")
                     if isInspection {
                         Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "데이터 불러오기 실패", description: "로스트아크 공식 홈페이지가 점검 중입니다.").present()
-                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
+                        debug("캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
                         IndicatorView.hideLoadingView()
                         return
                     }
@@ -113,14 +113,14 @@ extension RegisterViewModel: WKNavigationDelegate {
                     
                     if name == "" {
                         Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "대표 캐릭터 미설정", description: "공식 홈페이지에서 대표 캐릭터 설정 후 재시도해주세요").present()
-                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 대표 캐릭터 미설정")
+                        debug("캐릭터 데이터 호출 실패: 대표 캐릭터 미설정")
                         return
                     }
                     
                     self.result.value = name
                 }
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
                 IndicatorView.hideLoadingView()
             }
         }

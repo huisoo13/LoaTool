@@ -51,7 +51,6 @@ class ImagePickerViewController: UIViewController, Storyboarded {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupCollectionView()
         setupItemViewModelObserver()

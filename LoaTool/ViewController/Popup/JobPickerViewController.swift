@@ -24,14 +24,13 @@ class JobPickerViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
+
     }
     
     @IBAction func cancelAction(_ sender: UIButton) {

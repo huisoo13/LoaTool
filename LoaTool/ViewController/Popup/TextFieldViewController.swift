@@ -24,7 +24,6 @@ class TextFieldViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
         
         setupView()
         setupTextField()
@@ -32,7 +31,7 @@ class TextFieldViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
+
     }
     
     func setupView() {

@@ -12,7 +12,7 @@ import Realm
 
 class CloudManager {
     static let shared: CloudManager = CloudManager()
-    
+
     fileprivate let container = CKContainer(identifier: "iCloud.loatool")
     fileprivate let database = CKContainer(identifier: "iCloud.loatool").privateCloudDatabase
 
@@ -25,15 +25,15 @@ class CloudManager {
         CKContainer.default().accountStatus { accountStatus, error in
             switch accountStatus {
             case .couldNotDetermine:
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 확인할 수 없음")
+                debug("iCloud 확인할 수 없음")
             case .available:
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 사용 가능")
+                debug("iCloud 사용 가능")
             case .restricted:
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 제한됨")
+                debug("iCloud 제한됨")
             case .noAccount:
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 계정 없음")
+                debug("iCloud 계정 없음")
             case .temporarilyUnavailable:
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 일시적으로 사용할 수 없음")
+                debug("iCloud 일시적으로 사용할 수 없음")
             default:
                 break
             }
@@ -217,10 +217,15 @@ class CloudManager {
                     // STEP 3: modificationDate 확인
                     let modificationDateInCloud = record.modificationDate
                     let modificationDateInDevice = UserDefaults.standard.object(forKey: "modificationDate") as? Date
-
-                    if modificationDateInCloud != nil && modificationDateInDevice != nil, modificationDateInCloud! < modificationDateInDevice! { return }
-                    UserDefaults.standard.set(modificationDateInCloud, forKey: "modificationDate")
                     
+                    if modificationDateInCloud != nil && modificationDateInDevice != nil, modificationDateInCloud! <= modificationDateInDevice! {
+                        NotificationCenter.default.post(name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
+                        CloudManager.shared.update(withTimeInterval: 0)
+                        return
+                    }
+                    
+                    UserDefaults.standard.set(modificationDateInCloud, forKey: "modificationDate")
+
                     // STEP 4: Record 변환
                     self.convertRecordToObject(type, using: record) { object, error in
                         // STEP 5: Realm 저장
@@ -290,12 +295,28 @@ class CloudManager {
                         // STEP 4: 하위 오브젝트 Record 변환
                         self.convertRecordToObject(type, using: record) { subObject, error in
                             guard let subObject = subObject else { return }
+
                             list.append(subObject)
                             object[property.name] = property.isArray ? list : subObject
 
                             recordIDsCount += 1
                             if recordIDsCount == recordIDs.count { propertyCount += 1 }
-                            if propertyCount == properties.count { completionHandler(object, nil) }
+                            if propertyCount == properties.count {
+                                if property.isArray {
+                                    // STEP 5: 하위 오브젝트에 추가로 하위 오브젝트가 있다면 데이터를 추가로 가져오기 때문에 데이터 획득 시간 차로 인하여 재정렬 필요
+                                    object[property.name] = list.sorted(by: { first, second in
+                                        guard let firstIdentifier = first[first.objectSchema.primaryKeyProperty?.name ?? "primaryKey"] as? String,
+                                              let firstIndex = recordIDs.map({ $0.recordName }).firstIndex(of: firstIdentifier) else { return false }
+                                        
+                                        guard let secondIdentifier = second[second.objectSchema.primaryKeyProperty?.name ?? "primaryKey"] as? String,
+                                              let secondIndex = recordIDs.map({ $0.recordName }).firstIndex(of: secondIdentifier) else { return false }
+
+                                        return firstIndex < secondIndex
+                                    })
+                                }
+                                
+                                completionHandler(object, nil)
+                            }
                         }
                     case .failure(let error):
                         recordIDsCount += 1
@@ -334,7 +355,7 @@ class CloudManager {
             }
             
             operation.database?.save(record) { _, error in
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud \(type.className()) 정보 갱신 (ERROR: \(error?.localizedDescription ?? "없음"))")
+                debug("iCloud \(type.className()) 정보 갱신 (ERROR: \(error?.localizedDescription ?? "없음"))")
             }
         }
     }
@@ -351,10 +372,15 @@ class CloudManager {
             DispatchQueue.global(qos: .background).async {
                 self.push([Todo.self, Content.self, Member.self, AdditionalContent.self]) { error in
                     guard error == nil else { return }
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 할 일 정보 갱신")
+                    UserDefaults.standard.set(Date(), forKey: "modificationDate")
+                    debug("iCloud 할 일 정보 갱신")
                 }
             }
         })
+        
+        if withTimeInterval == 0 {
+            timerForTodo?.fire()
+        }
     }
     
     func commit() {
@@ -386,7 +412,7 @@ class CloudManager {
                         ])
                         
                         operation.database?.save(record) { _, error in
-                            debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 사용자 정보 추가 (ERROR: \(error?.localizedDescription ?? "없음"))")
+                            debug("iCloud 사용자 정보 추가 (ERROR: \(error?.localizedDescription ?? "없음"))")
                         }
                     } else {
                         // UPDATE
@@ -403,12 +429,12 @@ class CloudManager {
                             record.setValue(User.shared.sequence, forKey: "sequence")
                             
                             operation.database?.save(record) { _, error in
-                                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 사용자 정보 갱신 (ERROR: \(error?.localizedDescription ?? "없음"))")
+                                debug("iCloud 사용자 정보 갱신 (ERROR: \(error?.localizedDescription ?? "없음"))")
                             }
                         }
                     }
                 case .failure(let error):
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 에러 (ERROR: \(error))")
+                    debug("iCloud 에러 (ERROR: \(error))")
                     
                     /* 개발 중 해당 레코드 타입이 없을때 확인해서 추가하는 코드: 레코드 타입이 있으면 필요없는 코드
                     if error.localizedDescription == "Did not find record type: User" {
@@ -423,7 +449,7 @@ class CloudManager {
                         ])
                         
                         operation.database?.save(record) { _, error in
-                            print("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 사용자 정보 추가 (ERROR: \(error?.localizedDescription ?? "없음"))")
+                            print("iCloud 사용자 정보 추가 (ERROR: \(error?.localizedDescription ?? "없음"))")
                         }
                     }
                      */
@@ -454,9 +480,9 @@ class CloudManager {
                 User.shared.name = record.value(forKey: "name") as? String ?? ""
                 User.shared.sequence = record.value(forKey: "sequence") as? String ?? ""
                 
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud에서 사용자 정보 가져오기")
+                debug("iCloud 에서 사용자 정보 가져오기")
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
         
@@ -480,10 +506,9 @@ class CloudManager {
 
         database.save(subscription) { subscription, error in
             guard error == nil else { return }
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud User type 옵저버 생성")
+            debug("iCloud 'User' 옵저버 생성")
         }
         
-        /* 수정 - 001
         let subscription2 = CKQuerySubscription(recordType: "Todo", predicate: predicate)
         let notificationInfo2 = CKSubscription.NotificationInfo()
         notificationInfo2.shouldSendContentAvailable = true
@@ -495,9 +520,8 @@ class CloudManager {
 
         database.save(subscription2) { subscription, error in
             guard error == nil else { return }
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud Todo type 옵저버 생성")
+            debug("iCloud 'Todo' 옵저버 생성")
         }
-         */
     }
 }
 

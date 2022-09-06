@@ -20,7 +20,6 @@ class ViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
         
         setupCoordinator()
         setupViewControllers()
@@ -28,7 +27,6 @@ class ViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
         
         setupTabBarView()
 
@@ -152,8 +150,6 @@ extension ViewController: CharacterListDelegate {
 // MARK: - Tab Bar
 extension ViewController {
     fileprivate func setupViewControllers() {
-        debug("\(#fileID): \(#function)")
-
         viewControllers.append {
             let viewController = CharacterViewController.instantiate()
             viewController.coordinator = self.coordinator
@@ -190,9 +186,7 @@ extension ViewController {
         }
     }
     
-    fileprivate func setupTabBarView() {
-        debug("\(#fileID): \(#function)")
-        
+    fileprivate func setupTabBarView() {        
         let showBadge = UserDefaults.standard.bool(forKey: "showBadge")
         badgeView.isHidden = !showBadge
         

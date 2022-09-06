@@ -86,29 +86,29 @@
                         </buttonConfiguration>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqV-aD-R1j" customClass="ActiveLabel" customModule="ActiveLabel">
-                        <rect key="frame" x="16" y="64" width="358" height="29"/>
+                        <rect key="frame" x="16" y="64" width="358" height="28.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1aS-k0-4jJ">
-                        <rect key="frame" x="0.0" y="105" width="390" height="100"/>
+                        <rect key="frame" x="0.0" y="104.5" width="390" height="100.5"/>
                         <subviews>
-                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhx-aQ-8kY">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="0.5"/>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhx-aQ-8kY">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="1"/>
                                 <color key="backgroundColor" systemColor="separatorColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="i4M-Yl-dmE"/>
+                                    <constraint firstAttribute="height" constant="1" id="i4M-Yl-dmE"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VSn-hp-C3Z">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+                                <rect key="frame" x="0.0" y="0.5" width="390" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Sif-xe-Eu8"/>
                                 </constraints>
                             </imageView>
-                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-Ze-kg5">
-                                <rect key="frame" x="0.0" y="99.5" width="390" height="0.5"/>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-Ze-kg5">
+                                <rect key="frame" x="0.0" y="100" width="390" height="0.5"/>
                                 <color key="backgroundColor" systemColor="separatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="bzP-xA-q6H"/>
@@ -117,7 +117,7 @@
                         </subviews>
                     </stackView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle.portrait.on.rectangle.portrait.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-Gz-rmC">
-                        <rect key="frame" x="362" y="111.5" width="20" height="23"/>
+                        <rect key="frame" x="362" y="111" width="20" height="23"/>
                         <color key="tintColor" systemColor="labelColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="XIi-gc-L3T"/>

@@ -56,7 +56,13 @@ class CommunityTableViewCell: UITableViewCell {
             let width = UIScreen.main.bounds.width
             let height = min(width, (CGFloat(data.height) * width) / CGFloat(data.width))
             imageViewHeightAnchor.constant = height
-            contentImageView.isHidden = (data.imageURL.first ?? "") == ""
+            
+            if let stackView = contentImageView.superview as? UIStackView {
+                stackView.arrangedSubviews.forEach { view in
+                    if stackView.arrangedSubviews.last == view { return }
+                    view.isHidden = (data.imageURL.first ?? "") == ""
+                }
+            }
 
             bookmarkButton.isSelected = data.isMarked
             heartButton.isSelected = data.isLiked

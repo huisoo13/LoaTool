@@ -230,7 +230,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
         return nil
     }
     
-    @objc dynamic var identifier: String = ""
+    @objc dynamic var identifier: String = UUID().uuidString
     @objc dynamic var title: String = ""
     @objc dynamic var type: Int = 1
     @objc dynamic var icon: Int = 0
