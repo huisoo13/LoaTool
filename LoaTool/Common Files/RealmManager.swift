@@ -27,8 +27,7 @@ class RealmManager {
             }
             
             if data is Character { return }
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Write Error: \(error)")
         }
@@ -41,8 +40,7 @@ class RealmManager {
             }
             
             if data.first is Character { return }
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Write Error: \(error)")
         }
@@ -77,8 +75,7 @@ class RealmManager {
                 handler()
             }
             
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Update Error: \(error)")
         }
@@ -122,8 +119,7 @@ class RealmManager {
                     }
                 }
                 
-                /// 수정 - 001
-                // CloudManager.shared.update()
+                CloudManager.shared.update()
             } catch {
                 debug("Delete Error: \(error)")
             }
@@ -140,8 +136,7 @@ class RealmManager {
                 }
             }
             
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Delete Error: \(error)")
         }
@@ -157,8 +152,7 @@ class RealmManager {
                 }
             }
             
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Delete Error: \(error)")
         }
@@ -176,8 +170,7 @@ class RealmManager {
                 }
             }
             
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Delete Error: \(error)")
         }
@@ -194,8 +187,7 @@ class RealmManager {
                 }
             }
             
-            /// 수정 - 001
-            // CloudManager.shared.update()
+            CloudManager.shared.update()
         } catch {
             debug("Delete Error: \(error)")
         }

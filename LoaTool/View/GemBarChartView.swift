@@ -71,7 +71,5 @@ class GemBarChartView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: progress.topAnchor, constant: -2).isActive = true
-
-        
     }
 }

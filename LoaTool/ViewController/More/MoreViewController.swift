@@ -170,14 +170,12 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             coordinator?.pushToOpenSourceLibraryViewController(animated: true)
         case 6:
             let usingCloudKit = UserDefaults.standard.bool(forKey: "usingCloudKit")
-            let message = usingCloudKit ? "동기화를 중지해도 기존의 데이터는 남아있습니다.\n\n동기화를 중지하시겠습니까?" : "동일한 iCloud에 로그인 되어있는 기기에서 본인 인증 정보를 동기화합니다.\n\n해당 기능을 사용 하시겠습니까?"
+            let message = usingCloudKit ? "동기화를 중지해도 기존의 데이터는 남아있습니다.\n\n동기화를 중지하시겠습니까?" : "동일한 iCloud에 로그인 되어있는 기기에서 데이터를 동기화합니다.\n\n해당 기능을 사용 하시겠습니까?"
             Alert.message(self, title: "iCloud 동기화", message: message, option: .successAndCancelAction) { _ in
                 UserDefaults.standard.set(!usingCloudKit, forKey: "usingCloudKit")
                 
                 if !usingCloudKit {
                     CloudManager.shared.commit()
-                    /// 수정 - 001
-                    // CloudManager.shared.update()
                 }
                 
                 Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.", option: .onlySuccessAction, handler: nil)

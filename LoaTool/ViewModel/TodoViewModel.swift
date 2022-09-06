@@ -165,6 +165,5 @@ class TodoViewModel {
         }
         
         UserDefaults.standard.set(true, forKey: "isUpdateAcquiredGold")
-        print(todo.gold)
     }
 }
