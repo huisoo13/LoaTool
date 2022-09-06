@@ -72,7 +72,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         DispatchQueue.global(qos: .background).async {
             API.post.updateToken(token) { result in
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 토큰 갱신")
+                debug("토큰 갱신")
             }
         }
     }
@@ -152,7 +152,7 @@ extension AppDelegate {
             case "todoZone":
                 CloudManager.shared.pull([Todo.self]) { error in
                     guard error == nil else { return }
-                    debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 에서 할 일 정보 가져오기")
+                    debug("iCloud 에서 할 일 정보 가져오기")
                 }
                 
                 break
@@ -175,7 +175,7 @@ extension AppDelegate {
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
             migrationBlock: { migration, oldSchemaVersion in
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] Realm migration")
+                debug("Realm migration")
                 
                 if oldSchemaVersion < 9 {
                     migration.enumerateObjects(ofType: Member.className()) { oldObject, newObject in

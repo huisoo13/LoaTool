@@ -44,7 +44,7 @@ class TodoViewModel {
     
     
     fileprivate func updateDailyContent(_ todo: Todo, calculate: Int) {
-        debug("[LOATOOL][\(DateManager.shared.currentDate())] 일일 컨텐츠 갱신")
+        debug("일일 컨텐츠 갱신")
         
         if let island = todo.member.first?.contents.last {
             RealmManager.shared.update {
@@ -75,7 +75,7 @@ class TodoViewModel {
     
     fileprivate func updateWeeklyContent(_ todo: Todo) {
         if todo.nextLoaWeekday < DateManager.shared.nextLoaWeekday(DateManager.shared.currentDate()) {
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] 주간 컨텐츠 갱신")
+            debug("주간 컨텐츠 갱신")
 
             todo.additional.forEach { content in
                 RealmManager.shared.update {
@@ -87,7 +87,7 @@ class TodoViewModel {
     
     fileprivate func sortedIncludedMember() {
         guard let todo = RealmManager.shared.readAll(Todo.self).first else { return }
-        debug("[LOATOOL][\(DateManager.shared.currentDate())] 추가 캐릭터 순서 갱신")
+        debug("추가 캐릭터 순서 갱신")
 
         let members = todo.member
         let contents = todo.additional

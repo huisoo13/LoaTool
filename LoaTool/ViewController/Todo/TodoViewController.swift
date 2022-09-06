@@ -41,7 +41,7 @@ class TodoViewController: UIViewController, Storyboarded {
         
         CloudManager.shared.pull([Todo.self]) { error in
             guard error == nil else { return }
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] iCloud 에서 할 일 정보 가져오기")
+            debug("iCloud 에서 할 일 정보 가져오기")
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(_:)), name: NSNotification.Name(rawValue: "reloadData"), object: nil)

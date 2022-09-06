@@ -54,7 +54,7 @@ class CharacterViewModel {
     
     func updateWithRealm(_ data: Character) {
         if let oldData = RealmManager.shared.readAll(Character.self).last {
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] 원정대 캐릭터 데이터 이전 : \(oldData.sub.count)개 캐릭터")
+            debug("원정대 캐릭터 데이터 이전 : \(oldData.sub.count)개 캐릭터")
             oldData.sub.forEach {
                 let sub = Sub()
                 
@@ -67,12 +67,12 @@ class CharacterViewModel {
             }
                         
             if DateManager.shared.calculateDate(oldData.lastUpdated) > 0 {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 대표 캐릭터 데이터 추가")
+                debug("대표 캐릭터 데이터 추가")
                 
                 data.key = RealmManager.shared.readAll(Character.self).count
                 RealmManager.shared.add(data)
             } else {
-                debug("[LOATOOL][\(DateManager.shared.currentDate())] 대표 캐릭터 데이터 갱신")
+                debug("대표 캐릭터 데이터 갱신")
                 
                 oldData.skill.forEach { RealmManager.shared.delete($0.rune) }
                 RealmManager.shared.delete(oldData.info)
@@ -90,7 +90,7 @@ class CharacterViewModel {
                 RealmManager.shared.add(data)
             }
         } else {
-            debug("[LOATOOL][\(DateManager.shared.currentDate())] 대표 캐릭터 데이터 추가")
+            debug("대표 캐릭터 데이터 추가")
             
             data.key = RealmManager.shared.readAll(Character.self).count
             RealmManager.shared.add(data)

@@ -96,7 +96,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                     let isInspection = try element.select("article > div > div.time_wraper > p.check_time").text().contains("점검")
                     if isInspection {
                         Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "데이터 불러오기 실패", description: "로스트아크 공식 홈페이지가 점검 중입니다.").present()
-                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
+                        debug("캐릭터 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
                         IndicatorView.hideLoadingView()
                         return
                     }
@@ -113,7 +113,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                     
                     if name == "" {
                         Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "대표 캐릭터 미설정", description: "공식 홈페이지에서 대표 캐릭터 설정 후 재시도해주세요").present()
-                        debug("[LOATOOL][\(DateManager.shared.currentDate())] 캐릭터 데이터 호출 실패: 대표 캐릭터 미설정")
+                        debug("캐릭터 데이터 호출 실패: 대표 캐릭터 미설정")
                         return
                     }
                     
