@@ -87,7 +87,6 @@ class TodoViewModel {
     
     fileprivate func sortedIncludedMember() {
         guard let todo = RealmManager.shared.readAll(Todo.self).first else { return }
-        debug("추가 캐릭터 순서 갱신")
 
         let members = todo.member
         let contents = todo.additional

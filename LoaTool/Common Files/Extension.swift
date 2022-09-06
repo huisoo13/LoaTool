@@ -59,7 +59,7 @@ extension String {
                 attributedString.addAttribute(key, value: value, range: $0.range)
             }
         } catch {
-            debug(error)
+            debug("\(#function): \(error)")
         }
         
         return attributedString
@@ -100,7 +100,7 @@ extension NSMutableAttributedString {
                 self.addAttribute(key, value: value, range: $0.range)
             }
         } catch {
-            debug(error)
+            debug("\(#function): \(error)")
         }
         
         return self

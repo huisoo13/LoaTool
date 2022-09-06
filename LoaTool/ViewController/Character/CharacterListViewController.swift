@@ -31,7 +31,6 @@ class CharacterListViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupData()
         setupTableView()
@@ -40,7 +39,7 @@ class CharacterListViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
+
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

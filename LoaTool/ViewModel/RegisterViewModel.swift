@@ -25,7 +25,7 @@ class RegisterViewModel: NSObject {
     func register(_ target: UIViewController, stove identifier: String, authentication code: String) {
         guard let url = "https://timeline.onstove.com/\(identifier)"
                 .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                    debug("\(#file) - \(#function): URL Error")
+                    debug("\(#function): URL Error")
                     return
                 }
         
@@ -48,7 +48,7 @@ extension RegisterViewModel: WKNavigationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             webView.evaluateJavaScript("document.body.innerHTML") { result, error in
                 guard let html = result, error == nil else {
-                    debug("\(#file) - \(#function): \(String(describing: error))")
+                    debug("\(#function): \(String(describing: error))")
                     Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "인증 실패", description: "알 수 없는 오류가 발생했습니다.\n 잠시 후 다시 시도해주세요.").present()
                     IndicatorView.hideLoadingView()
                     return
@@ -70,7 +70,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                         }
                     }
                 } catch {
-                    debug("\(#file) - \(#function): \(error)")
+                    debug("\(#function): \(error)")
                     IndicatorView.hideLoadingView()
                 }
             }
@@ -80,7 +80,7 @@ extension RegisterViewModel: WKNavigationDelegate {
     private func parsingMainCharacter(_ nickname: String) {
         guard let url = "https://lostark.game.onstove.com/Library/Tip/UserList?searchtext=\(nickname)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file) - \(#function) : URL Error")
+            debug("\(#function) : URL Error")
             IndicatorView.hideLoadingView()
             return
         }
@@ -120,7 +120,7 @@ extension RegisterViewModel: WKNavigationDelegate {
                     self.result.value = name
                 }
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
                 IndicatorView.hideLoadingView()
             }
         }

@@ -482,7 +482,7 @@ class CloudManager {
                 
                 debug("iCloud 에서 사용자 정보 가져오기")
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
         

@@ -45,7 +45,7 @@ class API {
                 // iCloud 사용자 정보 업데이트
                 CloudManager.shared.commit()
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -64,7 +64,7 @@ class API {
                 UserDefaults.standard.set(result, forKey: "showBadge")
                 if result { NotificationCenter.default.post(name: NSNotification.Name("showBadge"), object: nil) }
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -135,7 +135,7 @@ class API {
                 
                 completionHandler?(post)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -210,7 +210,7 @@ class API {
                     completionHandler?(post)
                 }
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -276,7 +276,7 @@ class API {
                 
                 completionHandler?(comment)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -343,7 +343,7 @@ class API {
                     completionHandler?(comment)
                 }
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -403,7 +403,7 @@ class API {
                 
                 completionHandler?(notification)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -442,7 +442,7 @@ class API {
                 
                 completionHandler?(block)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -486,7 +486,7 @@ class API {
                     Alert.unknownError(target)
                 }
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
                 Alert.unknownError(target)
             }
         }
@@ -531,7 +531,7 @@ class API {
                         completionHandler?(false)
                     }
                 case .failure(let error):
-                    debug(error)
+                    debug("\(#function): \(error)")
                     Alert.unknownError(target)
                 }
             }
@@ -560,7 +560,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
                 Alert.unknownError(target)
             }
         }
@@ -605,7 +605,7 @@ class API {
                         completionHandler?(false)
                     }
                 case .failure(let error):
-                    debug(error)
+                    debug("\(#function): \(error)")
                     Alert.unknownError(target)
                 }
             }
@@ -636,7 +636,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
                 Alert.unknownError(target)
             }
         }
@@ -660,7 +660,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
                 Alert.unknownError(target)
             }
         }
@@ -681,7 +681,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -700,7 +700,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -736,7 +736,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -756,7 +756,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -776,7 +776,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -795,7 +795,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -817,7 +817,7 @@ class API {
                 let result = json["result"].boolValue
                 completionHandler?(result)
             case .failure(let error):
-                debug(error)
+                debug("\(#function): \(error)")
             }
         }
     }

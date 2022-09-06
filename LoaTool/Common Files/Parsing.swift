@@ -30,7 +30,7 @@ class Parsing: NSObject {
     func downloadHTML(_ text: String, type: [Parsing.Category], completionHandler: @escaping (Character?, ParsingError?) -> Void) {
         guard let url = "https://lostark.game.onstove.com/Profile/Character/\(text)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file)\n\(#function) : URL Error")
+            debug("\(#function) : URL Error")
             return
         }
         
@@ -102,7 +102,7 @@ class Parsing: NSObject {
                     completionHandler(user, nil)
                 }
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
                 completionHandler(nil, .unknown)
             }
         }
@@ -138,7 +138,7 @@ class Parsing: NSObject {
             
             character.memberList = memberList
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return character
@@ -165,7 +165,7 @@ class Parsing: NSObject {
                 stats.expertise = Int(battle[safe: 5] ?? "0") ?? 0
             }
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return stats
@@ -254,7 +254,7 @@ class Parsing: NSObject {
                 }
             }
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return equips
@@ -308,7 +308,7 @@ class Parsing: NSObject {
             engrave.effect = engrave.effect.trimmingCharacters(in: .whitespacesAndNewlines)
             
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return engrave
@@ -363,7 +363,7 @@ class Parsing: NSObject {
             }
             
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return gems
@@ -387,7 +387,7 @@ class Parsing: NSObject {
                 cards.append(card)
             }
         } catch {
-            debug("\(#file) - \(#function): \(error)")
+            debug("\(#function): \(error)")
         }
         
         return cards
@@ -396,7 +396,7 @@ class Parsing: NSObject {
     func downloadHTML(parsingSkillWith text: String, completionHandler: @escaping ([Skill]?) -> Void) {
         guard let url = "https://m-lostark.game.onstove.com/Profile/Character/\(text)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#file)\n\(#function) : URL Error")
+            debug("\(#function) : URL Error")
             return
         }
         
@@ -501,7 +501,7 @@ class Parsing: NSObject {
                     completionHandler(skills)
                 }
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
             }
         }
     }
@@ -516,7 +516,7 @@ class Parsing: NSObject {
         text.forEach {
             guard let url = "https://m-lostark.game.onstove.com/Profile/Character/\($0)"
                 .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                debug("\(#file)\n\(#function) : URL Error")
+                debug("\(#function) : URL Error")
                 return
             }
             
@@ -595,7 +595,7 @@ class Parsing: NSObject {
                 
                 completionHandler(ad)
             } catch {
-                debug("\(#file) - \(#function): \(error)")
+                debug("\(#function): \(error)")
             }
         }
     }

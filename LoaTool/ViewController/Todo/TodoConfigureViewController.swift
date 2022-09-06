@@ -31,7 +31,6 @@ class TodoConfigureViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupNavigationBar()
         setupView()
@@ -41,7 +40,6 @@ class TodoConfigureViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
     }
     
     func setupView() {

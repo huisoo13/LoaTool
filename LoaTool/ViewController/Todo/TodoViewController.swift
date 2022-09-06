@@ -24,7 +24,6 @@ class TodoViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debug("\(#fileID): \(#function)")
 
         setupTableView()
         setupViewModelObserver()
@@ -32,7 +31,6 @@ class TodoViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debug("\(#fileID): \(#function)")
         
         viewModel.configure()
         
