@@ -115,7 +115,12 @@ extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        let width = collectionView.bounds.width > 375 * 3
+        ? collectionView.bounds.width / 3
+        : (collectionView.bounds.width > 375 * 2
+           ? collectionView.bounds.width / 2
+           : collectionView.bounds.width)
+        return CGSize(width: width, height: collectionView.bounds.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
