@@ -736,7 +736,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="Tib-IY-271"/>
-                                    <constraint firstAttribute="width" secondItem="7h9-tk-xxh" secondAttribute="height" multiplier="64:39" id="fL2-GL-AXe"/>
+                                    <constraint firstAttribute="width" secondItem="7h9-tk-xxh" secondAttribute="height" multiplier="64:39" priority="999" id="fL2-GL-AXe"/>
                                 </constraints>
                             </stackView>
                         </subviews>

@@ -150,9 +150,7 @@ extension TodoConfigureViewController {
             case 0:
                 content.included.append(expedition.identifier)
             case 1:
-                members.forEach { member in
-                    if content.level <= member.level { content.included.append(member.identifier) }
-                }
+                placementCharacter(for: content)
             default:
                 break
             }
@@ -173,6 +171,127 @@ extension TodoConfigureViewController {
         // 데이터 저장
         RealmManager.shared.add(todo)
         coordinator?.popViewController(animated: true)
+        
+        
+    }
+    
+    func placementCharacter(for content: AdditionalContent) {
+        switch content.identifier {
+        case "PRESET-001":
+            break
+        case "PRESET-002":
+            break
+        case "PRESET-003":  // 주간 에포나
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-004":
+            break
+        case "PRESET-005":
+            break
+        case "PRESET-006":  // 길드 출석
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-007":  // 어비스 던전
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-008":  // [노말] 카양겔
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1520 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-009":  // [하드1] 카양겔
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1560 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-010":  // [하드2] 카양겔
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1580 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-011":  // [하드3] 카양겔
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-012":  // 아르고스
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-013":  // [노말] 발탄
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1445 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-014":  // [하드] 발탄
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-015":  // [노말] 비아키스
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1460 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-016":  // [하드] 비아키스
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-017":  // [노말] 쿠크세이튼
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-018-1":  // [노말] 아브렐슈드 1-2
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1540 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-018-2":  // [노말] 아브렐슈드 3-4
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1550 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-018-3":  // [노말] 아브렐슈드 5-6
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1560 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-019-1":  // [하드] 아브렐슈드 1-2
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-019-2":  // [하드] 아브렐슈드 3-4
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-019-3":  // [하드] 아브렐슈드 5-6
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-020":  // [노말] 일리아칸
+            members.forEach { member in
+                if content.level <= member.level && member.level < 1600 {
+                    content.included.append(member.identifier)
+                }
+            }
+        case "PRESET-021":  // [하드] 일리아칸
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        default:
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        }
     }
 }
 

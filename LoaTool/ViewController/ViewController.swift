@@ -23,6 +23,11 @@ class ViewController: UIViewController, Storyboarded {
         
         setupCoordinator()
         setupViewControllers()
+        
+        if !UserDefaults.standard.bool(forKey: "22.09.06") {
+            UserDefaults.standard.set(false, forKey: "usingCloudKit")
+            UserDefaults.standard.set(true, forKey: "22.09.06")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
