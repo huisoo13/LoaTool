@@ -51,6 +51,12 @@ class API {
     }
     
     func selectBadge() {
+        let owner = User.shared.identifier
+        if owner == "" {
+            UserDefaults.standard.set(false, forKey: "showBadge")
+            return
+        }
+        
         let parameters: Parameters = [
             "owner": User.shared.identifier
         ]

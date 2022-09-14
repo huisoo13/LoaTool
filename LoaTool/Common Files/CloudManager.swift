@@ -21,6 +21,7 @@ class CloudManager {
     var timerForUser: Timer?
     var timerForTodo: Timer?
     
+    var allowNotification: Bool = true
     var allowAccess: Bool = {
         CKContainer.default().accountStatus { accountStatus, error in
             switch accountStatus {
@@ -368,11 +369,17 @@ class CloudManager {
         // STEP 1: iCloud 계정 연동 확인하기
         guard allowAccess else { return }
 
+        // CKNotification 일시 정지
+        allowNotification = false
+        
         timerForTodo = Timer.scheduledTimer(withTimeInterval: withTimeInterval, repeats: false, block: { (_) in
             DispatchQueue.global(qos: .background).async {
                 self.push([Todo.self, Content.self, Member.self, AdditionalContent.self]) { error in
                     guard error == nil else { return }
                     UserDefaults.standard.set(Date(), forKey: "modificationDate")
+                    
+                    // CKNotification 활성화
+                    self.allowNotification = true
                     debug("iCloud 할 일 정보 갱신")
                 }
             }

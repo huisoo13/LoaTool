@@ -130,8 +130,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 self.coordinator?.pushToPostViewController(post, notification: data, animated: true)
             }
         case -10:
-            // 공지사항
-            break
+            API.get.selectSinglePost(self, post: data.post) { post in
+                self.coordinator?.pushToPostViewController(post, notification: data, animated: true)
+            }
         case -20:
             // 경고
             break

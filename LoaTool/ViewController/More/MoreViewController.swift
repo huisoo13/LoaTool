@@ -11,7 +11,6 @@ import RealmSwift
 class MoreViewController: UIViewController, Storyboarded {
     @IBOutlet weak var tableView: UITableView!
     
-    
     @IBOutlet weak var bannerView: UIView!
     @IBOutlet weak var hideBannerButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,12 +19,13 @@ class MoreViewController: UIViewController, Storyboarded {
     
     var data: [AD] = []
 
-    let cellSize: CGSize = CGSize(width: UIScreen.main.bounds.width - 32, height: (UIScreen.main.bounds.width - 32) / (64 / 33))
+    var cellSize: CGSize = .zero
     let minimumLineSpacing: CGFloat = 8
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
         setupTableView()
         setupCollectionView()
         
@@ -45,6 +45,41 @@ class MoreViewController: UIViewController, Storyboarded {
         
         self.tableView.reloadData()
         self.collectionView.reloadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(endUpdateRealmFromCloudKit(_:)), name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { _ in
+            self.setupView()
+            self.tableView.reloadData()
+            self.collectionView.reloadData()
+        }, completion: { _ in
+            self.setupView()
+            self.tableView.reloadData()
+            self.collectionView.reloadData()
+        })
+    }
+    
+    @objc func endUpdateRealmFromCloudKit(_ sender: NSNotification) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    
+    func setupView() {
+        let height = collectionView.bounds.height
+        cellSize = CGSize(width: (height - 32) * (64 / 33), height: height - 32)
     }
     
     @IBAction func hideBannerAction(_ sender: UIButton) {

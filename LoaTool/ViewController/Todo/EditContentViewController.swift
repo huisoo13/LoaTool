@@ -123,18 +123,27 @@ class EditContentViewController: UIViewController, Storyboarded {
     @objc func valueChanged(_ sender: UISwitch) {
         type = sender.isOn ? 0 : 1
         
-        RealmManager.shared.update {
+        if isUpdated {
+            RealmManager.shared.update {
+                self.data?.type = self.category + self.type
+                self.data?.included.removeAll()
+            }
+        } else {
             self.data?.type = self.category + self.type
             self.data?.included.removeAll()
         }
-        
+
         tableView.reloadData()
     }
     
     @objc func valueChanged(segmentedControl: UISegmentedControl) {
         self.category = (segmentedControl.selectedSegmentIndex + 1) * 10
         
-        RealmManager.shared.update {
+        if isUpdated {
+            RealmManager.shared.update {
+                self.data?.type = self.category + self.type
+            }
+        } else {
             self.data?.type = self.category + self.type
         }
     }
@@ -188,10 +197,16 @@ extension EditContentViewController {
 
 extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
     func pickerView(_ icon: UIImage, didSelectItemAt index: Int) {
-        RealmManager.shared.update {
+        if isUpdated {
+            RealmManager.shared.update {
+                self.data?.icon = index
+                self.iconImageView.image = icon
+            }
+        } else {
             self.data?.icon = index
             self.iconImageView.image = icon
         }
+
 
     }
     
@@ -201,7 +216,18 @@ extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
 
         textField.text = text
         
-        RealmManager.shared.update {
+        if isUpdated {
+            RealmManager.shared.update {
+                switch self.selectTextFieldAtIndex {
+                case 0: // 이름
+                    self.data?.title = text
+                case 1: // 레벨
+                    self.data?.level = Double(text) ?? 0.0
+                default:
+                    break
+                }
+            }
+        } else {
             switch self.selectTextFieldAtIndex {
             case 0: // 이름
                 self.data?.title = text
@@ -264,7 +290,16 @@ extension EditContentViewController: UITableViewDelegate, UITableViewDataSource 
            let filter = Array(data.filter({ $0.category == self.type }))[safe: indexPath.row] {
             let included = self.data?.included.contains(filter.identifier) ?? false
             
-            RealmManager.shared.update {
+            if isUpdated {
+                RealmManager.shared.update {
+                    if included {
+                        guard let index = self.data?.included.firstIndex(of: filter.identifier) else { return }
+                        self.data?.included.remove(at: index)
+                    } else {
+                        self.data?.included.append(filter.identifier)
+                    }
+                }
+            } else {
                 if included {
                     guard let index = self.data?.included.firstIndex(of: filter.identifier) else { return }
                     self.data?.included.remove(at: index)

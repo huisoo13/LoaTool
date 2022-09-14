@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -140,6 +141,14 @@
                                             <constraint firstAttribute="width" constant="120" id="apZ-HK-BTn"/>
                                         </constraints>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rf3-gC-66A">
+                                        <rect key="frame" x="96" y="108" width="24" height="24"/>
+                                        <color key="backgroundColor" systemColor="separatorColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="SM8-Ix-IlK"/>
+                                            <constraint firstAttribute="width" constant="24" id="Sbi-7c-lwC"/>
+                                        </constraints>
+                                    </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="eMV-X9-QF9">
                                         <rect key="frame" x="100" y="112.5" width="16" height="15"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -152,11 +161,13 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="Rf3-gC-66A" firstAttribute="trailing" secondItem="1m5-GX-LNn" secondAttribute="trailing" id="C9s-JO-cCP"/>
                                     <constraint firstItem="1m5-GX-LNn" firstAttribute="top" secondItem="qm0-C6-gcw" secondAttribute="top" id="D7l-tm-aZV"/>
                                     <constraint firstAttribute="bottom" secondItem="1m5-GX-LNn" secondAttribute="bottom" id="R77-wJ-Qmz"/>
                                     <constraint firstItem="1m5-GX-LNn" firstAttribute="leading" secondItem="qm0-C6-gcw" secondAttribute="leading" id="a9V-h5-dPa"/>
                                     <constraint firstItem="eMV-X9-QF9" firstAttribute="bottom" secondItem="1m5-GX-LNn" secondAttribute="bottom" constant="-4" id="dVi-yX-FTq"/>
                                     <constraint firstItem="eMV-X9-QF9" firstAttribute="trailing" secondItem="1m5-GX-LNn" secondAttribute="trailing" constant="-4" id="lBl-3E-XQ6"/>
+                                    <constraint firstItem="Rf3-gC-66A" firstAttribute="bottom" secondItem="1m5-GX-LNn" secondAttribute="bottom" id="p0h-9k-Po5"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFp-mG-ais" customClass="ActiveLabel" customModule="ActiveLabel">
@@ -217,8 +228,8 @@
     </designables>
     <resources>
         <image name="arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" catalog="system" width="128" height="115"/>
-        <image name="bell.circle" catalog="system" width="128" height="121"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="bell.circle" catalog="system" width="128" height="123"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
         <image name="text.bubble.rtl" catalog="system" width="128" height="110"/>
         <namedColor name="Quality Orange">
             <color red="0.96100002527236938" green="0.62199997901916504" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -227,7 +238,7 @@
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
