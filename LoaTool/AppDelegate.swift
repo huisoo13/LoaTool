@@ -137,6 +137,10 @@ extension AppDelegate {
         CloudManager.shared.addSubscription()
     }
     
+    /*
+     갱신을 한다 -> 타이머가 돌아간다 -> 노티가 들어온다 -> 타이머 중 노티는 무시한다
+     */
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let _ = CKNotification(fromRemoteNotificationDictionary: userInfo) {
             guard let payload = userInfo["ck"] as? [String: AnyObject],
@@ -150,6 +154,7 @@ extension AppDelegate {
             
             switch zoneName {
             case "todoZone":
+                if !CloudManager.shared.allowNotification { return }
                 CloudManager.shared.pull([Todo.self]) { error in
                     guard error == nil else { return }
                     debug("iCloud 에서 할 일 정보 가져오기")

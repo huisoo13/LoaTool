@@ -24,7 +24,7 @@ class NotificationTableViewCell: UITableViewCell {
             
             switch data.type {
             case 0, 1, 2:
-                iconImageView.image = UIImage(named: "content.icon.19")
+                iconImageView.image = UIImage(named: "content.icon.19") // data.type == 1 ? UIImage(named: "content.icon.19") : UIImage(named: "content.icon.34")
                 iconImageView.layer.borderColor = UIColor.clear.cgColor
 
                 jobImageView.isHidden = false
