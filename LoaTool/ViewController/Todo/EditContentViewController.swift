@@ -206,8 +206,6 @@ extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
             self.data?.icon = index
             self.iconImageView.image = icon
         }
-
-
     }
     
     func textFieldShouldReturn(_ textField: UITextField) {
