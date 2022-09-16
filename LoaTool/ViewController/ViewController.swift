@@ -76,10 +76,30 @@ extension ViewController: CharacterListDelegate {
     fileprivate func setupTitleForTodo() {
         setTitle("할 일".localized, size: 20)
         
-        let gear = UIBarButtonItem(image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
-
+        let gear = UIAction(title: "", subtitle: "할 일 관리", image: UIImage(systemName: "gearshape.2", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)), identifier: nil) { _ in
+            self.coordinator?.pushToTodoManagementViewController(animated: true)
+        }
+        
+        let icloud = UIAction(title: "", subtitle: "iCloud 동기화", image: UIImage(systemName: "icloud", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)), identifier: nil) { _ in
+            let usingCloudKit = UserDefaults.standard.bool(forKey: "usingCloudKit")
+            let message = usingCloudKit ? "동기화를 중지해도 기존의 데이터는 남아있습니다.\n\n동기화를 중지하시겠습니까?" : "동일한 iCloud에 로그인 되어있는 기기에서 데이터를 동기화합니다.\n\n해당 기능을 사용 하시겠습니까?"
+            Alert.message(self, title: "iCloud 동기화", message: message, option: .successAndCancelAction) { _ in
+                UserDefaults.standard.set(!usingCloudKit, forKey: "usingCloudKit")
+                
+                if !usingCloudKit {
+                    CloudManager.shared.commit()
+                }
+                
+                Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.", option: .onlySuccessAction, handler: nil)
+            }
+        }
+        
+        let menu = UIMenu(title: "메뉴", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: [gear, icloud])
+        
+        let barButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), primaryAction: nil, menu: menu)
+        
         let todo = RealmManager.shared.readAll(Todo.self).first == nil
-        addRightBarButtonItems(todo ? [] : [gear])
+        addRightBarButtonItems(todo ? [] : [barButtonItem])
     }
     
     fileprivate func setupTitleForCommunity() {
@@ -130,7 +150,7 @@ extension ViewController: CharacterListDelegate {
         case 1:
             break
         case 2:
-            coordinator?.pushToTodoManagementViewController(animated: true)
+            break
         case 3:
             if User.shared.isConnected {
                 if sender.tag == 0 {
@@ -296,8 +316,6 @@ extension ViewController {
             
             // 이동
             viewController.didMove(toParent: self)
-            
-
         }
       
         // 어느 버튼을 눌렀느냐에 따라 탭바의 변경사항을 적용

@@ -211,7 +211,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                     CloudManager.shared.commit()
                 }
                 
-                Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.", option: .onlySuccessAction, handler: nil)
+                Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.\n 재실행 후 '할 일' 탭을 확인해주세요. ", option: .onlySuccessAction, handler: nil)
             }
         default:
             break
