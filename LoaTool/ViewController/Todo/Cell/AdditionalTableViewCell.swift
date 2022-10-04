@@ -172,17 +172,34 @@ class AdditionalTableViewCell: UITableViewCell {
         if data.type / 10 == 4 {
             guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return 0 }
             
+            // 수정 - 004: 동일 군단장 설정
             data.included.forEach { identifier in
                 if data.completed.contains(identifier) { return }
                 
                 var numberOfCompleted = 0
+                var linkingContent: [String] = []
                 additional.forEach { content in
                     if content.type >= 40 && content.completed.contains(identifier) {
                         numberOfCompleted += 1
+
+                        if linkingContent.contains(content.link) && content.link != "" {
+                            numberOfCompleted -= 1
+                        } else if content.link != "" {
+                            linkingContent.append(content.link)
+                        }
                     }
                 }
+
                 
-                if numberOfCompleted >= 3 { numberOfOverflow += 1 }
+                let link = additional.filter { content in
+                    return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+                }.map { content in content.link }
+                
+                let isLinkingContentCompleted = link.contains(data.link)
+                
+                if numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier) && !isLinkingContentCompleted {
+                    numberOfOverflow += 1
+                }
             }
         }
 
