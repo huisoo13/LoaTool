@@ -166,6 +166,7 @@
 		F1B0DD8D286AC50C00127AB7 /* BlockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1B0DD8B286AC50B00127AB7 /* BlockTableViewCell.xib */; };
 		F1B0DD8F286AC6A900127AB7 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0DD8E286AC6A900127AB7 /* Block.swift */; };
 		F1B0DD91286AC71700127AB7 /* BlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0DD90286AC71700127AB7 /* BlockViewModel.swift */; };
+		F1C2373B28EFEF4E00B6F169 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C2373A28EFEF4E00B6F169 /* ShapeView.swift */; };
 		F1C5516127F6C8060018EC45 /* GemBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C5515F27F6C8050018EC45 /* GemBarChartView.swift */; };
 		F1C5516227F6C8060018EC45 /* GemBarChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1C5516027F6C8060018EC45 /* GemBarChartView.xib */; };
 		F1CCAE07289CD048003D3556 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCAE06289CD047003D3556 /* ImagePickerView.swift */; };
@@ -360,6 +361,7 @@
 		F1B0DD8B286AC50B00127AB7 /* BlockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlockTableViewCell.xib; sourceTree = "<group>"; };
 		F1B0DD8E286AC6A900127AB7 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F1B0DD90286AC71700127AB7 /* BlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewModel.swift; sourceTree = "<group>"; };
+		F1C2373A28EFEF4E00B6F169 /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
 		F1C5515F27F6C8050018EC45 /* GemBarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GemBarChartView.swift; sourceTree = "<group>"; };
 		F1C5516027F6C8060018EC45 /* GemBarChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GemBarChartView.xib; sourceTree = "<group>"; };
 		F1CCAE06289CD047003D3556 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 		F1A9321A2757650F00A7FC53 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F1C2373A28EFEF4E00B6F169 /* ShapeView.swift */,
 				F15C25AF273DFF5300E66CF0 /* CircleProgressView.swift */,
 				F10BA63326A671DE0008722A /* IndicatorView.swift */,
 				F119ABD12810ECB200FD3D59 /* SHToggleButton.swift */,
@@ -1145,6 +1148,7 @@
 				F11B9AB4280D4B6300C5D0BA /* OpenSourceLibraryViewController.swift in Sources */,
 				F133350927D1B3FF00F6299A /* Keychain.swift in Sources */,
 				F114C208285AC57B0035B892 /* RamotionAnimator.swift in Sources */,
+				F1C2373B28EFEF4E00B6F169 /* ShapeView.swift in Sources */,
 				F182258027FFD43800546864 /* MoreTableViewCell.swift in Sources */,
 				F114C20C285AC57B0035B892 /* WCLLoadingView.swift in Sources */,
 				F11FA78626A518DB00C13633 /* Extension.swift in Sources */,

@@ -54,7 +54,7 @@ class SpotlightViewController: UIViewController, Storyboarded {
         label.textAlignment = rect.midX == UIScreen.main.bounds.midX ? .center : (rect.midX > UIScreen.main.bounds.midX ? .right : .left)
         label.numberOfLines = 0
         
-        label.frame = CGRect(center: CGPoint(x: UIScreen.main.bounds.width / 2, y: rect.maxY + 32), size: CGSize(width: UIScreen.main.bounds.width - 32, height: 50))
+        label.frame = CGRect(center: CGPoint(x: UIScreen.main.bounds.width / 2, y: rect.maxY + 16), size: CGSize(width: UIScreen.main.bounds.width - 32, height: 50))
         
         view.addSubview(label)
     }

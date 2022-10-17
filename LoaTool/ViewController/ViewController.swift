@@ -80,6 +80,10 @@ extension ViewController: CharacterListDelegate {
             self.coordinator?.pushToTodoManagementViewController(animated: true)
         }
         
+        let option = UIAction(title: "", subtitle: "환경 설정", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)), identifier: nil) { _ in
+            self.coordinator?.pushToOptionViewController(animated: true)
+        }
+        
         let icloud = UIAction(title: "", subtitle: "iCloud 동기화", image: UIImage(systemName: "icloud", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)), identifier: nil) { _ in
             let usingCloudKit = UserDefaults.standard.bool(forKey: "usingCloudKit")
             let message = usingCloudKit ? "동기화를 중지해도 기존의 데이터는 남아있습니다.\n\n동기화를 중지하시겠습니까?" : "동일한 iCloud에 로그인 되어있는 기기에서 데이터를 동기화합니다.\n\n해당 기능을 사용 하시겠습니까?"
@@ -94,7 +98,7 @@ extension ViewController: CharacterListDelegate {
             }
         }
         
-        let menu = UIMenu(title: "메뉴", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: [gear, icloud])
+        let menu = UIMenu(title: "메뉴", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: [gear, option, icloud])
         
         let barButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), primaryAction: nil, menu: menu)
         

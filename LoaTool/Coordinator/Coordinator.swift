@@ -293,6 +293,20 @@ class AppCoordinator: Coordinator {
         router?.present(viewController, animated: animated)
     }
     
+    func presentToSpotlightViewController(_ rect: CGRect?, text: String = "", animated: Bool) {
+        let viewController = SpotlightViewController.instantiate("Popup")
+        
+        viewController.coordinator = self
+        
+        viewController.rect = rect
+        viewController.text = text
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        
+        router?.present(viewController, animated: animated)
+    }
+    
     // MARK: - Dismiss
     func dismiss(animated: Bool) {
         router?.dismiss(animated: animated)
