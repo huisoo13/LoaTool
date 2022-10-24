@@ -229,8 +229,6 @@ class EditCharacterViewController: UIViewController, Storyboarded {
                 todo.gold.remove(at: index)
             }
         }
-        
-        print(todo.gold)
     }
 }
 
