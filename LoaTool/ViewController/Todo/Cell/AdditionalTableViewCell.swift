@@ -18,7 +18,7 @@ class AdditionalTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let numberOfLimitCompleted = 3
+    let numberOfLimitCompleted = 3 // 군단장 3회 제한
 
     // 수정 - 003: 스크롤 변경
     // 해당 부분 버그 발견 시 검토
@@ -174,35 +174,48 @@ class AdditionalTableViewCell: UITableViewCell {
             
             // 수정 - 004: 동일 군단장 설정
             data.included.forEach { identifier in
+                // STEP 1: 해당 컨텐츠를 완료한 캐릭터가 아니면 return
                 if data.completed.contains(identifier) { return }
                 
                 var numberOfCompleted = 0
                 var linkingContent: [String] = []
+                
+                // STEP 2: 추가 컨텐츠를 반복문으로 확인
                 additional.forEach { content in
+                    // STEP 3: 군단장 컨텐츠면서 해당 컨텐츠를 완료한 캐릭터인 경우
                     if content.type >= 40 && content.completed.contains(identifier) {
+                        // STEP 4: 캐릭터가 완료한 군단장 수 추가
                         numberOfCompleted += 1
 
+                        // STEP 5-1: 만약 해당 컨텐츠의 동일한 링크의 컨텐츠가 완료가 되었다면 완료한 군단장 수 차감
                         if linkingContent.contains(content.link) && content.link != "" {
                             numberOfCompleted -= 1
                         } else if content.link != "" {
+                            // STEP 5-2: 완료한 컨텐츠의 링크 값을 저장
                             linkingContent.append(content.link)
                         }
                     }
                 }
 
-                
+                // STEP 6: 완료된 컨텐츠의 모든 링크 값을 불러오기
                 let link = additional.filter { content in
                     return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
                 }.map { content in content.link }
                 
+                // STEP 7: 현재 컨텐츠의 링크 값이 완료된 컨텐츠의 링크에 포함하는지 확인
                 let isLinkingContentCompleted = link.contains(data.link)
-                
+
+                // STEP 8: 캐릭터가 완료한 군단장 수가 군단장 클리어 수 제한보다 큰 경우
+                //         해당 캐릭터가 해당 컨텐츠를 클리어하지 않은 경우
+                //         해당 컨텐츠의 링크 값이 동일한 다른 컨텐츠가 클리어되지 않은 경우
+                //         초과된 수 추가
                 if numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier) && !isLinkingContentCompleted {
                     numberOfOverflow += 1
                 }
             }
         }
 
+        // STEP 9: 해당 컨텐츠를 완료하지 않았지만 군단장 수 제한에 걸려서 완료 할 수 없는 캐릭터의 수 반환
         return numberOfOverflow
     }
 

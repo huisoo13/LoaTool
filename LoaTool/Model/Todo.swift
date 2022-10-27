@@ -239,6 +239,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
     @objc dynamic var allowLimit: Bool = false
     @objc dynamic var gold: Int = 0
     @objc dynamic var link: String = ""
+    @objc dynamic var gate: String = ""
 
     var included = List<String>()
     var completed = List<String>()
@@ -267,11 +268,12 @@ class AdditionalContent: Object, NSItemProviderWriting {
      - allowLimit: 골드 획득 제한 사용
      - gold: 획득 골드
      - link: 연결 (동일 군단장 식별)
+     - gate: 관문 (동일 관문 식별)
      - included: 미완료 캐릭터
      - completed: 완료 캐릭터
      - weekday: 요일
      */
-    init(identifier: String, title: String, type: Int, icon: Int, level: Double, limit: Double = 0, allowLimit: Bool = false, gold: Int, link: String = "", included: [String], completed: [String], weekday: [Int]) {
+    init(identifier: String, title: String, type: Int, icon: Int, level: Double, limit: Double = 0, allowLimit: Bool = false, gold: Int, link: String = "", gate: String = "", included: [String], completed: [String], weekday: [Int]) {
         self.identifier = identifier
         self.title = title
         self.type = type
@@ -281,6 +283,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
         self.allowLimit = allowLimit
         self.gold = gold
         self.link = link
+        self.gate = gate
 
         self.included.removeAll()
         self.included.append(objectsIn: included)
@@ -453,7 +456,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 icon: 9,
                                                                 level: 1490,
                                                                 gold: 4500,
-                                                                link: "PRESET-018",
+                                                                link: "LINK-001",
+                                                                gate: "GATE-001",
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -463,7 +467,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 icon: 9,
                                                                 level: 1500,
                                                                 gold: 1500,
-                                                                link: "PRESET-018",
+                                                                link: "LINK-001",
+                                                                gate: "GATE-002",
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -473,7 +478,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 icon: 9,
                                                                 level: 1520,
                                                                 gold: 2500,
-                                                                link: "PRESET-018",
+                                                                link: "LINK-001",
+                                                                gate: "GATE-003",
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -483,7 +489,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 icon: 9,
                                                                 level: 1540,
                                                                 gold: 5500,
-                                                                link: "PRESET-019",
+                                                                link: "LINK-001",
+                                                                gate: "GATE-001",
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -493,7 +500,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 icon: 9,
                                                                 level: 1550,
                                                                 gold: 2000,
-                                                                link: "PRESET-019",
+                                                                link: "LINK-001",
+                                                                gate: "GATE-002",
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
@@ -503,7 +511,8 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 icon: 9,
                                                                 level: 1560,
                                                                 gold: 3000,
-                                                                link: "PRESET-019",
+                                                                link: "LINK-001",
+                                                                gate: "GATE-003",
                                                                 included: [],
                                                                 completed: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),

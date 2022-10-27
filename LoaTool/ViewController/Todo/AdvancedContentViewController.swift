@@ -179,12 +179,7 @@ extension AdvancedContentViewController: UITableViewDelegate, UITableViewDataSou
                 filter.link = self.data?.link == filter.link ? "" : link
             }
             
-            
-            cell.linkView.isHidden = filter.link != self.data?.link || filter.link == ""
-            cell.showLinkView = filter.link == self.data?.link && filter.link != ""
-            
             guard let imageView = cell.linkView.subviews.last as? UIImageView else { return }
-            
             imageView.isHidden = filter.link != self.data?.link || filter.link == ""
         }
     }
