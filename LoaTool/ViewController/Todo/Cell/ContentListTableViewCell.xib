@@ -61,6 +61,11 @@
                                         <color key="tintColor" systemColor="placeholderTextColor"/>
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content.icon.35" translatesAutoresizingMaskIntoConstraints="NO" id="F54-Ae-O0x">
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                        <color key="tintColor" systemColor="linkColor"/>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
+                                    </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content.icon.23" translatesAutoresizingMaskIntoConstraints="NO" id="aME-9W-PfP">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                         <color key="tintColor" systemColor="linkColor"/>
@@ -69,11 +74,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="F54-Ae-O0x" firstAttribute="top" secondItem="zbc-U7-Dya" secondAttribute="top" id="2rB-lv-znv"/>
                                     <constraint firstAttribute="bottom" secondItem="aME-9W-PfP" secondAttribute="bottom" id="47q-Ge-LGB"/>
                                     <constraint firstAttribute="bottom" secondItem="H9G-da-atE" secondAttribute="bottom" id="Gf6-mU-xIu"/>
                                     <constraint firstItem="H9G-da-atE" firstAttribute="leading" secondItem="zbc-U7-Dya" secondAttribute="leading" id="KMR-Xs-FQQ"/>
                                     <constraint firstAttribute="trailing" secondItem="aME-9W-PfP" secondAttribute="trailing" id="NN1-Ev-SSw"/>
+                                    <constraint firstItem="F54-Ae-O0x" firstAttribute="leading" secondItem="zbc-U7-Dya" secondAttribute="leading" id="PHf-Gy-JtZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="F54-Ae-O0x" secondAttribute="trailing" id="SkN-oP-w0O"/>
                                     <constraint firstAttribute="trailing" secondItem="H9G-da-atE" secondAttribute="trailing" id="SmT-iL-5uC"/>
+                                    <constraint firstAttribute="bottom" secondItem="F54-Ae-O0x" secondAttribute="bottom" id="cRg-0z-NOf"/>
                                     <constraint firstAttribute="width" constant="32" id="iAm-yp-5jF"/>
                                     <constraint firstItem="aME-9W-PfP" firstAttribute="top" secondItem="zbc-U7-Dya" secondAttribute="top" id="nDB-tM-L07"/>
                                     <constraint firstItem="aME-9W-PfP" firstAttribute="leading" secondItem="zbc-U7-Dya" secondAttribute="leading" id="nIa-vD-y8v"/>
@@ -138,6 +147,7 @@
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="content.icon.23" width="64" height="64"/>
         <image name="content.icon.26" width="64" height="64"/>
+        <image name="content.icon.35" width="64" height="64"/>
         <namedColor name="Text Blue">
             <color red="0.33100000023841858" green="0.60100001096725464" blue="0.87699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

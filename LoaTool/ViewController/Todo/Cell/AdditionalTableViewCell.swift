@@ -197,19 +197,28 @@ class AdditionalTableViewCell: UITableViewCell {
                     }
                 }
 
-                // STEP 6: 완료된 컨텐츠의 모든 링크 값을 불러오기
+                // STEP 6-1: 완료된 컨텐츠의 모든 링크 값을 불러오기
                 let link = additional.filter { content in
                     return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
                 }.map { content in content.link }
                 
+                // STEP 6-2: 완료된 컨텐츠의 모든 동일 관문 값 불러오기
+                let gate = additional.filter { content in
+                    return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
+                }.map { content in content.gate }
+                
                 // STEP 7: 현재 컨텐츠의 링크 값이 완료된 컨텐츠의 링크에 포함하는지 확인
                 let isLinkingContentCompleted = link.contains(data.link)
+                let isSameGateContentCompleted = gate.contains(data.gate)
 
-                // STEP 8: 캐릭터가 완료한 군단장 수가 군단장 클리어 수 제한보다 큰 경우
-                //         해당 캐릭터가 해당 컨텐츠를 클리어하지 않은 경우
-                //         해당 컨텐츠의 링크 값이 동일한 다른 컨텐츠가 클리어되지 않은 경우
-                //         초과된 수 추가
+                // STEP 8-1: 캐릭터가 완료한 군단장 수가 군단장 클리어 수 제한보다 큰 경우
+                //           해당 캐릭터가 해당 컨텐츠를 클리어하지 않은 경우
+                //           해당 컨텐츠의 링크 값이 동일한 다른 컨텐츠가 클리어되지 않은 경우
+                //           초과된 수 추가
                 if numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier) && !isLinkingContentCompleted {
+                    numberOfOverflow += 1
+                } else if isSameGateContentCompleted {
+                    // STEP 8-2: 동일 군단장, 동일 관문을 클리어한 경우 초과된 수 추가
                     numberOfOverflow += 1
                 }
             }
@@ -279,90 +288,61 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
+        
+        guard let cell = cell as? AdditionalCollectionViewCell,
+              let data = self.data,
+              let member = RealmManager.shared.readAll(Todo.self).first?.member,
+              let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return }
+
+        let identifier = showExcludedMember ? filter.identifier : data.included[indexPath.item]
+
         if showExcludedMember {
-            // 수정 - 003
-            guard let cell = cell as? AdditionalCollectionViewCell,
-                  let data = self.data,
-                  let member = RealmManager.shared.readAll(Todo.self).first?.member,
-                  let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return }
-            
             let isIncluded = data.included.contains(filter.identifier)
             cell.contentView.isHidden = !isIncluded
-            
-            cell.completed = data.completed.contains(filter.identifier)
+        } else {
+            cell.contentView.isHidden = false
+        }
 
-            if data.type >= 40 {
-                guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                
-                // 수정 - 004: 동일 군단장 설정 + AdvancedContentViewController
-                var numberOfCompleted = 0
-                var linkingContent: [String] = []
-                additional.forEach { content in
-                    if content.type >= 40 && content.completed.contains(filter.identifier) {
-                        numberOfCompleted += 1
+        cell.completed = data.completed.contains(identifier)
 
-                        if linkingContent.contains(content.link) && content.link != "" {
-                            numberOfCompleted -= 1
-                        } else if content.link != "" {
-                            linkingContent.append(content.link)
-                        }
+        if data.type >= 40 {
+            guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+
+            // 수정 - 004
+            var numberOfCompleted = 0
+            var linkingContent: [String] = []
+            additional.forEach { content in
+                if content.type >= 40 && content.completed.contains(identifier) {
+                    numberOfCompleted += 1
+
+                    if linkingContent.contains(content.link) && content.link != "" {
+                        numberOfCompleted -= 1
+                    } else if content.link != "" {
+                        linkingContent.append(content.link)
                     }
                 }
-                
-                let link = additional.filter { content in
-                    return content.type >= 40 && content.completed.contains(filter.identifier) && content.link != ""
-                }.map { content in content.link }
-                
-                let isLinkingContentCompleted = link.contains(data.link)
-                
-                cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
-                ? (isLinkingContentCompleted ? .label : .systemRed)
-                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? .label : .systemPurple) : .label)
-                //
-            } else {
-                cell.nameLabel.textColor = .label
             }
-            
+
+            let link = additional.filter { content in
+                return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+            }.map { content in content.link }
+
+            // 수정 - 005 : 동일 관문 추가
+            let gate = additional.filter { content in
+                return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
+            }.map { content in content.gate }
+
+            let isLinkingContentCompleted = link.contains(data.link)
+            let isSameGateContentCompleted = gate.contains(data.gate)
+
+            let sameGateContentCompletedColor: UIColor = isSameGateContentCompleted ? .systemRed : .label
+
+            cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
+            ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemRed)
+            : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemPurple) : sameGateContentCompletedColor)
             //
         } else {
-            guard let cell = cell as? AdditionalCollectionViewCell,
-                  let data = self.data,
-                  let identifier = data.included[safe: indexPath.item] else { return }
-
-            cell.contentView.isHidden = false
-            cell.completed = data.completed.contains(identifier)
-            
-            if data.type >= 40 {
-                guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                
-                // 수정 - 004
-                var numberOfCompleted = 0
-                var linkingContent: [String] = []
-                additional.forEach { content in
-                    if content.type >= 40 && content.completed.contains(identifier) {
-                        numberOfCompleted += 1
-
-                        if linkingContent.contains(content.link) && content.link != "" {
-                            numberOfCompleted -= 1
-                        } else if content.link != "" {
-                            linkingContent.append(content.link)
-                        }
-                    }
-                }
-                
-                let link = additional.filter { content in
-                    return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
-                }.map { content in content.link }
-                
-                let isLinkingContentCompleted = link.contains(data.link)
-                
-                cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(identifier)
-                ? (isLinkingContentCompleted ? .label : .systemRed)
-                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(identifier) ? (isLinkingContentCompleted ? .label : .systemPurple) : .label)
-                //
-            } else {
-                cell.nameLabel.textColor = .label
-            }
+            cell.nameLabel.textColor = .label
         }
     }
     
@@ -391,124 +371,78 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
-        if showExcludedMember {
-            // 수정 - 003
-            guard let cell = collectionView.cellForItem(at: indexPath) as? AdditionalCollectionViewCell,
-                  let data = self.data,
-                  let member = RealmManager.shared.readAll(Todo.self).first?.member,
-                  let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? AdditionalCollectionViewCell,
+              let data = self.data,
+              let member = RealmManager.shared.readAll(Todo.self).first?.member,
+              let filter = Array(member).filter({ data.type % 10 == $0.category })[safe: indexPath.item] else { return }
 
-            var isExceeded = false
+        let identifier = showExcludedMember ? filter.identifier : data.included[indexPath.item]
+        var isExceeded = false
 
-            if !data.included.contains(filter.identifier) { return }
-            
-            RealmManager.shared.update {
-                if data.completed.contains(filter.identifier) {
-                    guard let index = data.completed.firstIndex(of: filter.identifier) else { return }
-                    data.completed.remove(at: index)
-                } else {
-                    if data.type >= 40 {
-                        var numberOfCompleted = 0
+        if showExcludedMember && !data.included.contains(identifier) { return }
 
-                        guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                        // 수정 - 004
-                        var linkingContent: [String] = []
-                        additional.forEach { content in
-                            if content.type >= 40 && content.completed.contains(filter.identifier) {
-                                numberOfCompleted += 1
+        RealmManager.shared.update {
+            if data.completed.contains(identifier) {
+                guard let index = data.completed.firstIndex(of: identifier) else { return }
+                data.completed.remove(at: index)
+            } else {
+                if data.type >= 40 {
+                    var numberOfCompleted = 0
 
-                                if linkingContent.contains(content.link) && content.link != "" {
-                                    numberOfCompleted -= 1
-                                } else if content.link != "" {
-                                    linkingContent.append(content.link)
-                                }
+                    guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                    // 수정 - 004
+                    var linkingContent: [String] = []
+                    additional.forEach { content in
+                        if content.type >= 40 && content.completed.contains(identifier) {
+                            numberOfCompleted += 1
+
+                            if linkingContent.contains(content.link) && content.link != "" {
+                                numberOfCompleted -= 1
+                            } else if content.link != "" {
+                                linkingContent.append(content.link)
                             }
                         }
-                        
-                        let link = additional.filter { content in
-                            return content.type >= 40 && content.completed.contains(filter.identifier) && content.link != ""
-                        }.map { content in content.link }
-                        
-                        let isLinkingContentCompleted = link.contains(data.link)
-                        
-                        switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted) {
-                        case (true, false):
-                            isExceeded = true
-                            return
-                        default:
-                            break
-                        }
-                        //
                     }
                     
-                    data.completed.append(filter.identifier)
-                }
-            }
-            
-            if isExceeded { return }
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
-            
-            cell.data = filter
-            cell.completed = data.completed.contains(filter.identifier)
-        } else {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? AdditionalCollectionViewCell,
-                  let data = self.data,
-                  let identifier = data.included[safe: indexPath.item] else { return }
-                  
-            var isExceeded = false
-            
-            RealmManager.shared.update {
-                if data.completed.contains(identifier) {
-                    guard let index = data.completed.firstIndex(of: identifier) else { return }
-                    data.completed.remove(at: index)
-                } else {
-                    if data.type >= 40 {
-                        var numberOfCompleted = 0
-
-                        guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                        // 수정 - 004
-                        var linkingContent: [String] = []
-                        additional.forEach { content in
-                            if content.type >= 40 && content.completed.contains(identifier) {
-                                numberOfCompleted += 1
-
-                                if linkingContent.contains(content.link) && content.link != "" {
-                                    numberOfCompleted -= 1
-                                } else if content.link != "" {
-                                    linkingContent.append(content.link)
-                                }
-                            }
-                        }
-                        
-                        let link = additional.filter { content in
-                            return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
-                        }.map { content in content.link }
-                        
-                        let isLinkingContentCompleted = link.contains(data.link)
-                        
-                        switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted) {
-                        case (true, false):
-                            isExceeded = true
-                            return
-                        default:
-                            break
-                        }
-                        //
-                    }
+                    let link = additional.filter { content in
+                        return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+                    }.map { content in content.link }
                     
-                    data.completed.append(identifier)
+                    let gate = additional.filter { content in
+                        return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
+                    }.map { content in content.gate }
+
+                    let isLinkingContentCompleted = link.contains(data.link)
+                    let isSameGateContentCompleted = gate.contains(data.gate)
+
+                    switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted, isSameGateContentCompleted) {
+                    case (true, false, false):
+                        isExceeded = true
+                        return
+                    case (true, true, true):
+                        isExceeded = true
+                        return
+                    case (false, true, true):
+                        isExceeded = true
+                        return
+                    default:
+                        break
+                    }
+                    //
                 }
+                
+                data.completed.append(identifier)
             }
-            
-            if isExceeded { return }
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
-            
-            let member = RealmManager.shared.read(Member.self, identifier: identifier).first
-            cell.data = member
-            cell.completed = data.completed.contains(identifier)
         }
+        
+        if isExceeded { return }
+
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+
+        let includeMember = RealmManager.shared.read(Member.self, identifier: identifier).first
+        cell.data = showExcludedMember ? filter : includeMember
+        cell.completed = data.completed.contains(identifier)
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 
 class AdvancedContentViewController: UIViewController, Storyboarded {
     @IBOutlet weak var linkTitleView: UIView!
+    @IBOutlet weak var infoView: UIStackView!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var goldView: UIView!
@@ -63,6 +64,12 @@ class AdvancedContentViewController: UIViewController, Storyboarded {
     
     
     func setupGestureRecognizer() {
+        linkTitleView.addGestureRecognizer { _ in
+            self.infoView.arrangedSubviews.forEach { view in
+                view.isHidden = !view.isHidden
+            }
+        }
+        
         goldView.addGestureRecognizer { _ in
             self.selectTextFieldAtIndex = 0
             self.coordinator?.presentToTextFieldViewController(self, title: "획득 골드", keyboardType: .numberPad, animated: true)
@@ -158,29 +165,50 @@ extension AdvancedContentViewController: UITableViewDelegate, UITableViewDataSou
             cell.data = filter
             cell.showLinkView = true
             
-            guard let imageView = cell.linkView.subviews.last as? UIImageView else { return cell }
-            imageView.isHidden = filter.link != self.data?.link || filter.link == ""
+            guard let commander = cell.linkView.subviews[safe: 1] as? UIImageView,
+                  let gate = cell.linkView.subviews.last as? UIImageView else { return cell }
+            commander.isHidden = (filter.link != self.data?.link || filter.link == "") || (filter.gate == self.data?.gate && filter.gate != "")
+            gate.isHidden = filter.gate != self.data?.gate || filter.gate == ""
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! ContentListTableViewCell
-        
         if let data = RealmManager.shared.readAll(Todo.self).first?.additional,
            let filter = Array(data.filter({  $0.type / 10 == 4 && $0.identifier != self.data?.identifier ?? ""  }))[safe: indexPath.row],
-           var link = self.data?.link {
+           var link = self.data?.link,
+           var gate = self.data?.gate {
             
             link = link == "" ? UUID().uuidString : link
+            gate = gate == "" ? UUID().uuidString : gate
             
+            let isLinkingContent = link == filter.link
+            let isSameGateContent = gate == filter.gate
+ 
             RealmManager.shared.update {
-                self.data?.link = link
-                filter.link = self.data?.link == filter.link ? "" : link
+                if (!isLinkingContent && !isSameGateContent) || (isLinkingContent && isSameGateContent) {
+                    self.data?.link = link
+                    filter.link = self.data?.link == filter.link ? "" : link
+                }
+                
+                if !isLinkingContent { return }
+                
+                self.data?.gate = gate
+                if gate == filter.gate {
+                    filter.gate = ""
+                } else {
+                    data.forEach { data in
+                        if data.identifier != self.data?.identifier && data.gate == gate && data.type / 10 == 4 {
+                            data.gate = ""
+                        }
+                    }
+                    
+                    filter.gate = gate
+                }
             }
-            
-            guard let imageView = cell.linkView.subviews.last as? UIImageView else { return }
-            imageView.isHidden = filter.link != self.data?.link || filter.link == ""
+
+            tableView.reloadData()
         }
     }
 }
