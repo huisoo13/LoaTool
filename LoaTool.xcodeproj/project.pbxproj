@@ -83,6 +83,7 @@
 		F11B9AB7280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11B9AB5280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.swift */; };
 		F11B9AB8280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F11B9AB6280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.xib */; };
 		F11E607C2873BBAB00ABED36 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11E607B2873BBAB00ABED36 /* CloudKit.framework */; };
+		F11F41EB2910DCEB00B9A35A /* ContentPresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F41EA2910DCEB00B9A35A /* ContentPresetViewController.swift */; };
 		F11FA75326A5069100C13633 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11FA75226A5069100C13633 /* AppDelegate.swift */; };
 		F11FA75526A5069100C13633 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11FA75426A5069100C13633 /* SceneDelegate.swift */; };
 		F11FA75A26A5069100C13633 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F11FA75826A5069100C13633 /* Main.storyboard */; };
@@ -272,6 +273,7 @@
 		F11B9AB5280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceLibraryTableViewCell.swift; sourceTree = "<group>"; };
 		F11B9AB6280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpenSourceLibraryTableViewCell.xib; sourceTree = "<group>"; };
 		F11E607B2873BBAB00ABED36 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		F11F41EA2910DCEB00B9A35A /* ContentPresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPresetViewController.swift; sourceTree = "<group>"; };
 		F11FA74F26A5069100C13633 /* LoaTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoaTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11FA75226A5069100C13633 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F11FA75426A5069100C13633 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 				F11AF0542807BDDF0079DA08 /* EditCharacterViewController.swift */,
 				F12309F328092C81002E8F35 /* EditContentViewController.swift */,
 				F1DC08A128BC881A00F1A22F /* AdvancedContentViewController.swift */,
+				F11F41EA2910DCEB00B9A35A /* ContentPresetViewController.swift */,
 				F1FEC3A327F430A700D56518 /* Cell */,
 			);
 			path = Todo;
@@ -1170,6 +1173,7 @@
 				F11FA77D26A518DB00C13633 /* Color.swift in Sources */,
 				F124F18427F285E100ADF95F /* PartyViewController.swift in Sources */,
 				F115AD0A280659B2006CE991 /* CollectionViewCell.swift in Sources */,
+				F11F41EB2910DCEB00B9A35A /* ContentPresetViewController.swift in Sources */,
 				F11FA75326A5069100C13633 /* AppDelegate.swift in Sources */,
 				F114C206285AC57B0035B892 /* UIColorExtension.swift in Sources */,
 				F1FE1EBF281B7932005BAAE4 /* ReorderController+GestureRecognizer.swift in Sources */,
@@ -1361,7 +1365,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.10.24;
+				MARKETING_VERSION = 22.10.28;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1386,7 +1390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.10.24;
+				MARKETING_VERSION = 22.10.28;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

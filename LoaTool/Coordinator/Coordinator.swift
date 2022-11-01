@@ -105,9 +105,10 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
-    func pushToEditContentViewController(_ content: AdditionalContent?, animated: Bool) {
+    func pushToEditContentViewController(_ content: AdditionalContent?, isUpdated: Bool = false, animated: Bool) {
         let viewController = EditContentViewController.instantiate()
         viewController.coordinator = self
+        viewController.isUpdated = isUpdated
         viewController.data = content
         navigationController.pushViewController(viewController, animated: animated)
     }
@@ -116,6 +117,12 @@ class AppCoordinator: Coordinator {
         let viewController = AdvancedContentViewController.instantiate()
         viewController.coordinator = self
         viewController.data = content
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToContentPresetViewController(animated: Bool) {
+        let viewController = ContentPresetViewController.instantiate()
+        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: animated)
     }
     

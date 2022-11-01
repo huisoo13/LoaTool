@@ -130,11 +130,11 @@ extension TodoManagementViewController: UITableViewDelegate, UITableViewDataSour
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewHeaderView") as! TableViewHeaderView
         
         header.label.text = section == 0 ? "캐릭터" : "컨텐츠"
-        header.button.setTitle("캐릭터 정보 자동 갱신", for: .normal)
-        header.button.addTarget(self, action: #selector(updateCharacterData(_:)), for: .touchUpInside)
+        header.button.setTitle(section == 0 ? "캐릭터 정보 자동 갱신" : "컨텐츠 프리셋 보기", for: .normal)
+        header.button.addTarget(self, action: section == 0 ? #selector(updateCharacterData(_:)) : #selector(moveToContentPresetViewController(_:)), for: .touchUpInside)
 
         header.typeView.isHidden = true
-        header.button.isHidden = section == 1
+        header.button.isHidden = false // section == 1
         
         return header
     }
@@ -152,6 +152,10 @@ extension TodoManagementViewController: UITableViewDelegate, UITableViewDataSour
         alert.addAction(ok)
         
         self.present(alert, animated: true)
+    }
+    
+    @objc func moveToContentPresetViewController(_ sender: UIButton) {
+        coordinator?.pushToContentPresetViewController(animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -219,7 +223,7 @@ extension TodoManagementViewController: UITableViewDelegate, UITableViewDataSour
         case 1:
             if let data = viewModel.result.value {
                 let content = data.additional[safe: indexPath.row]
-                coordinator?.pushToEditContentViewController(content, animated: true)
+                coordinator?.pushToEditContentViewController(content, isUpdated: true, animated: true)
             }
         default:
             break
