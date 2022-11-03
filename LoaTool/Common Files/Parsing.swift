@@ -198,7 +198,6 @@ class Parsing: NSObject {
                             let name = value.stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                             
                             equip.name = name
-                            print(name)
                         case "ItemTitle":
                             let position = key.components(separatedBy: "_").last ?? ""
                             let tier = value["leftStr2"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
