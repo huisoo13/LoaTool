@@ -185,6 +185,12 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                            showChevron: true)
             
             cell.subLabel.font = .italicSystemFont(ofSize: 12)
+        case 7:
+            cell.setupCell(title: "OST",
+                           image: UIImage(systemName: "music.note.list", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)) ?? UIImage(),
+                           subTitle: nil,
+                           subImage: nil,
+                           showChevron: true)
         default:
             break
         }
@@ -222,6 +228,8 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.\n 재실행 후 '할 일' 탭을 확인해주세요. ", option: .onlySuccessAction, handler: nil)
             }
+        case 7:
+            coordinator?.pushToOSTViewController(animated: true)
         default:
             break
         }

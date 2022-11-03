@@ -198,6 +198,7 @@ class Parsing: NSObject {
                             let name = value.stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                             
                             equip.name = name
+                            print(name)
                         case "ItemTitle":
                             let position = key.components(separatedBy: "_").last ?? ""
                             let tier = value["leftStr2"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -224,27 +225,26 @@ class Parsing: NSObject {
                                     .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                                 
                                 equip.additionalOption = option
-                            } else if value["Element_000"].stringValue.contains("각인") {
+                            }
+                            /* !!!: 22. 11. 02 패치로 전투 정보실 각인 위치가 변경
+                            else if value["Element_000"].stringValue.contains("각인") {
                                 let option = value["Element_001"].stringValue
                                     .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
                                     .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                                
+
                                 equip.engrave = option
                             }
+                             */
                         case "IndentStringGroup":
-                            /* 수정 - 002: 22. 07. 27 패치로 장비에 트라이포드 삭제 - 새로운 옵션이 추가될 가능성이 있으므로 코드는 주석처리
-
                             let data = value["Element_000"]["contentStr"].dictionaryValue.sorted(by: { $0 < $1 })
                             var option = ""
                             for i in data {
-                                if i.value["pointType"].intValue == 1 {
+                                if i.value["pointType"].intValue == 2 {
                                     option += i.value["contentStr"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil) + "\n"
                                 }
                             }
                             
-                            if option != "" { equip.tripod = option.trimmingCharacters(in: .whitespacesAndNewlines) }
-                             */
-                            break
+                            equip.engrave = option
                         default:
                             break
                         }

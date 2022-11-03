@@ -138,6 +138,7 @@
 		F13A193A27F174920095444D /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A193927F174920095444D /* TodoViewController.swift */; };
 		F13A193C27F174A50095444D /* CharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A193B27F174A50095444D /* CharacterViewController.swift */; };
 		F13A193E27F1A5400095444D /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A193D27F1A5400095444D /* MoreViewController.swift */; };
+		F13DF62C2911FD8600C57C9B /* OSTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF62B2911FD8500C57C9B /* OSTViewController.swift */; };
 		F13FF99C2856D0C10067FD9D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13FF99B2856D0C10067FD9D /* API.swift */; };
 		F1421839286C1B9D007BE6B1 /* AD.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1421838286C1B9D007BE6B1 /* AD.swift */; };
 		F1453340289A2E6C000D1108 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F145333F289A2E6B000D1108 /* OptionViewController.swift */; };
@@ -330,6 +331,7 @@
 		F13A193927F174920095444D /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		F13A193B27F174A50095444D /* CharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewController.swift; sourceTree = "<group>"; };
 		F13A193D27F1A5400095444D /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		F13DF62B2911FD8500C57C9B /* OSTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSTViewController.swift; sourceTree = "<group>"; };
 		F13FF99B2856D0C10067FD9D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		F1421838286C1B9D007BE6B1 /* AD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AD.swift; sourceTree = "<group>"; };
 		F145333F289A2E6B000D1108 /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 				F1839B6128530AA900CCC2B4 /* RegisterViewController.swift */,
 				F1B0DD88286ABC8800127AB7 /* BlockViewController.swift */,
 				F145333F289A2E6B000D1108 /* OptionViewController.swift */,
+				F13DF62B2911FD8500C57C9B /* OSTViewController.swift */,
 				F11B9AB2280D4B2700C5D0BA /* Cell */,
 			);
 			path = More;
@@ -1091,6 +1094,7 @@
 				F119B978281A5B7500F25F4B /* BookmarkTableViewCell.swift in Sources */,
 				F1B0DD8C286AC50C00127AB7 /* BlockTableViewCell.swift in Sources */,
 				F11A955827EBF0420074F4DE /* Party.swift in Sources */,
+				F13DF62C2911FD8600C57C9B /* OSTViewController.swift in Sources */,
 				F14F22A327C8BF6D00F75749 /* Character.swift in Sources */,
 				F1FE1EBD281B7932005BAAE4 /* ReorderController+SnapshotView.swift in Sources */,
 				F119ABD22810ECB200FD3D59 /* SHToggleButton.swift in Sources */,
@@ -1365,7 +1369,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.10.28;
+				MARKETING_VERSION = 22.11.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1390,7 +1394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.10.28;
+				MARKETING_VERSION = 22.11.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -197,6 +197,12 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
+    func pushToOSTViewController(animated: Bool) {
+        let viewController = OSTViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
     /*
      - 일반적인 Push
      let viewController = ViewController.instantiate()
