@@ -19,6 +19,7 @@ class MoreViewController: UIViewController, Storyboarded {
     
     var data: [AD] = []
 
+    var timer: Timer = Timer()
     var cellSize: CGSize = .zero
     let minimumLineSpacing: CGFloat = 8
 
@@ -37,6 +38,7 @@ class MoreViewController: UIViewController, Storyboarded {
             
             self.data = result
             self.collectionView.reloadData()
+            self.collectionView.setContentOffset(CGPoint(x: self.contentOffsetX(for: 2), y: 0), animated: false)
         }
     }
     
@@ -54,6 +56,13 @@ class MoreViewController: UIViewController, Storyboarded {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("endUpdateRealmFromCloudKit"), object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        collectionView.reloadData()
+        collectionView.setContentOffset(CGPoint(x: contentOffsetX(for: 2), y: 0), animated: false)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -176,6 +185,12 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                            showChevron: true)
             
             cell.subLabel.font = .italicSystemFont(ofSize: 12)
+        case 7:
+            cell.setupCell(title: "OST",
+                           image: UIImage(systemName: "music.note.list", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)) ?? UIImage(),
+                           subTitle: nil,
+                           subImage: nil,
+                           showChevron: true)
         default:
             break
         }
@@ -211,8 +226,10 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                     CloudManager.shared.commit()
                 }
                 
-                Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.", option: .onlySuccessAction, handler: nil)
+                Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.\n 재실행 후 '할 일' 탭을 확인해주세요. ", option: .onlySuccessAction, handler: nil)
             }
+        case 7:
+            coordinator?.pushToOSTViewController(animated: true)
         default:
             break
         }
@@ -226,15 +243,16 @@ extension MoreViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.decelerationRate = .fast
-
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: minimumLineSpacing * 2, bottom: 0, right: minimumLineSpacing * 2)
 
         collectionView.register(UINib(nibName: "BannerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BannerCollectionViewCell")
 
+        resetTimer()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data.count
+        let numberOfItems = 2 + data.count + 2
+        return data.count <= 1 ? data.count : numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -247,8 +265,20 @@ extension MoreViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerCollectionViewCell", for: indexPath) as! BannerCollectionViewCell
-                
-        cell.data = data[indexPath.item]
+        let numberOfItems = 2 + data.count + 2
+
+        switch indexPath.row {
+        case 0:
+            cell.data = data[data.count - 2]
+        case 1:
+            cell.data = data[data.count - 1]
+        case numberOfItems - 2:
+            cell.data = data[0]
+        case numberOfItems - 1:
+            cell.data = data[1]
+        default:
+            cell.data = data[indexPath.item - 2]
+        }
         
         return cell
     }
@@ -274,6 +304,44 @@ extension MoreViewController: UIScrollViewDelegate {
             index = Int(round(estimatedIndex))
         }
         
-        targetContentOffset.pointee = CGPoint(x: (CGFloat(index) * cellWidthIncludingSpacing) - (minimumLineSpacing * 2), y: 0)
+        targetContentOffset.pointee = CGPoint(x: contentOffsetX(for: index), y: 0)
+        
+        resetTimer()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        let numberOfItems = 2 + data.count + 2
+        
+        if contentOffset.x > contentOffsetX(for: numberOfItems - 2) {
+            collectionView.setContentOffset(CGPoint(x: contentOffsetX(for: 2), y: 0), animated: false)
+        } else if contentOffset.x < contentOffsetX(for: 1) {
+            collectionView.setContentOffset(CGPoint(x: contentOffsetX(for: numberOfItems - 3), y: 0), animated: false)
+        }
+    }
+    
+    func contentOffsetX(for index: Int) -> CGFloat {
+        let cellWidthIncludingSpacing: CGFloat = cellSize.width + minimumLineSpacing
+        return (CGFloat(index) * cellWidthIncludingSpacing) - (minimumLineSpacing * 2)
+    }
+    
+    func resetTimer() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { timer in
+            let cellWidthIncludingSpacing: CGFloat = self.cellSize.width + self.minimumLineSpacing
+            let estimatedIndex = self.collectionView.contentOffset.x / cellWidthIncludingSpacing
+            let index = Int(round(estimatedIndex))
+
+            let numberOfItems = 2 + self.data.count + 2
+            
+            if index == numberOfItems - 2 {
+                self.collectionView.setContentOffset(CGPoint(x: self.contentOffsetX(for: 2), y: 0), animated: false)
+            }
+
+            if self.data.count <= 1 { return }
+
+            let next = index + 1
+            self.collectionView.scrollToItem(at: IndexPath(item: next, section: 0), at: .centeredHorizontally, animated: true)
+        })
     }
 }

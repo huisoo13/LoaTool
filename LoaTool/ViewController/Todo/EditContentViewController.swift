@@ -59,9 +59,7 @@ class EditContentViewController: UIViewController, Storyboarded {
         segmentedControl.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
     }
     
-    func setupData() {
-        isUpdated = data != nil
-        
+    func setupData() {        
         guard let data = data else {
             data = AdditionalContent()
             data?.identifier = UUID().uuidString
@@ -206,8 +204,6 @@ extension EditContentViewController: IconPickerViewDelegate, TextFieldDelegate {
             self.data?.icon = index
             self.iconImageView.image = icon
         }
-
-
     }
     
     func textFieldShouldReturn(_ textField: UITextField) {

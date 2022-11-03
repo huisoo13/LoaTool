@@ -105,9 +105,10 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
-    func pushToEditContentViewController(_ content: AdditionalContent?, animated: Bool) {
+    func pushToEditContentViewController(_ content: AdditionalContent?, isUpdated: Bool = false, animated: Bool) {
         let viewController = EditContentViewController.instantiate()
         viewController.coordinator = self
+        viewController.isUpdated = isUpdated
         viewController.data = content
         navigationController.pushViewController(viewController, animated: animated)
     }
@@ -116,6 +117,12 @@ class AppCoordinator: Coordinator {
         let viewController = AdvancedContentViewController.instantiate()
         viewController.coordinator = self
         viewController.data = content
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToContentPresetViewController(animated: Bool) {
+        let viewController = ContentPresetViewController.instantiate()
+        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: animated)
     }
     
@@ -186,6 +193,12 @@ class AppCoordinator: Coordinator {
     
     func pushToOptionViewController(animated: Bool) {
         let viewController = OptionViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToOSTViewController(animated: Bool) {
+        let viewController = OSTViewController.instantiate()
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: animated)
     }
@@ -286,6 +299,20 @@ class AppCoordinator: Coordinator {
         
         viewController.images = images
         viewController.imageURL = imageURL
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToSpotlightViewController(_ rect: CGRect?, text: String = "", animated: Bool) {
+        let viewController = SpotlightViewController.instantiate("Popup")
+        
+        viewController.coordinator = self
+        
+        viewController.rect = rect
+        viewController.text = text
         
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext

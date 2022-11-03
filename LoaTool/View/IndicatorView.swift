@@ -105,6 +105,17 @@ class IndicatorView {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
             IndicatorView.loadingView.alpha = 1
         }, completion: nil)
+        
+        let _ = Timer.scheduledTimer(withTimeInterval: 10, repeats: false, block: { _ in
+            if IndicatorView.loadingView != UIView() {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                    IndicatorView.loadingView.alpha = 0
+                }, completion: { _ in
+                    IndicatorView.loadingView.removeFromSuperview()
+                    IndicatorView.loadingView = UIView()
+                })
+            }
+        })
     }
     
     static func hideLoadingView() {
