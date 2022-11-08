@@ -1,8 +1,8 @@
 //
-//  OSTViewController.swift
+//  OSTPlayerViewController.swift
 //  LoaTool
 //
-//  Created by Trading Taijoo on 2022/11/02.
+//  Created by Trading Taijoo on 2022/11/08.
 //
 
 /*
@@ -10,14 +10,20 @@
  : Use a group of connected audio node objects to generate and process audio signals and perform audio input and output.
  : 연결된 오디오 노드 개체 그룹을 사용하여 오디오 신호를 생성 및 처리하고 오디오 입력 및 출력을 수행합니다.
  
- TODO: 위 클래스로 에어팟의 연결 상태를 받아와 조정 할 수 있는지 확인하기
+ // TODO: 위 클래스로 에어팟의 연결 상태를 받아와 조정 할 수 있는지 확인하기
  */
 
+/*
+ // TODO: 커버이미지에 따라 다른 색상 불러오기
+ UIImageColors
+ : 이미지 색상 추출 라이브러리
+ https://github.com/jathu/UIImageColors
+ */
 
 import UIKit
 import AVFoundation
 
-class OSTViewController: UIViewController, Storyboarded {
+class OSTPlayerViewController: UIViewController, Storyboarded {
     weak var coordinator: AppCoordinator?
 
     var playerQueue: AVQueuePlayer?
@@ -48,9 +54,8 @@ class OSTViewController: UIViewController, Storyboarded {
     }
 }
 
-extension OSTViewController {
+extension OSTPlayerViewController {
     fileprivate func setupNavigationBar() {
         setTitle("OST".localized, size: 20)
     }
 }
-

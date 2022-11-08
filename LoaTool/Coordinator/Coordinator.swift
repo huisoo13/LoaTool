@@ -197,12 +197,6 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
-    func pushToOSTViewController(animated: Bool) {
-        let viewController = OSTViewController.instantiate()
-        viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: animated)
-    }
-    
     /*
      - 일반적인 Push
      let viewController = ViewController.instantiate()
@@ -317,6 +311,15 @@ class AppCoordinator: Coordinator {
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
         
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToOSTViewController(animated: Bool) {
+        let viewController = OSTViewController.instantiate()
+        viewController.coordinator = self
+        
+        viewController.modalPresentationStyle = .overCurrentContext
+
         router?.present(viewController, animated: animated)
     }
     

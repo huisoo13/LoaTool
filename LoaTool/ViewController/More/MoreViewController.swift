@@ -128,7 +128,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        7
+        8
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -229,7 +229,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                 Alert.message(self, title: "설정 완료", message: "앱 재실행 후 적용됩니다.\n 재실행 후 '할 일' 탭을 확인해주세요. ", option: .onlySuccessAction, handler: nil)
             }
         case 7:
-            coordinator?.pushToOSTViewController(animated: true)
+            coordinator?.presentToOSTViewController(animated: true)
         default:
             break
         }
