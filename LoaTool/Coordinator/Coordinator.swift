@@ -197,6 +197,18 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
+    func pushToOSTPlayerViewController(animated: Bool) {
+        let viewController = OSTPlayerViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToProfitAndLossViewController(animated: Bool) {
+        let viewController = ProfitAndLossViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
     /*
      - 일반적인 Push
      let viewController = ViewController.instantiate()
@@ -319,6 +331,29 @@ class AppCoordinator: Coordinator {
         viewController.coordinator = self
         
         viewController.modalPresentationStyle = .overCurrentContext
+
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToOSTPlayerViewController(animated: Bool) {
+        let viewController = OSTPlayerViewController.instantiate()
+        viewController.coordinator = self
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToRecipeViewController(_ recipe: Recipe? = nil, reducedCrafingFeeAtPercent: Double, animated: Bool) {
+        let viewController = RecipeViewController.instantiate("Popup")
+        viewController.coordinator = self
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        
+        viewController.reducedCrafingFeeAtPercent = reducedCrafingFeeAtPercent
+        viewController.data = recipe
 
         router?.present(viewController, animated: animated)
     }

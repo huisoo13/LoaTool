@@ -20,6 +20,11 @@
  https://github.com/jathu/UIImageColors
  */
 
+/*
+ https://github.com/xxxAIRINxxx/MusicAppTransition
+ https://www.kodeco.com/221-recreating-the-apple-music-now-playing-transition
+ */
+
 import UIKit
 import AVFoundation
 
@@ -31,8 +36,7 @@ class OSTPlayerViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNavigationBar()
-        setupAudioPlayer()
+        // setupAudioPlayer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +59,5 @@ class OSTPlayerViewController: UIViewController, Storyboarded {
 }
 
 extension OSTPlayerViewController {
-    fileprivate func setupNavigationBar() {
-        setTitle("OST".localized, size: 20)
-    }
+
 }

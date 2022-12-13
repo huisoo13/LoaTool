@@ -453,6 +453,88 @@ class API {
         }
     }
 
+    func selectRecipe(_ target: UIViewController, completionHandler: ((_ data: [Recipe]) -> Void)? = nil) {
+        guard Network.isConnected else {
+            Alert.networkError(target)
+            return
+        }
+        
+        let parameters: Parameters = [
+            :
+        ]
+                
+        AF.request(_SERVER + "selectRecipe.php", method: method, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                
+                let result = json["result"].boolValue
+                if !result { return }
+                
+                let data = json["data"].arrayValue
+                
+                var recipes: [Recipe] = []
+                data.forEach { data in
+                    let identifier = data["identifier"].stringValue
+                    let category = data["category"].stringValue
+                    let name = data["name"].stringValue
+                    let bundleCount = data["bundleCount"].intValue
+                    let cost = data["cost"].intValue
+                    let date = data["date"].stringValue
+
+                    let product = Material(
+                        identifier: data["product"]["identifier"].stringValue,
+                        name: data["product"]["name"].stringValue,
+                        grade: data["product"]["grade"].stringValue,
+                        url: data["product"]["url"].stringValue,
+                        bundleCount: data["product"]["bundleCount"].intValue,
+                        tradeRemainCount: data["product"]["tradeRemainCount"].intValue,
+                        yDayAvgPrice: data["product"]["yDayAvgPrice"].doubleValue,
+                        recentPrice: data["product"]["recentPrice"].intValue,
+                        currentMinPrice: data["product"]["currentMinPrice"].intValue,
+                        date: data["product"]["date"].stringValue
+                    )
+                    
+                    var material: [Material] = []
+                    let materials = data["material"].arrayValue
+                    materials.forEach { item in
+                        let data = Material(
+                            identifier: item["identifier"].stringValue,
+                            name: item["name"].stringValue,
+                            grade: item["grade"].stringValue,
+                            url: item["url"].stringValue,
+                            bundleCount: item["bundleCount"].intValue,
+                            tradeRemainCount: item["tradeRemainCount"].intValue,
+                            yDayAvgPrice: item["yDayAvgPrice"].doubleValue,
+                            recentPrice: item["recentPrice"].intValue,
+                            currentMinPrice: item["currentMinPrice"].intValue,
+                            neededQuantity: item["neededQuantity"].intValue,
+                            date: item["date"].stringValue
+                        )
+                        
+                        material.append(data)
+                    }
+                    
+                    let recipe = Recipe(
+                        identifier: identifier,
+                        category: category,
+                        name: name,
+                        cost: cost,
+                        bundleCount: bundleCount,
+                        product: product,
+                        material: material,
+                        date: date
+                    )
+                    
+                    recipes.append(recipe)
+                }
+                
+                completionHandler?(recipes)
+            case .failure(let error):
+                debug("\(#function): \(error)")
+            }
+        }
+    }
 
     
     // MARK: - POST

@@ -18,7 +18,9 @@ class OSTViewController: UIViewController, Storyboarded {
 
     var viewModel: OSTViewModel = OSTViewModel()
     var numberOfItem: Int = 0
+    
     var imageView: UIImageView = UIImageView()
+    var phonographRecord: UIImageView = UIImageView()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -62,9 +64,9 @@ class OSTViewController: UIViewController, Storyboarded {
                   let isDragging = isDragging else { return }
              
             if isDragging {
-                self.hideContentView(animated: true)
+                self.hideContentView()
             } else {
-                self.showContentView(animated: true)
+                self.showContentView()
                 let index = min(collectionViewLayout.selectedIndex, (self.viewModel.data.value?.count ?? 0) - 1)
                 self.viewModel.selectedItem.value = self.viewModel.data.value?[safe: index]
             }
@@ -99,32 +101,47 @@ class OSTViewController: UIViewController, Storyboarded {
 
     @IBAction func dismissAction(_ sender: UIButton) {
         coordinator?.dismiss(animated: true)
+        
+
     }
     
     @IBAction func playAction(_ sender: UIButton) {
-        // TODO: OSTPlayerViewController 이동하기 추가
+        // coordinator?.presentToOSTPlayerViewController(animated: true)
+        
+        DispatchQueue.main.async {
+            self.coordinator?.pushToOSTPlayerViewController(animated: true)
+
+        }
     }
     
-    // TODO: animation 효과 if문 추가하기 + LP판 이미지 및 효과 추가하기
-    func showContentView(animated: Bool) {
+    func showContentView() {
         contentView.alpha = 0
         contentView.isHidden = false
+        playButton.alpha = 0
+        playButton.isHidden = false
         
         UIView.animate(withDuration: 0.3) {
             self.contentView.alpha = 1
+            self.playButton.alpha = 1
+            self.phonographRecord.transform = CGAffineTransform(translationX: -100, y: 0)
         }
         
         imageView.isHidden = false
+        phonographRecord.isHidden = false
     }
     
-    func hideContentView(animated: Bool) {
+    func hideContentView() {
         UIView.animate(withDuration: 0.3) {
             self.contentView.alpha = 0
+            self.playButton.alpha = 0
         } completion: { _ in
             self.contentView.isHidden = true
+            self.playButton.isHidden = true
+            self.phonographRecord.transform = .identity
         }
         
         imageView.isHidden = true
+        phonographRecord.isHidden = true
     }
 }
 
@@ -162,15 +179,28 @@ extension OSTViewController: UICollectionViewDelegate, UICollectionViewDataSourc
             let center = collectionView.convert(point, to: collectionView.superview)
             
             imageView.removeFromSuperview()
+            phonographRecord.removeFromSuperview()
 
             imageView.frame = CGRect(origin: .zero, size: collectionViewLayout.itemSize)
             imageView.center = center
             imageView.layer.cornerRadius = 4
 
             imageView.isUserInteractionEnabled = false
+            
+            phonographRecord.frame = CGRect(origin: .zero, size: collectionViewLayout.itemSize)
+            phonographRecord.center = center
+            phonographRecord.image = UIImage(named: "phonograph.record")
 
+            phonographRecord.isUserInteractionEnabled = false
+
+            contentView.addSubview(phonographRecord)
             contentView.addSubview(imageView)
             
+            phonographRecord.layer.shadowColor = UIColor.black.cgColor
+            phonographRecord.layer.shadowOffset = CGSize(width: -3, height: 0)
+            phonographRecord.layer.shadowRadius = 6
+            phonographRecord.layer.shadowOpacity = 0.8
+
             viewModel.isDragging.value = false
         }
     }
