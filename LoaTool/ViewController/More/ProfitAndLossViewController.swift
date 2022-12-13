@@ -48,6 +48,7 @@ class ProfitAndLossViewController: UIViewController, Storyboarded {
             guard let data = data,
                   data.count != 0 else { return }
             
+            self.tableView.cr.endHeaderRefresh()
             self.tableView.reloadData()
         }
         
@@ -146,12 +147,16 @@ extension ProfitAndLossViewController: UITableViewDelegate, UITableViewDataSourc
         
         tableView.keyboardDismissMode = .onDrag
 
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorInset = .zero
         
         tableView.register(UINib(nibName: "TableViewHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "TableViewHeaderView")
         tableView.register(UINib(nibName: "ProfitAndLossTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfitAndLossTableViewCell")
         
+        tableView.cr.addHeadRefresh(animator: FastAnimator()) {
+            self.viewModel.configure(self)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
