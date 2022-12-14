@@ -49,6 +49,8 @@ class ProfitAndLossViewController: UIViewController, Storyboarded {
                   data.count != 0 else { return }
             
             self.tableView.cr.endHeaderRefresh()
+            self.tableView.cr.removeFooter()
+            
             self.tableView.reloadData()
         }
         
@@ -157,6 +159,11 @@ extension ProfitAndLossViewController: UITableViewDelegate, UITableViewDataSourc
         tableView.cr.addHeadRefresh(animator: FastAnimator()) {
             self.viewModel.configure(self)
         }
+        
+        tableView.cr.addFootRefresh() { }
+        
+        tableView.cr.footer?.start()
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

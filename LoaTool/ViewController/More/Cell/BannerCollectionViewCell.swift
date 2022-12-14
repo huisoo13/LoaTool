@@ -10,6 +10,7 @@ import Kingfisher
 
 class BannerCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -24,7 +25,9 @@ class BannerCollectionViewCell: UICollectionViewCell {
                                                 .scaleFactor(UIScreen.main.scale),
                                                 .transition(.fade(1))
                                             ])
+            companyLabel.text = "스마일게이트 - 희망스튜디오"
             label.text = data.title
+            label.adjustsFontSizeToFitWidth = true
         }
     }
     

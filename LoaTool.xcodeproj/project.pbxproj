@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -154,6 +154,8 @@
 		F15923D1286300EA00962FB9 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15923D0286300EA00962FB9 /* ReportViewController.swift */; };
 		F15C25B0273DFF5300E66CF0 /* CircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15C25AF273DFF5300E66CF0 /* CircleProgressView.swift */; };
 		F1652F5826B395C000CAFF72 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1652F5726B395C000CAFF72 /* OCRManager.swift */; };
+		F169FF16294983FA00DD8CF5 /* MoreToolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F169FF14294983FA00DD8CF5 /* MoreToolTableViewCell.swift */; };
+		F169FF17294983FA00DD8CF5 /* MoreToolTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F169FF15294983FA00DD8CF5 /* MoreToolTableViewCell.xib */; };
 		F182258027FFD43800546864 /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F182257E27FFD43700546864 /* MoreTableViewCell.swift */; };
 		F182258127FFD43800546864 /* MoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F182257F27FFD43800546864 /* MoreTableViewCell.xib */; };
 		F182258427FFD44C00546864 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F182258227FFD44C00546864 /* BannerCollectionViewCell.swift */; };
@@ -362,6 +364,8 @@
 		F15923D0286300EA00962FB9 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		F15C25AF273DFF5300E66CF0 /* CircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressView.swift; sourceTree = "<group>"; };
 		F1652F5726B395C000CAFF72 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRManager.swift; sourceTree = "<group>"; };
+		F169FF14294983FA00DD8CF5 /* MoreToolTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreToolTableViewCell.swift; sourceTree = "<group>"; };
+		F169FF15294983FA00DD8CF5 /* MoreToolTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreToolTableViewCell.xib; sourceTree = "<group>"; };
 		F16C718A286D25F000C6B7A4 /* LoaTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LoaTool.entitlements; sourceTree = "<group>"; };
 		F182257E27FFD43700546864 /* MoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewCell.swift; sourceTree = "<group>"; };
 		F182257F27FFD43800546864 /* MoreTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreTableViewCell.xib; sourceTree = "<group>"; };
@@ -660,6 +664,8 @@
 			children = (
 				F182257E27FFD43700546864 /* MoreTableViewCell.swift */,
 				F182257F27FFD43800546864 /* MoreTableViewCell.xib */,
+				F169FF14294983FA00DD8CF5 /* MoreToolTableViewCell.swift */,
+				F169FF15294983FA00DD8CF5 /* MoreToolTableViewCell.xib */,
 				F182258227FFD44C00546864 /* BannerCollectionViewCell.swift */,
 				F182258327FFD44C00546864 /* BannerCollectionViewCell.xib */,
 				F11B9AB5280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.swift */,
@@ -1007,7 +1013,7 @@
 				};
 			};
 			buildConfigurationList = F11FA74A26A5069100C13633 /* Build configuration list for PBXProject "LoaTool" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1044,6 +1050,7 @@
 				F182258127FFD43800546864 /* MoreTableViewCell.xib in Resources */,
 				F1FEC3A227F4305D00D56518 /* DailyCollectionViewCell.xib in Resources */,
 				F124F1AA27F2DABA00ADF95F /* GemTableViewCell.xib in Resources */,
+				F169FF17294983FA00DD8CF5 /* MoreToolTableViewCell.xib in Resources */,
 				F124F1A627F2DAAD00ADF95F /* AccessoryTableViewCell.xib in Resources */,
 				F114C212285AC57B0035B892 /* NormalHeader.bundle in Resources */,
 				F13857292822182200CF87BD /* ImageViewCollectionViewCell.xib in Resources */,
@@ -1149,6 +1156,7 @@
 				F119ABD9281120FC00FD3D59 /* PostViewController.swift in Sources */,
 				F1900C1728616755000CF2CC /* CommentViewController.swift in Sources */,
 				F11AEC7127FEB32300AE10DB /* CharacterListTableViewCell.swift in Sources */,
+				F169FF16294983FA00DD8CF5 /* MoreToolTableViewCell.swift in Sources */,
 				F11FA77F26A518DB00C13633 /* Debug.swift in Sources */,
 				F119B973281A2B5100F25F4B /* EditPostViewController.swift in Sources */,
 				F124F18D27F2900800ADF95F /* Router.swift in Sources */,
@@ -1453,7 +1461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.11.03;
+				MARKETING_VERSION = 22.12.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1478,7 +1486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.11.03;
+				MARKETING_VERSION = 22.12.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

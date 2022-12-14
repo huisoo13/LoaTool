@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -61,12 +62,14 @@
                 <constraints>
                     <constraint firstItem="tZ5-3t-DKK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AdU-9H-3AR" secondAttribute="trailing" constant="10" id="RVP-AY-7r9"/>
                     <constraint firstItem="AdU-9H-3AR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SYd-QQ-ais"/>
+                    <constraint firstAttribute="bottom" secondItem="rzV-BI-gXU" secondAttribute="bottom" constant="14" id="Sdg-3B-ftZ"/>
                     <constraint firstAttribute="trailing" secondItem="c3g-Wu-IFT" secondAttribute="trailing" constant="20" id="TbW-km-XD4"/>
                     <constraint firstItem="c3g-Wu-IFT" firstAttribute="leading" secondItem="tZ5-3t-DKK" secondAttribute="trailing" constant="6" id="UjY-Jv-MeH"/>
                     <constraint firstItem="AdU-9H-3AR" firstAttribute="leading" secondItem="rzV-BI-gXU" secondAttribute="trailing" constant="8" id="em9-s8-efN"/>
                     <constraint firstItem="rzV-BI-gXU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kKP-0I-M0W"/>
                     <constraint firstItem="tZ5-3t-DKK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lkk-1i-nBm"/>
                     <constraint firstItem="rzV-BI-gXU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="oiM-e2-9C7"/>
+                    <constraint firstItem="rzV-BI-gXU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="ydA-ta-EBT"/>
                     <constraint firstItem="c3g-Wu-IFT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zbw-j1-rBw"/>
                 </constraints>
             </tableViewCellContentView>
@@ -82,9 +85,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
