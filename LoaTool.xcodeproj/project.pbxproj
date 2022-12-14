@@ -156,6 +156,8 @@
 		F1652F5826B395C000CAFF72 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1652F5726B395C000CAFF72 /* OCRManager.swift */; };
 		F169FF16294983FA00DD8CF5 /* MoreToolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F169FF14294983FA00DD8CF5 /* MoreToolTableViewCell.swift */; };
 		F169FF17294983FA00DD8CF5 /* MoreToolTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F169FF15294983FA00DD8CF5 /* MoreToolTableViewCell.xib */; };
+		F169FF192949A6A900DD8CF5 /* Screenshot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F169FF182949A6A900DD8CF5 /* Screenshot.storyboard */; };
+		F169FF1B2949C05700DD8CF5 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F169FF1A2949C05700DD8CF5 /* SummaryViewController.swift */; };
 		F182258027FFD43800546864 /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F182257E27FFD43700546864 /* MoreTableViewCell.swift */; };
 		F182258127FFD43800546864 /* MoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F182257F27FFD43800546864 /* MoreTableViewCell.xib */; };
 		F182258427FFD44C00546864 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F182258227FFD44C00546864 /* BannerCollectionViewCell.swift */; };
@@ -366,6 +368,8 @@
 		F1652F5726B395C000CAFF72 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRManager.swift; sourceTree = "<group>"; };
 		F169FF14294983FA00DD8CF5 /* MoreToolTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreToolTableViewCell.swift; sourceTree = "<group>"; };
 		F169FF15294983FA00DD8CF5 /* MoreToolTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreToolTableViewCell.xib; sourceTree = "<group>"; };
+		F169FF182949A6A900DD8CF5 /* Screenshot.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Screenshot.storyboard; sourceTree = "<group>"; };
+		F169FF1A2949C05700DD8CF5 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		F16C718A286D25F000C6B7A4 /* LoaTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LoaTool.entitlements; sourceTree = "<group>"; };
 		F182257E27FFD43700546864 /* MoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewCell.swift; sourceTree = "<group>"; };
 		F182257F27FFD43800546864 /* MoreTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreTableViewCell.xib; sourceTree = "<group>"; };
@@ -653,7 +657,6 @@
 				F115AD0C28065C79006CE991 /* IconPickerViewController.swift */,
 				F138572B2822188200CF87BD /* ImageViewerViewController.swift */,
 				F12331762893B0F800D140EA /* SpotlightViewController.swift */,
-				F1D968722947015C0065A140 /* RecipeViewController.swift */,
 				F138572A2822182A00CF87BD /* Cell */,
 			);
 			path = Popup;
@@ -709,6 +712,7 @@
 				F11FA78726A5190700C13633 /* ViewController */,
 				F11FA75826A5069100C13633 /* Main.storyboard */,
 				F1111BFC26A7FE2B005F8793 /* Popup.storyboard */,
+				F169FF182949A6A900DD8CF5 /* Screenshot.storyboard */,
 				F11FA75D26A5069300C13633 /* LaunchScreen.storyboard */,
 			);
 			path = LoaTool;
@@ -769,6 +773,7 @@
 				F124F18927F2861E00ADF95F /* More */,
 				F17F305C291A0F270060EFB6 /* OST */,
 				F11AEC6E27FE9F1F00AE10DB /* Popup */,
+				F169FF1C2949C07500DD8CF5 /* Screenshot */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -890,6 +895,23 @@
 			children = (
 				F13857262822182200CF87BD /* ImageViewCollectionViewCell.swift */,
 				F13857272822182200CF87BD /* ImageViewCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F169FF1C2949C07500DD8CF5 /* Screenshot */ = {
+			isa = PBXGroup;
+			children = (
+				F1D968722947015C0065A140 /* RecipeViewController.swift */,
+				F169FF1A2949C05700DD8CF5 /* SummaryViewController.swift */,
+				F169FF1D2949C0AC00DD8CF5 /* Cell */,
+			);
+			path = Screenshot;
+			sourceTree = "<group>";
+		};
+		F169FF1D2949C0AC00DD8CF5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
 				F193C3C629471C81006991B9 /* MaterialTableViewCell.swift */,
 				F193C3C729471C81006991B9 /* MaterialTableViewCell.xib */,
 			);
@@ -1070,6 +1092,7 @@
 				F124F19E27F2DA9600ADF95F /* InfoTableViewCell.xib in Resources */,
 				F18E483526B1258800417669 /* InfoPlist.strings in Resources */,
 				F1B0DD8D286AC50C00127AB7 /* BlockTableViewCell.xib in Resources */,
+				F169FF192949A6A900DD8CF5 /* Screenshot.storyboard in Resources */,
 				F1FEC39A27F4237000D56518 /* DailyTableViewCell.xib in Resources */,
 				F1198B29280FEC5100A2FF50 /* CommunityTableViewCell.xib in Resources */,
 				F119B96C281A1D2400F25F4B /* ImagePickerTableViewCell.xib in Resources */,
@@ -1218,6 +1241,7 @@
 				F193C3C829471C81006991B9 /* MaterialTableViewCell.swift in Sources */,
 				F1B0DD89286ABC8900127AB7 /* BlockViewController.swift in Sources */,
 				F124F1A527F2DAAD00ADF95F /* AccessoryTableViewCell.swift in Sources */,
+				F169FF1B2949C05700DD8CF5 /* SummaryViewController.swift in Sources */,
 				F13677D02744E435001EF204 /* Parsing.swift in Sources */,
 				F106AB3227F53FC100C0B56C /* ErrorTableViewCell.swift in Sources */,
 				F124F19027F2D78900ADF95F /* CharacterCollectionViewCell.swift in Sources */,

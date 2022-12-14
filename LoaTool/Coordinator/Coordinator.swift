@@ -346,7 +346,7 @@ class AppCoordinator: Coordinator {
     }
     
     func presentToRecipeViewController(_ recipe: Recipe? = nil, reducedCrafingFeeAtPercent: Double, animated: Bool) {
-        let viewController = RecipeViewController.instantiate("Popup")
+        let viewController = RecipeViewController.instantiate("Screenshot")
         viewController.coordinator = self
         
         viewController.modalTransitionStyle = .crossDissolve

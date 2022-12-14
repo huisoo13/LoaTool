@@ -60,7 +60,7 @@ class ProfitAndLossViewController: UIViewController, Storyboarded {
 
 extension ProfitAndLossViewController {
     fileprivate func setupNavigationBar() {
-        setTitle("영지 제작 손익표".localized, size: 20)
+        setTitle("제작 공방".localized, size: 20)
         
         reducedCrafingFeeAtPercent = UserDefaults.standard.double(forKey: "reducedCrafingFeeAtPercent")
         

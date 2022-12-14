@@ -81,7 +81,7 @@ class RecipeViewController: UIViewController, Storyboarded {
         
         nameLabel.text = data.name
         goldLabel.text = "\(data.product.currentMinPrice)"
-        dateLabel.text = data.product.date
+        dateLabel.text = DateManager.shared.convertDateFormat(data.product.date, originFormat: "yyyy-MM-dd HH:mm:ss", newFormat: "yyyy-MM-dd HH:mm")
         
         let numberOfMaterial: Int = data.cost == 0 ? data.material.count : (data.material.count) + 1
         heightAnchor.constant = CGFloat(numberOfMaterial * 32 + 8)
