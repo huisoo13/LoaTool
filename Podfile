@@ -44,3 +44,13 @@ target 'LoaTool' do
   pod 'ActiveLabel'
 
 end
+
+# 다음 pod install 전까지 에러 안사라지면 추가하고 pod install
+# post_install do |installer|
+#   installer.pods_project.targets.each do |target|
+#     if target.name == 'Realm'
+#       create_symlink_phase = target.shell_script_build_phases.find { |x| x.name == 'Create Symlinks to Header Folders' }
+#       create_symlink_phase.always_out_of_date = "1"
+#     end
+#   end
+# end

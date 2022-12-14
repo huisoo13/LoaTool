@@ -3,11 +3,11 @@ PODS:
   - Alamofire (5.6.1)
   - Hero (1.6.1)
   - Kingfisher (7.2.4)
-  - Realm (10.28.1):
-    - Realm/Headers (= 10.28.1)
-  - Realm/Headers (10.28.1)
-  - RealmSwift (10.28.1):
-    - Realm (= 10.28.1)
+  - Realm (10.33.0):
+    - Realm/Headers (= 10.33.0)
+  - Realm/Headers (10.33.0)
+  - RealmSwift (10.33.0):
+    - Realm (= 10.33.0)
   - SwiftSoup (2.4.3)
   - SwiftyJSON (5.0.1)
   - TGPControls (5.1.0)
@@ -39,12 +39,12 @@ SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   Kingfisher: 2457be2121734e69e54a2312ecc0150eb9ae70b3
-  Realm: f4674e0e7ee537f67a78d79bd8319bc777d61d06
-  RealmSwift: 0e0e4786685c4442bf56d3831dfefb5fa05d6fd6
+  Realm: d4f810e161fa2c2c589b9860b6eb09238deacd73
+  RealmSwift: cef9946f09f2333a8f2ac8bac4f8de52fb9f5ac3
   SwiftSoup: 3384f2e618cfc1b3cbc7852c16692fe8de13fb8f
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   TGPControls: 52c0770bee9c9aee364f1559cc627fc01ea5e8b2
 
 PODFILE CHECKSUM: bedd1850bb082f6b3f6c05af2afb15b9f7774d52
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
