@@ -75,7 +75,7 @@ class Parsing: NSObject {
                     }
                     
                     if type.contains(.equip) {
-                        let equip = self.parsingEquipData2(element)
+                        let equip = self.parsingEquipData(element)
                         user.equip.append(objectsIn: equip)
                     }
                     
@@ -177,95 +177,8 @@ class Parsing: NSObject {
         return stats
     }
     
-    fileprivate func parsingEquipData(_ element: Element) -> [Equip] {
-        var equips: [Equip] = []
-        
-        do {
-            let html = try element.select("#profile-ability > script").html()
-                .replacingOccurrences(of: "$.Profile = ", with: "")
-                .replacingOccurrences(of: ";", with: "")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            let json = JSON.init(parseJSON: html)
-            let data = json["Equip"]
-            
-            
-            let keys = data.dictionaryValue.keys.filter { !$0.contains("Gem") }.sorted(by: { $0 < $1 })
-            for key in keys {
-                let equip = Equip()
-                
-                if data[key]["Element_001"]["value"]["leftStr2"].stringValue.contains("티어") {
-                    let options = data[key]
-                    for option in options.dictionaryValue.sorted(by: { $0 < $1 }) {
-                        let type = option.value["type"].stringValue
-                        let value = option.value["value"]
-                        switch type {
-                        case "NameTagBox":
-                            let name = value.stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                            
-                            equip.title = name
-                        case "ItemTitle":
-                            let position = key.components(separatedBy: "_").last ?? ""
-                            let tier = value["leftStr2"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                            let quality = value["qualityValue"].intValue
-                            let grade = value["slotData"]["iconGrade"].intValue
-                            let iconPath = value["slotData"]["iconPath"].stringValue
-                            
-                            equip.category = position
-                            equip.tier = tier
-                            equip.quality = quality
-                            equip.grade = grade
-                            equip.iconPath = "https://cdn-lostark.game.onstove.com/" + iconPath
-                        case "ItemPartBox":
-                            if value["Element_000"].stringValue.contains("기본")
-                                || value["Element_000"].stringValue.contains("팔찌") {
-                                let option = value["Element_001"].stringValue
-                                    .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
-                                    .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                                
-                                equip.basicEffect = option
-                            } else if value["Element_000"].stringValue.contains("추가") {
-                                let option = value["Element_001"].stringValue
-                                    .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
-                                    .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                                
-                                equip.additionalEffect = option
-                            }
-                            /* !!!: 22. 11. 02 패치로 전투 정보실 각인 위치가 변경
-                            else if value["Element_000"].stringValue.contains("각인") {
-                                let option = value["Element_001"].stringValue
-                                    .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
-                                    .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-
-                                equip.engrave = option
-                            }
-                             */
-                        case "IndentStringGroup":
-                            let data = value["Element_000"]["contentStr"].dictionaryValue.sorted(by: { $0 < $1 })
-                            var option = ""
-                            for i in data {
-                                if i.value["pointType"].intValue == 2 {
-                                    option += i.value["contentStr"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil) + "\n"
-                                }
-                            }
-                            
-                            equip.engravingEffect = option
-                        default:
-                            break
-                        }
-                    }
-                    
-                    equips.append(equip)
-                }
-            }
-        } catch {
-            debug("\(#function): \(error)")
-        }
-        
-        return equips
-    }
     
-    fileprivate func parsingEquipData2(_ element: Element) -> [Equip] {
+    fileprivate func parsingEquipData(_ element: Element) -> [Equip] {
         var equips: [Equip] = []
         
         do {
