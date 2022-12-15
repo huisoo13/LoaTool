@@ -65,7 +65,7 @@ class AccessoryTableViewCell: UITableViewCell {
             
             data.forEach { item in
                 if Int(item.category) == itemView.tag {
-                    let name = item.name
+                    let name = item.title
                     let quality = item.quality
                     let grade = item.grade
                     
@@ -125,7 +125,7 @@ class AccessoryTableViewCell: UITableViewCell {
             partLabel.text = data.category
         }
         
-        nameLabel.text = data.name
+        nameLabel.text = data.title
         nameLabel.textColor = data.grade.getColor()
         
         defaultLabel.text = (data.basicEffect ?? "").trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\n ", with: "\n")

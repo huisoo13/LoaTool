@@ -171,7 +171,7 @@ extension AppDelegate {
 extension AppDelegate {
     func migrationForRealm() {
         let oldSchemaVersion = UserDefaults.standard.integer(forKey: "oldSchemaVersion")
-        let newSchemaVersion = 14
+        let newSchemaVersion = 15
         
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
@@ -203,11 +203,9 @@ extension AppDelegate {
                     migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
                         newObject!["gate"] = ""
                     }
-
-                    UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")
                 }
                 
-                if oldSchemaVersion < newSchemaVersion { // 22. 12. 15
+                if oldSchemaVersion < 14 { // 22. 12. 15
                     migration.create(ETC.className())
                     
                     migration.enumerateObjects(ofType: Character.className()) { oldObject, newObject in
@@ -223,6 +221,13 @@ extension AppDelegate {
                     
                     migration.enumerateObjects(ofType: Skill.className()) { oldObject, newObject in
                         newObject!["type"] = ""
+                    }
+                }
+                
+                if oldSchemaVersion < newSchemaVersion { // 22. 12. 16
+                    migration.renameProperty(onType: Equip.className(), from: "name", to: "title")
+                    migration.enumerateObjects(ofType: Equip.className()) { oldObject, newObject in
+                        newObject!["level"] = 0
                     }
 
                     UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")

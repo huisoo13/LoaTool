@@ -128,9 +128,10 @@ class Stats: Object {
  캐릭터 장비 정보 모델
  */
 class Equip: Object {
-    @objc dynamic var name: String = ""
+    @objc dynamic var title: String = ""
     @objc dynamic var category: String = ""
-    @objc dynamic var tier: String = ""
+    @objc dynamic var level: Int = 0
+    @objc dynamic var tier: String?
     @objc dynamic var quality: Int = 0
     @objc dynamic var grade: Int = 0
     @objc dynamic var iconPath: String = ""

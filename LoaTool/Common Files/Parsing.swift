@@ -75,7 +75,7 @@ class Parsing: NSObject {
                     }
                     
                     if type.contains(.equip) {
-                        let equip = self.parsingEquipData(element)
+                        let equip = self.parsingEquipData2(element)
                         user.equip.append(objectsIn: equip)
                     }
                     
@@ -96,6 +96,9 @@ class Parsing: NSObject {
                     
                     let skill = self.parsingSkillData(element).sorted(by: { ($0.level, $1.type, $1.title) > ($1.level, $0.type, $0.title) })
                     user.skill.append(objectsIn: skill)
+                    
+                    let etc = self.parsingETCData(element)
+                    user.etc = etc
                     
                     user.lastUpdated = DateManager.shared.currentDate()
                     
@@ -167,10 +170,6 @@ class Parsing: NSObject {
                 stats.endurance = Int(battle[safe: 4] ?? "0") ?? 0
                 stats.expertise = Int(battle[safe: 5] ?? "0") ?? 0
             }
-            
-            let skillPoint = try element.select("#profile-skill > div.profile-skill-battle > div.profile-skill__point").text().replacingOccurrences(of: "트", with: "트 ")
-            print(skillPoint)
-            
         } catch {
             debug("\(#function): \(error)")
         }
@@ -204,7 +203,7 @@ class Parsing: NSObject {
                         case "NameTagBox":
                             let name = value.stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                             
-                            equip.name = name
+                            equip.title = name
                         case "ItemTitle":
                             let position = key.components(separatedBy: "_").last ?? ""
                             let tier = value["leftStr2"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -266,6 +265,83 @@ class Parsing: NSObject {
         return equips
     }
     
+    fileprivate func parsingEquipData2(_ element: Element) -> [Equip] {
+        var equips: [Equip] = []
+        
+        do {
+            let html = try element.select("#profile-ability > script").html()
+                .replacingOccurrences(of: "$.Profile = ", with: "")
+                .replacingOccurrences(of: ";", with: "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            let json = JSON.init(parseJSON: html)
+            let data = json["Equip"].filter({ !$0.0.contains("Gem") }).sorted(by: { $0.0 < $1.0 })
+            
+            data.forEach { key, json in
+                let equip = Equip()
+
+                let title = json["Element_000"]["value"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                var category = json["Element_001"]["value"]["leftStr0"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                category = json["Element_011"]["value"].stringValue.contains("[엘라 부여]") ? category + " [엘라]" : category
+                
+                var level: String? = json["Element_001"]["value"]["leftStr2"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                level = level?.contains("레벨") ?? false ? level?.components(separatedBy: " ")[safe: 2] : nil
+                
+                var tier = json["Element_001"]["value"]["leftStr2"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).components(separatedBy: " ").last?.replacingOccurrences(of: ")", with: "")
+                tier = tier != "" ? tier : nil
+                
+                let quality = json["Element_001"]["value"]["qualityValue"].intValue
+                let grade = json["Element_001"]["value"]["slotData"]["iconGrade"].intValue
+                let iconPath = "https://cdn-lostark.game.onstove.com/" + json["Element_001"]["value"]["slotData"]["iconPath"].stringValue
+                
+                let basic = (json["Element_004"]["value"]["Element_000"].stringValue.contains("기본") || json["Element_004"]["value"]["Element_000"].stringValue.contains("팔찌")
+                             ? json["Element_004"]["value"]["Element_001"]
+                             : json["Element_005"]["value"]["Element_001"]).stringValue
+                    .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
+                    .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                
+                
+                let additional = (json["Element_005"]["value"]["Element_000"].stringValue.contains("추가") || json["Element_005"]["value"]["Element_000"].stringValue.contains("세공")
+                                  ? json["Element_005"]["value"]["Element_001"]
+                                  : json["Element_006"]["value"]["Element_001"]).stringValue
+                    .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
+                    .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                
+                let isAccessory = json["Element_006"]["type"].stringValue == "IndentStringGroup"
+                var engraving: String? = ""
+                
+                if isAccessory {
+                    json["Element_006"]["value"]["Element_000"]["contentStr"].forEach { key, json in
+                        
+                        engraving! += json["contentStr"].stringValue
+                            .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
+                            .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                    }
+                }
+                
+                engraving = engraving == "" ? nil : engraving?.trimmingCharacters(in: .whitespacesAndNewlines)
+
+                equip.title = title
+                equip.category = category
+                equip.level = Int(level ?? "") ?? 0
+                equip.tier = tier
+                equip.quality = quality
+                equip.grade = grade
+                equip.iconPath = iconPath
+                equip.basicEffect = basic
+                equip.additionalEffect = additional
+                equip.engravingEffect = engraving
+                
+                equips.append(equip)
+            }
+        } catch {
+            debug("\(#function): \(error)")
+        }
+        
+        return equips
+    }
+
+    
     fileprivate func parsingSkillData(_ element: Element) -> [Skill] {
         var skills: [Skill] = []
         
@@ -281,18 +357,18 @@ class Parsing: NSObject {
             data.forEach { string, json in
                 let skill = Skill()
                 
-                let title = json["Element_000"]["value"].stringValue
-                let category = json["Element_001"]["value"]["name"].stringValue
-                let type = json["Element_001"]["value"]["level"].stringValue
-                let iconPath = "https://cdn-lostark.game.onstove.com/" + json["Element_001"]["value"]["slotData"]["iconPath"].stringValue
-                let level = json["Element_003"]["value"].stringValue
+                let title = json["Element_000"]["value"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                let category = json["Element_001"]["value"]["name"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                let type = json["Element_001"]["value"]["level"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                let iconPath = "https://cdn-lostark.game.onstove.com/" + json["Element_001"]["value"]["slotData"]["iconPath"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                let level = json["Element_003"]["value"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                 let tripods = json["Element_006"]["value"]
                 
                 tripods.enumerated().forEach { i, tripod in
-                    let name = tripod.1["name"].stringValue
-                    let level = tripod.1["tier"].stringValue
+                    let name = tripod.1["name"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                    let level = tripod.1["tier"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                     let _ = "https://cdn-lostark.game.onstove.com/" + tripod.1["slotData"]["iconPath"].stringValue
-                    let tripod = (name.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil) + " " + level.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)).trimmingCharacters(in: .whitespacesAndNewlines)
+                    let tripod = (name + " " + level).trimmingCharacters(in: .whitespacesAndNewlines)
                     
                     switch i {
                     case 0:
@@ -306,11 +382,11 @@ class Parsing: NSObject {
                     }
                 }
                 
-                skill.title = title.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                skill.category = category.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                skill.type = type.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                skill.level = level.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: " (최대)", with: "")
-                skill.iconPath = iconPath.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                skill.title = title
+                skill.category = category
+                skill.type = type
+                skill.level = level.replacingOccurrences(of: " (최대)", with: "")
+                skill.iconPath = iconPath
                 
                 
                 // 룬
@@ -496,6 +572,57 @@ class Parsing: NSObject {
         
         return cards
     }
+    
+    fileprivate func parsingETCData(_ element: Element) -> ETC {
+        let etc = ETC()
+        
+        do {
+            let html = try element.select("#profile-ability > script").html()
+                .replacingOccurrences(of: "$.Profile = ", with: "")
+                .replacingOccurrences(of: ";", with: "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            let json = JSON.init(parseJSON: html)
+            let data = json["Equip"].filter({ !$0.0.contains("Gem") }).sorted(by: { $0.0 < $1.0 })
+
+            let isSetType = data.first?.1["Element_008"]["type"].stringValue.contains("IndentStringGroup") ?? false
+            
+            
+            let types = isSetType ? data.first?.1["Element_008"]["value"]["Element_000"]["contentStr"] : data.first?.1["Element_009"]["value"]["Element_000"]["contentStr"]
+            let type = types?.dictionary?.values.map { json in
+                return json["contentStr"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).components(separatedBy: " ").first ?? ""
+            } ?? []
+            
+            let set = Array(Set(type))
+            
+            var title = ""
+            var piece = ""
+            
+            set.forEach { string in
+                let count = type.filter({ $0 == string }).count
+                title += "\(string) "
+                piece += "\(count)세트 "
+            }
+            
+            title = title.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "-")
+            piece = piece.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "-")
+
+            let setType = title + "\n" + piece
+            etc.setType = setType
+            
+            let skillPoint = try element.select("#profile-skill > div.profile-skill-battle > div.profile-skill__point").text().replacingOccurrences(of: "트", with: "트 ")
+            let usedSkillPoint = Int(skillPoint.components(separatedBy: " / ").first?.components(separatedBy: " ").last ?? "0") ?? 0
+            let maxSkillPoint = Int(skillPoint.components(separatedBy: " / ").last?.components(separatedBy: " ").last ?? "0") ?? 0
+            
+            etc.usedSkillPoint = usedSkillPoint
+            etc.maxSkillPoint = maxSkillPoint
+        } catch {
+            debug("\(#function): \(error)")
+        }
+        
+        return etc
+    }
+
     
     func downloadHTML(parsingSkillWith text: String, completionHandler: @escaping ([Skill]?) -> Void) {
         guard let url = "https://m-lostark.game.onstove.com/Profile/Character/\(text)"

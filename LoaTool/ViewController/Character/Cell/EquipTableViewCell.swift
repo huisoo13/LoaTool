@@ -58,7 +58,7 @@ class EquipTableViewCell: UITableViewCell {
         itemViews.enumerated().forEach { i, itemView in
             guard let progressView = itemView.subviews.first as? CircleProgressView,
                   let label = itemView.subviews.last as? UILabel,
-                  let name = data[safe: i]?.name,
+                  let name = data[safe: i]?.title,
                   let grade = data[safe: i]?.grade,
                   let quality = data[safe: i]?.quality else { return }
             
@@ -97,11 +97,12 @@ class EquipTableViewCell: UITableViewCell {
             partLabel.text = data.category
         }
         
-        nameLabel.text = data.name
+        nameLabel.text = data.title
         nameLabel.textColor = data.grade.getColor()
         
         defaultLabel.text = data.basicEffect
         additionalLabel.text = data.additionalEffect
 
+        tripodLabel.isHidden = true
     }
 }
