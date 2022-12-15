@@ -25,6 +25,7 @@ class Character: Object {
     var gem = List<Gem>()
     var sub = List<Sub>()
 
+    @objc dynamic var etc: ETC? = ETC()
     @objc dynamic var lastUpdated: String = ""
 
     override class func primaryKey() -> String? {
@@ -51,6 +52,7 @@ class Character: Object {
         - gem: 보석
         - sub: 보유 캐릭터 정보
      
+        - etc: 기타 정보
         - lastUpdated: 최종 갱신일
      */
 }
@@ -66,7 +68,7 @@ class Info: Object {
     @objc dynamic var expedition: Int = 0
     @objc dynamic var guild: String = ""
     @objc dynamic var isMaster: Bool = false
-    @objc dynamic var stronghold: String = ""
+    @objc dynamic var town: String = ""
     @objc dynamic var imageURL: String = ""
 
     @objc dynamic var memberList: String = ""
@@ -84,7 +86,7 @@ class Info: Object {
         - expedition: 원정대 레벨
         - guild: 길드명
         - isMaster: 길드마스터 여부
-        - stronghold: 영지명
+        - town: 영지명
      
         - memberList: 보유 캐릭터 목록
      */
@@ -127,15 +129,14 @@ class Stats: Object {
  */
 class Equip: Object {
     @objc dynamic var name: String = ""
-    @objc dynamic var position: String = ""
+    @objc dynamic var category: String = ""
     @objc dynamic var tier: String = ""
     @objc dynamic var quality: Int = 0
     @objc dynamic var grade: Int = 0
     @objc dynamic var iconPath: String = ""
-    @objc dynamic var defaultOption: String?
-    @objc dynamic var additionalOption: String?
-    @objc dynamic var engrave: String?
-    @objc dynamic var tripod: String?
+    @objc dynamic var basicEffect: String?
+    @objc dynamic var additionalEffect: String?
+    @objc dynamic var engravingEffect: String?
     
     var parent = LinkingObjects(fromType: Character.self, property: "equip")
     
@@ -144,15 +145,14 @@ class Equip: Object {
      
      - parameters:
         - name: 아이템명
-        - position: 부위
+        - category: 부위
         - tier: 티어
         - quality: 품질
         - grade: 등급
         - iconPath: 아이콘
-        - defaultOption: 기본 옵션
-        - additionalOption: 추가 옵션
-        - engrave: 각인
-        - tripod: 트라이포드
+        - basicEffect: 기본 옵션
+        - additionalEffect: 추가 옵션
+        - engravingEffect: 각인
      */
 }
 
@@ -178,6 +178,7 @@ class Engrave: Object {
  캐릭터 스킬 정보 모델
  */
 class Skill: Object {
+    @objc dynamic var type: String = ""
     @objc dynamic var category: String = ""
     @objc dynamic var title: String = ""
     @objc dynamic var iconPath: String = ""
@@ -194,6 +195,7 @@ class Skill: Object {
      구성 요소
      
      - parameters:
+        - type: 일반 / 각성
         - category: 종류
         - title: 스킬명
         - level: 스킬 레벨
@@ -278,6 +280,37 @@ class Gem: Object {
         self.grade = grade
         self.iconPath = iconPath
         self.tooltip = tooltip
+    }
+}
+
+/**
+ 캐릭터 기타 정보
+ */
+class ETC: Object {
+    @objc dynamic var setType: String = ""
+    @objc dynamic var maxSkillPoint: Int = 0
+    @objc dynamic var usedSkillPoint: Int = 0
+    
+
+    var parent = LinkingObjects(fromType: Character.self, property: "etc")
+    
+    /**
+     구성 요소
+     
+     - parameters:
+        - setType: 장비 세트 옵션
+        - maxSkillPoint: 보유 스킬 포인트
+        - usedSkillPoint: 사용 스킬 포인트
+     */
+    
+    override init() {
+        super.init()
+    }
+    
+    init(setType: String, maxSkillPoint: Int, usedSkillPoint: Int) {
+        self.setType = setType
+        self.maxSkillPoint = maxSkillPoint
+        self.usedSkillPoint = usedSkillPoint
     }
 }
 

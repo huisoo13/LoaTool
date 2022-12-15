@@ -80,7 +80,7 @@ class EquipTableViewCell: UITableViewCell {
     fileprivate func setupDetailView(_ data: Equip) {
         qualityView.value = data.quality >= 0 ? Double(data.quality) / 100 : nil
         
-        switch Int(data.position) {
+        switch Int(data.category) {
         case 0:
             partLabel.text = "무기"
         case 1:
@@ -94,32 +94,14 @@ class EquipTableViewCell: UITableViewCell {
         case 5:
             partLabel.text = "어깨장식"
         default:
-            break
+            partLabel.text = data.category
         }
         
         nameLabel.text = data.name
         nameLabel.textColor = data.grade.getColor()
         
-        defaultLabel.text = data.defaultOption
-        additionalLabel.text = data.additionalOption
+        defaultLabel.text = data.basicEffect
+        additionalLabel.text = data.additionalEffect
 
-        
-        let tripod = data.tripod ?? ""
-        var attributedString = NSMutableAttributedString(string: tripod)
-
-        let parts = tripod.split(separator: "]")
-        let values = parts.compactMap { (part: Substring) -> String? in
-            let parts = part.split(separator: "L", omittingEmptySubsequences: false)
-            guard parts.count == 2 else {
-                return nil
-            }
-            return String(parts[0])
-        }
-        
-        values.forEach({
-            attributedString = attributedString.addAttribute(of: $0, key: .foregroundColor, value: UIColor.systemPurple)
-        })
-
-        tripodLabel.attributedText = attributedString
     }
 }

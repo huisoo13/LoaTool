@@ -59,12 +59,12 @@ class AccessoryTableViewCell: UITableViewCell {
     
     
     fileprivate func setupSummaryView(_ data: [Equip], engrave: String) {
-        itemViews.enumerated().forEach { i, itemView in
+        itemViews.enumerated().forEach { i, itemView in            
             guard let progressView = itemView.subviews.first as? CircleProgressView,
                   let label = itemView.subviews.last as? UILabel else { return }
             
             data.forEach { item in
-                if Int(item.position) == itemView.tag {
+                if Int(item.category) == itemView.tag {
                     let name = item.name
                     let quality = item.quality
                     let grade = item.grade
@@ -82,7 +82,7 @@ class AccessoryTableViewCell: UITableViewCell {
                     label.textColor = grade.getColor()
 
                     if itemView.tag == 11 { // 어빌리티 스톤
-                        let stone = (item.engrave ?? "")
+                        let stone = (item.engravingEffect ?? "")
                             .replacingOccurrences(of: "[", with: "")
                             .replacingOccurrences(of: "] 활성도", with: "")
                                                 
@@ -110,7 +110,7 @@ class AccessoryTableViewCell: UITableViewCell {
         qualityView.value = data.quality >= 0 ? Double(data.quality) / 100 : nil
         if data.quality < 0 { qualityView.setProgress("-") }
         
-        switch Int(data.position) {
+        switch Int(data.category) {
         case 6:
             partLabel.text = "목걸이"
         case 7, 8:
@@ -122,17 +122,17 @@ class AccessoryTableViewCell: UITableViewCell {
         case 26:
             partLabel.text = "팔찌"
         default:
-            break
+            partLabel.text = data.category
         }
         
         nameLabel.text = data.name
         nameLabel.textColor = data.grade.getColor()
         
-        defaultLabel.text = (data.defaultOption ?? "").trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\n ", with: "\n")
-        additionalLabel.text = data.additionalOption
-        additionalLabel.superview?.isHidden = data.additionalOption == nil
+        defaultLabel.text = (data.basicEffect ?? "").trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\n ", with: "\n")
+        additionalLabel.text = data.additionalEffect
+        additionalLabel.superview?.isHidden = data.additionalEffect == nil
 
-        let engrave = data.engrave ?? ""
+        let engrave = data.engravingEffect ?? ""
         var attributedString = NSMutableAttributedString(string: engrave)
 
         let parts = engrave.split(separator: "[")

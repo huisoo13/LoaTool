@@ -34,18 +34,12 @@ class CharacterViewModel {
                     Toast(image: UIImage(systemName: "exclamationmark.triangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)), title: "데이터 불러오기 실패", description: "알 수 없는 오류가 발생했습니다.").present()
                     IndicatorView.hideLoadingView()
                 default:
-                    Parsing.shared.downloadHTML(parsingSkillWith: text) { skill in
-                        IndicatorView.hideLoadingView()
-                        
-                        if let skill = skill {
-                            data?.skill.append(objectsIn: skill)
-                        }
-                        
-                        self.result.value = data
-                        
-                        if let data = data, isMain {
-                            self.updateWithRealm(data)
-                        }
+                    IndicatorView.hideLoadingView()
+                    
+                    self.result.value = data
+                    
+                    if let data = data, isMain {
+                        self.updateWithRealm(data)
                     }
                 }
             }

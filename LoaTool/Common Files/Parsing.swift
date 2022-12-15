@@ -94,6 +94,9 @@ class Parsing: NSObject {
                         user.card.append(objectsIn: card)
                     }
                     
+                    let skill = self.parsingSkillData(element).sorted(by: { ($0.level, $1.type, $1.title) > ($1.level, $0.type, $0.title) })
+                    user.skill.append(objectsIn: skill)
+                    
                     user.lastUpdated = DateManager.shared.currentDate()
                     
                     let durationTime = CFAbsoluteTimeGetCurrent() - startTime
@@ -122,7 +125,7 @@ class Parsing: NSObject {
             let level = try data.select("div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item > span:nth-child(2)").text().replacingOccurrences(of: "Lv.", with: "").replacingOccurrences(of: ",", with: "")
             let guild = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__guild > span:nth-child(2)").text()
             let isMaster = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__guild > span:nth-child(2) > img").attr("src").contains("guild")
-            let stronghold = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__wisdom > span:nth-child(3)").text()
+            let town = try data.select("div.profile-ingame > div.profile-info > div.game-info > div.game-info__wisdom > span:nth-child(3)").text()
             let memberList = try element.select("#expand-character-list > ul > li > span > button > span").text().trimmingCharacters(in: .whitespacesAndNewlines)
 
             character.name = name
@@ -134,7 +137,7 @@ class Parsing: NSObject {
             character.level = Double(level) ?? 0
             character.guild = guild
             character.isMaster = isMaster
-            character.stronghold = stronghold
+            character.town = town
             
             character.memberList = memberList
         } catch {
@@ -164,6 +167,10 @@ class Parsing: NSObject {
                 stats.endurance = Int(battle[safe: 4] ?? "0") ?? 0
                 stats.expertise = Int(battle[safe: 5] ?? "0") ?? 0
             }
+            
+            let skillPoint = try element.select("#profile-skill > div.profile-skill-battle > div.profile-skill__point").text().replacingOccurrences(of: "트", with: "트 ")
+            print(skillPoint)
+            
         } catch {
             debug("\(#function): \(error)")
         }
@@ -205,7 +212,7 @@ class Parsing: NSObject {
                             let grade = value["slotData"]["iconGrade"].intValue
                             let iconPath = value["slotData"]["iconPath"].stringValue
                             
-                            equip.position = position
+                            equip.category = position
                             equip.tier = tier
                             equip.quality = quality
                             equip.grade = grade
@@ -217,13 +224,13 @@ class Parsing: NSObject {
                                     .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
                                     .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                                 
-                                equip.defaultOption = option
+                                equip.basicEffect = option
                             } else if value["Element_000"].stringValue.contains("추가") {
                                 let option = value["Element_001"].stringValue
                                     .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
                                     .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                                 
-                                equip.additionalOption = option
+                                equip.additionalEffect = option
                             }
                             /* !!!: 22. 11. 02 패치로 전투 정보실 각인 위치가 변경
                             else if value["Element_000"].stringValue.contains("각인") {
@@ -243,7 +250,7 @@ class Parsing: NSObject {
                                 }
                             }
                             
-                            equip.engrave = option
+                            equip.engravingEffect = option
                         default:
                             break
                         }
@@ -258,6 +265,104 @@ class Parsing: NSObject {
         
         return equips
     }
+    
+    fileprivate func parsingSkillData(_ element: Element) -> [Skill] {
+        var skills: [Skill] = []
+        
+        do {
+            let html = try element.select("#profile-ability > script").html()
+                .replacingOccurrences(of: "$.Profile = ", with: "")
+                .replacingOccurrences(of: ";", with: "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            let json = JSON.init(parseJSON: html)
+            let data = json["Skill"].sorted(by: { $0.0 < $1.0 })
+            
+            data.forEach { string, json in
+                let skill = Skill()
+                
+                let title = json["Element_000"]["value"].stringValue
+                let category = json["Element_001"]["value"]["name"].stringValue
+                let type = json["Element_001"]["value"]["level"].stringValue
+                let iconPath = "https://cdn-lostark.game.onstove.com/" + json["Element_001"]["value"]["slotData"]["iconPath"].stringValue
+                let level = json["Element_003"]["value"].stringValue
+                let tripods = json["Element_006"]["value"]
+                
+                tripods.enumerated().forEach { i, tripod in
+                    let name = tripod.1["name"].stringValue
+                    let level = tripod.1["tier"].stringValue
+                    let _ = "https://cdn-lostark.game.onstove.com/" + tripod.1["slotData"]["iconPath"].stringValue
+                    let tripod = (name.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil) + " " + level.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)).trimmingCharacters(in: .whitespacesAndNewlines)
+                    
+                    switch i {
+                    case 0:
+                        skill.tripod1 = tripod == "" ? nil : tripod
+                    case 1:
+                        skill.tripod2 = tripod == "" ? nil : tripod
+                    case 2:
+                        skill.tripod3 = tripod == "" ? nil : tripod
+                    default:
+                        break
+                    }
+                }
+                
+                skill.title = title.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                skill.category = category.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                skill.type = type.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                skill.level = level.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: " (최대)", with: "")
+                skill.iconPath = iconPath.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                
+                
+                // 룬
+                let rune = Rune()
+                let runeString = (json["Element_007"]["value"]["Element_000"].stringValue.contains("스킬 룬 효과") ? json["Element_007"]["value"]["Element_001"].stringValue : "").replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                let _ = json["Element_007"]["value"]["Element_000"].stringValue.contains("보석 효과") ? json["Element_007"]["value"]["Element_001"].stringValue : json["Element_008"]["value"]["Element_001"].stringValue
+                
+                rune.title = (runeString.components(separatedBy: "]").first ?? "")?.replacingOccurrences(of: "[", with: "") ?? ""
+                rune.tooltip = runeString.components(separatedBy: "] ").last ?? ""
+                
+                switch rune.title {
+                case "광분":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_202.png"
+                case "단죄":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_198.png"
+                case "속행":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_196.png"
+                case "수호":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_205.png"
+                case "심판":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_201.png"
+                case "압도":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_203.png"
+                case "정화":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_197.png"
+                case "집중":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_200.png"
+                case "철벽":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_195.png"
+                case "출혈":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_206.png"
+                case "풍요":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_204.png"
+                case "질풍":
+                    rune.iconPath = "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Use/Use_7_194.png"
+                default:
+                    break
+                }
+                
+                skill.rune = rune
+                skills.append(skill)
+
+                return
+            }
+            
+        } catch {
+            debug("\(#function): \(error)")
+        }
+        
+        return skills
+    }
+
     
     fileprivate func parsingEngraveData(_ element: Element) -> Engrave {
         let engrave = Engrave()
