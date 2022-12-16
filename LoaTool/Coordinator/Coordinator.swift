@@ -358,6 +358,17 @@ class AppCoordinator: Coordinator {
         router?.present(viewController, animated: animated)
     }
     
+    func presentToSummaryViewController(animated: Bool) {
+        let viewController = SummaryViewController.instantiate("Screenshot")
+        viewController.coordinator = self
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+
+        router?.present(viewController, animated: animated)
+    }
+    
+    
     // MARK: - Dismiss
     func dismiss(animated: Bool) {
         router?.dismiss(animated: animated)

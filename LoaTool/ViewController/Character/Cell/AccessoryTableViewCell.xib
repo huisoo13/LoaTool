@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +30,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GL7-z6-yhB">
                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="178"/>
                                                 <subviews>
-                                                    <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Q4-Xj-L6c">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Q4-Xj-L6c">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucv-g2-gsY" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -65,7 +66,7 @@
                                                             <constraint firstItem="jHM-ke-NAA" firstAttribute="leading" secondItem="Ucv-g2-gsY" secondAttribute="trailing" constant="10" id="vI5-p3-9VI"/>
                                                         </constraints>
                                                     </view>
-                                                    <view tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LaT-Ay-e0I">
+                                                    <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LaT-Ay-e0I">
                                                         <rect key="frame" x="0.0" y="44.5" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jl-N7-Kdy" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -101,7 +102,7 @@
                                                             <constraint firstItem="4Jl-N7-Kdy" firstAttribute="leading" secondItem="LaT-Ay-e0I" secondAttribute="leading" constant="16" id="pYb-Vb-WIe"/>
                                                         </constraints>
                                                     </view>
-                                                    <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rLT-d3-xXa">
+                                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rLT-d3-xXa">
                                                         <rect key="frame" x="0.0" y="89" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ua8-Dg-QM3" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -137,7 +138,7 @@
                                                             <constraint firstItem="BFY-BK-0km" firstAttribute="top" secondItem="ua8-Dg-QM3" secondAttribute="top" id="oaC-Kp-sds"/>
                                                         </constraints>
                                                     </view>
-                                                    <view tag="11" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-gU-181">
+                                                    <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-gU-181">
                                                         <rect key="frame" x="0.0" y="133.5" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgQ-3F-chu" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -179,7 +180,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fjk-vS-uSF">
                                                 <rect key="frame" x="160" y="0.0" width="160" height="178"/>
                                                 <subviews>
-                                                    <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSY-Jv-Szi">
+                                                    <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSY-Jv-Szi">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYf-Of-lIV" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -215,7 +216,7 @@
                                                             <constraint firstItem="CYf-Of-lIV" firstAttribute="leading" secondItem="zSY-Jv-Szi" secondAttribute="leading" constant="16" id="ibF-y6-Bcg"/>
                                                         </constraints>
                                                     </view>
-                                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtz-1X-qaU">
+                                                    <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtz-1X-qaU">
                                                         <rect key="frame" x="0.0" y="44.5" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n3O-tf-fut" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -251,7 +252,7 @@
                                                             <constraint firstItem="n3O-tf-fut" firstAttribute="top" secondItem="vtz-1X-qaU" secondAttribute="top" constant="9" id="vVe-DP-qgI"/>
                                                         </constraints>
                                                     </view>
-                                                    <view tag="26" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3b-Je-7K7">
+                                                    <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3b-Je-7K7">
                                                         <rect key="frame" x="0.0" y="89" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJ1-WU-tt4" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -287,7 +288,7 @@
                                                             <constraint firstItem="TiZ-xE-jsl" firstAttribute="top" secondItem="zJ1-WU-tt4" secondAttribute="top" id="svS-eE-7sd"/>
                                                         </constraints>
                                                     </view>
-                                                    <view tag="27" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQN-0p-W28">
+                                                    <view userInteractionEnabled="NO" tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQN-0p-W28">
                                                         <rect key="frame" x="0.0" y="133.5" width="160" height="44.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4D-hE-xds" customClass="CircleProgressView" customModule="LoaTool" customModuleProvider="target">
@@ -481,7 +482,7 @@
                 <outletCollection property="itemViews" destination="A3b-Je-7K7" collectionClass="NSMutableArray" id="oXO-Gn-Xiz"/>
                 <outletCollection property="itemViews" destination="TQN-0p-W28" collectionClass="NSMutableArray" id="eve-tB-TZP"/>
             </connections>
-            <point key="canvasLocation" x="139" y="-5"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-5.3571428571428568"/>
         </tableViewCell>
     </objects>
     <resources>

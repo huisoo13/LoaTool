@@ -55,6 +55,8 @@ class MoreToolTableViewCell: UITableViewCell {
                 case 2:
                     guard let url = URL(string: "https://open.kakao.com/o/sBIbVWyd"), UIApplication.shared.canOpenURL(url) else { return }
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                case 3:
+                    self.coordinator?.presentToSummaryViewController(animated: true)
                 default:
                     break
                 }

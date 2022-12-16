@@ -224,8 +224,7 @@ class Parsing: NSObject {
                 var engraving: String? = ""
                 
                 if isAccessory {
-                    json["Element_006"]["value"]["Element_000"]["contentStr"].forEach { key, json in
-                        
+                    json["Element_006"]["value"]["Element_000"]["contentStr"].sorted(by: { $0.0 < $1.0 }).forEach { key, json in
                         engraving! += json["contentStr"].stringValue
                             .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
                             .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)

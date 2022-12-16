@@ -59,21 +59,24 @@ class EquipTableViewCell: UITableViewCell {
             guard let progressView = itemView.subviews.first as? CircleProgressView,
                   let label = itemView.subviews.last as? UILabel,
                   let name = data[safe: i]?.title,
+                  let category = data[safe: i]?.category,
                   let grade = data[safe: i]?.grade,
                   let quality = data[safe: i]?.quality else { return }
             
-            let components = name.components(separatedBy: " ")
-            let prefix = (components[safe: 1] ?? "").replacingOccurrences(of: "의", with: "")
+            let filter = name.components(separatedBy: " ").filter { string in
+                return !category.contains(string)
+            }.joined(separator: " ")
             
-            let title = prefix.containOfSet()
-            ? (components[safe: 0] ?? "") + " " + (components[safe: 1] ?? "").replacingOccurrences(of: "의", with: "")
-            : (components[safe: 0] ?? "") + " " + (components[safe: 1] ?? "") + " " + (components[safe: 2] ?? "").replacingOccurrences(of: "의", with: "")
+            let components = filter.components(separatedBy: " ")
+            let index = components.firstIndex(of: (components.filter({ $0.contains("의") }).last ?? "")) ?? 0
+            
+            let title = components.enumerated().map { i, string in
+                return i <= index + 1 ? string : ""
+            }.joined(separator: " ")
             
             progressView.value = quality >= 0 ? Double(quality) / 100 : nil
             label.text = title
             label.textColor = grade.getColor()
-            
-            
         }
     }
     
