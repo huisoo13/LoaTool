@@ -42,7 +42,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="NnK-1k-Da6" firstAttribute="centerX" secondItem="j01-8Y-gpu" secondAttribute="centerX" id="VYV-Vv-hy8"/>
                                             <constraint firstItem="8Vi-qQ-vtx" firstAttribute="top" secondItem="j01-8Y-gpu" secondAttribute="top" constant="12" id="aaj-tL-VqV"/>
@@ -68,7 +68,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="buZ-Hf-Ctf" firstAttribute="centerX" secondItem="BNX-3R-erR" secondAttribute="centerX" id="Gkz-2w-glF"/>
                                             <constraint firstItem="GDQ-lh-4pU" firstAttribute="centerX" secondItem="BNX-3R-erR" secondAttribute="centerX" id="IlB-yE-wPr"/>
@@ -94,7 +94,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="KDn-xh-9VY" firstAttribute="centerX" secondItem="fz0-cD-PZz" secondAttribute="centerX" id="AvQ-lQ-xEw"/>
                                             <constraint firstItem="3AO-xO-KNt" firstAttribute="centerX" secondItem="fz0-cD-PZz" secondAttribute="centerX" id="Q7l-n6-sty"/>
@@ -127,7 +127,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="w7W-az-znh" firstAttribute="top" secondItem="c6y-HT-vY2" secondAttribute="top" constant="16" id="Gsl-7Z-guo"/>
                                             <constraint firstItem="B9I-XV-g4o" firstAttribute="centerY" secondItem="c6y-HT-vY2" secondAttribute="centerY" id="Koj-B0-vhg"/>
@@ -188,6 +188,9 @@
         <image name="icon.loatool.clean" width="369.66665649414062" height="375.66665649414062"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

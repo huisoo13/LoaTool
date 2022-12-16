@@ -50,7 +50,7 @@ class SummaryViewController: UIViewController, Storyboarded {
     
     weak var coordinator: AppCoordinator?
     
-    var text: String = "하멜리에"
+    var text: String = "후이수"
     var viewModel = CharacterViewModel()
 
     override func viewDidLoad() {
@@ -58,6 +58,7 @@ class SummaryViewController: UIViewController, Storyboarded {
 
         setupView()
         setupViewModelObserver()
+        setupGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +84,10 @@ class SummaryViewController: UIViewController, Storyboarded {
         contentsView.subviews.first?.layer.borderWidth = 0.5
         
         contentsView.subviews.forEach { $0.isUserInteractionEnabled = false }
-                
+        
+        imageView.layer.borderColor = UIColor.label.cgColor
+        imageView.layer.borderWidth = 0.5
+        
         accentView.layer.cornerRadius = 8
         
         jobImageView.superview?.layer.cornerRadius = (jobImageView.superview?.bounds.height)! / 2
@@ -293,6 +297,32 @@ class SummaryViewController: UIViewController, Storyboarded {
         return string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    
+    func setupGestureRecognizer() {
+        backgroundView.addGestureRecognizer { _ in
+            self.coordinator?.dismiss(animated: true)
+        }
+        
+        contentsView.addGestureRecognizer(with: .longPress) { _ in
+            Alert.message(self, title: "저장하기", message: "사진을 저장하시겠습니까?", option: .successAndCancelAction) { _ in
+                let image = self.rendering()
+                
+                SaveManager.shared.savePhotoToLibrary(image: image) { result in
+                    DispatchQueue.main.async {
+                        
+                        Alert.message(self, title: "", message: result ? "사진을 저장했습니다." : "사진을 저장하는데 실패했습니다.", handler: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func rendering() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: contentsView.bounds)
+        return renderer.image { rendererContext in
+            contentsView.layer.render(in: rendererContext.cgContext)
+        }
+    }
 }
 
 extension SummaryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

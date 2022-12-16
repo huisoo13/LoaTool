@@ -101,7 +101,7 @@ class RecipeViewController: UIViewController, Storyboarded {
         let fee = Int(ceil(Double(data.product.currentMinPrice) * 0.05)) * data.bundleCount / data.product.bundleCount
         let price = data.product.currentMinPrice * data.bundleCount / data.product.bundleCount
         
-        productNameLabel.text = data.name
+        productNameLabel.text = data.name + " X\(data.bundleCount)"
         productFeeLabel.text = String(fee)
         productPriceLabel.text = String(price)
         
