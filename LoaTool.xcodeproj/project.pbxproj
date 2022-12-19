@@ -121,6 +121,7 @@
 		F124F1AE27F2E03300ADF95F /* SkillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F124F1AC27F2E03300ADF95F /* SkillTableViewCell.swift */; };
 		F124F1AF27F2E03300ADF95F /* SkillTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F124F1AD27F2E03300ADF95F /* SkillTableViewCell.xib */; };
 		F125D00327FD4FED002FE26A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F125D00227FD4FED002FE26A /* SearchViewModel.swift */; };
+		F1280443294FE28500E8275A /* TripleDivisionCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1280442294FE28500E8275A /* TripleDivisionCircleView.swift */; };
 		F12B970E2805118D00013A3A /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B970D2805118C00013A3A /* TodoViewModel.swift */; };
 		F12B9710280536FE00013A3A /* TodoConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B970F280536FD00013A3A /* TodoConfigureViewController.swift */; };
 		F12DD5932828D55A00E0436C /* CommunityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12DD5922828D55A00E0436C /* CommunityHeaderView.swift */; };
@@ -151,6 +152,7 @@
 		F155FECD2829E87C00274A9F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F155FECC2829E87C00274A9F /* NotificationViewController.swift */; };
 		F155FED02829E95E00274A9F /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F155FECE2829E95E00274A9F /* NotificationTableViewCell.swift */; };
 		F155FED12829E95E00274A9F /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F155FECF2829E95E00274A9F /* NotificationTableViewCell.xib */; };
+		F1562CB72950381400E734CD /* Lostark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1562CB62950381300E734CD /* Lostark.swift */; };
 		F15923D1286300EA00962FB9 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15923D0286300EA00962FB9 /* ReportViewController.swift */; };
 		F15C25B0273DFF5300E66CF0 /* CircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15C25AF273DFF5300E66CF0 /* CircleProgressView.swift */; };
 		F1652F5826B395C000CAFF72 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1652F5726B395C000CAFF72 /* OCRManager.swift */; };
@@ -189,6 +191,8 @@
 		F1CCAE09289CD5A2003D3556 /* ImagePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */; };
 		F1D968732947015C0065A140 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D968722947015C0065A140 /* RecipeViewController.swift */; };
 		F1DC08A228BC881A00F1A22F /* AdvancedContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08A128BC881A00F1A22F /* AdvancedContentViewController.swift */; };
+		F1E22E4D29502636003181EE /* EngravingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E22E4B29502636003181EE /* EngravingCollectionViewCell.swift */; };
+		F1E22E4E29502636003181EE /* EngravingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1E22E4C29502636003181EE /* EngravingCollectionViewCell.xib */; };
 		F1EB224628769BB100C4553F /* CloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB224528769BB100C4553F /* CloudManager.swift */; };
 		F1ECAC7129481C8100FFBAF2 /* ProfitAndLossViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECAC7029481C8100FFBAF2 /* ProfitAndLossViewController.swift */; };
 		F1ECAC7329481D4000FFBAF2 /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECAC7229481D4000FFBAF2 /* RecipeViewModel.swift */; };
@@ -333,6 +337,7 @@
 		F124F1AC27F2E03300ADF95F /* SkillTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableViewCell.swift; sourceTree = "<group>"; };
 		F124F1AD27F2E03300ADF95F /* SkillTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SkillTableViewCell.xib; sourceTree = "<group>"; };
 		F125D00227FD4FED002FE26A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F1280442294FE28500E8275A /* TripleDivisionCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleDivisionCircleView.swift; sourceTree = "<group>"; };
 		F12B970D2805118C00013A3A /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		F12B970F280536FD00013A3A /* TodoConfigureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoConfigureViewController.swift; sourceTree = "<group>"; };
 		F12DD5922828D55A00E0436C /* CommunityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHeaderView.swift; sourceTree = "<group>"; };
@@ -363,6 +368,7 @@
 		F155FECC2829E87C00274A9F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		F155FECE2829E95E00274A9F /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		F155FECF2829E95E00274A9F /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
+		F1562CB62950381300E734CD /* Lostark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lostark.swift; sourceTree = "<group>"; };
 		F15923D0286300EA00962FB9 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		F15C25AF273DFF5300E66CF0 /* CircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressView.swift; sourceTree = "<group>"; };
 		F1652F5726B395C000CAFF72 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRManager.swift; sourceTree = "<group>"; };
@@ -405,6 +411,8 @@
 		F1CCAE08289CD5A1003D3556 /* ImagePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerView.xib; sourceTree = "<group>"; };
 		F1D968722947015C0065A140 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		F1DC08A128BC881A00F1A22F /* AdvancedContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedContentViewController.swift; sourceTree = "<group>"; };
+		F1E22E4B29502636003181EE /* EngravingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngravingCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1E22E4C29502636003181EE /* EngravingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EngravingCollectionViewCell.xib; sourceTree = "<group>"; };
 		F1EB224528769BB100C4553F /* CloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManager.swift; sourceTree = "<group>"; };
 		F1ECAC7029481C8100FFBAF2 /* ProfitAndLossViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitAndLossViewController.swift; sourceTree = "<group>"; };
 		F1ECAC7229481D4000FFBAF2 /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
@@ -744,6 +752,7 @@
 				F11FA77826A518DB00C13633 /* Extension.swift */,
 				F133350827D1B3FF00F6299A /* Keychain.swift */,
 				F11FA76B26A518DB00C13633 /* Locailzed.swift */,
+				F1562CB62950381300E734CD /* Lostark.swift */,
 				F1EEF78E27D728D4008D51DC /* NavigationItem.swift */,
 				F11FA77026A518DB00C13633 /* Network.swift */,
 				F1652F5726B395C000CAFF72 /* OCRManager.swift */,
@@ -914,6 +923,8 @@
 			children = (
 				F193C3C629471C81006991B9 /* MaterialTableViewCell.swift */,
 				F193C3C729471C81006991B9 /* MaterialTableViewCell.xib */,
+				F1E22E4B29502636003181EE /* EngravingCollectionViewCell.swift */,
+				F1E22E4C29502636003181EE /* EngravingCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -954,6 +965,7 @@
 			children = (
 				F1C2373A28EFEF4E00B6F169 /* ShapeView.swift */,
 				F15C25AF273DFF5300E66CF0 /* CircleProgressView.swift */,
+				F1280442294FE28500E8275A /* TripleDivisionCircleView.swift */,
 				F10BA63326A671DE0008722A /* IndicatorView.swift */,
 				F119ABD12810ECB200FD3D59 /* SHToggleButton.swift */,
 				F1FEC37F27F418BC00D56518 /* TableViewHeaderView.swift */,
@@ -1098,6 +1110,7 @@
 				F119B96C281A1D2400F25F4B /* ImagePickerTableViewCell.xib in Resources */,
 				F193C3C929471C81006991B9 /* MaterialTableViewCell.xib in Resources */,
 				F11AEC7227FEB32400AE10DB /* CharacterListTableViewCell.xib in Resources */,
+				F1E22E4E29502636003181EE /* EngravingCollectionViewCell.xib in Resources */,
 				F124F1AF27F2E03300ADF95F /* SkillTableViewCell.xib in Resources */,
 				F124F1A227F2DAA100ADF95F /* EquipTableViewCell.xib in Resources */,
 				F1ECAC782948216800FFBAF2 /* ProfitAndLossTableViewCell.xib in Resources */,
@@ -1254,6 +1267,7 @@
 				F11FA77A26A518DB00C13633 /* RealmManager.swift in Sources */,
 				F1FE1EC1281B7932005BAAE4 /* ReorderController+AutoScroll.swift in Sources */,
 				F117FB0428040D5A00EF30BB /* AdditionalCollectionViewCell.swift in Sources */,
+				F1E22E4D29502636003181EE /* EngravingCollectionViewCell.swift in Sources */,
 				F114C205285AC57B0035B892 /* CRRefreshAnimator.swift in Sources */,
 				F119B965281A1D2400F25F4B /* PaddingLabel.swift in Sources */,
 				F138C25E28602943006AA2F0 /* CommentViewModel.swift in Sources */,
@@ -1298,6 +1312,7 @@
 				F114C206285AC57B0035B892 /* UIColorExtension.swift in Sources */,
 				F1FE1EBF281B7932005BAAE4 /* ReorderController+GestureRecognizer.swift in Sources */,
 				F11FA78526A518DB00C13633 /* Alert.swift in Sources */,
+				F1562CB72950381400E734CD /* Lostark.swift in Sources */,
 				F1FE1EC0281B7932005BAAE4 /* ReorderController+DestinationRow.swift in Sources */,
 				F13857252822009F00CF87BD /* Notification.swift in Sources */,
 				F15923D1286300EA00962FB9 /* ReportViewController.swift in Sources */,
@@ -1310,6 +1325,7 @@
 				F114C216285AC57B0035B892 /* CRRefreshBundle.swift in Sources */,
 				F1453340289A2E6C000D1108 /* OptionViewController.swift in Sources */,
 				F13A193A27F174920095444D /* TodoViewController.swift in Sources */,
+				F1280443294FE28500E8275A /* TripleDivisionCircleView.swift in Sources */,
 				F11FA75526A5069100C13633 /* SceneDelegate.swift in Sources */,
 				F114C219285AC57B0035B892 /* CRRefreshProtocol.swift in Sources */,
 				F1B0DD91286AC71700127AB7 /* BlockViewModel.swift in Sources */,

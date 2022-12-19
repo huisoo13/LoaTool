@@ -48,6 +48,7 @@ class SummaryViewController: UIViewController, Storyboarded {
     
     @IBOutlet weak var accentView: UIView!
     
+    @IBOutlet weak var tripleView: TripleDivisionCircleView!
     weak var coordinator: AppCoordinator?
     
     var text: String = "후이수"
@@ -57,8 +58,10 @@ class SummaryViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
 
         setupView()
+        setupCollectionView()
         setupViewModelObserver()
         setupGestureRecognizer()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,12 +183,13 @@ class SummaryViewController: UIViewController, Storyboarded {
                let weapon = data.equip[safe: 0],
                let armor = Array(data.equip)[safe: 1..<6] {
                 
+                weaponLabel.text = Lostark.shared.weapon(weapon)
                 weaponLevelLabel.text = "\(weapon.level)"
                 weaponQualityLabel.text = "품질 \(weapon.quality)"
                 
                 armorLevelLabel.text = "\(Int(Double(armor.map({ $0.level }).reduce(0, +)) / Double(armor.count)))"
                 armorQualityLabel.text = String(format: "품질 %0.1f", Double(armor.map({ $0.quality }).reduce(0, +)) / Double(armor.count))
-                
+                                
                 setTypeLabel.text = etc.setType.components(separatedBy: "\n").first ?? ""
                 setTypeSubLabel.text = etc.setType.components(separatedBy: "\n").last ?? ""
                 
@@ -216,7 +220,6 @@ class SummaryViewController: UIViewController, Storyboarded {
                     }
                     
                     if level == 1 && isMaximum { maxLevelIsOneTripodCount += 1 }
-                    print(tripod1)
                 }
                 
                 if let tripod2 = skill.tripod2 {
@@ -231,7 +234,6 @@ class SummaryViewController: UIViewController, Storyboarded {
                     }
                     
                     if level == 1 && isMaximum { maxLevelIsOneTripodCount += 1 }
-                    print(tripod2)
                 }
 
                 if let tripod3 = skill.tripod3 {
@@ -246,7 +248,6 @@ class SummaryViewController: UIViewController, Storyboarded {
                     }
                     
                     if level == 1 && isMaximum { maxLevelIsOneTripodCount += 1 }
-                    print(tripod3)
                 }
             }
             
@@ -272,6 +273,8 @@ class SummaryViewController: UIViewController, Storyboarded {
             
             gemBarChartView.values = Array(data.gem)
         }
+        
+        collectionView.reloadData()
     }
     
     fileprivate func convertCardToString(_ data: [Card]) -> String {
@@ -304,16 +307,12 @@ class SummaryViewController: UIViewController, Storyboarded {
         }
         
         contentsView.addGestureRecognizer(with: .longPress) { _ in
-            Alert.message(self, title: "저장하기", message: "사진을 저장하시겠습니까?", option: .successAndCancelAction) { _ in
-                let image = self.rendering()
-                
-                SaveManager.shared.savePhotoToLibrary(image: image) { result in
-                    DispatchQueue.main.async {
-                        
-                        Alert.message(self, title: "", message: result ? "사진을 저장했습니다." : "사진을 저장하는데 실패했습니다.", handler: nil)
-                    }
-                }
-            }
+            let image = self.rendering()
+            
+            let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
         }
     }
     
@@ -333,16 +332,35 @@ extension SummaryViewController: UICollectionViewDelegate, UICollectionViewDataS
         collectionView.isScrollEnabled = false
         collectionView.showsVerticalScrollIndicator = false
         
-        collectionView.contentInset = .zero
-        collectionView.register(UINib(nibName: "", bundle: nil), forCellWithReuseIdentifier: "")
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+        collectionView.register(UINib(nibName: "EngravingCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "EngravingCollectionViewCell")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let data = viewModel.result.value?.engrave?.effect.components(separatedBy: "\n")
+        return data?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = UIScreen.main.bounds.width - 64
+        return CGSize(width: width / 2, height: 32)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EngravingCollectionViewCell", for: indexPath) as! EngravingCollectionViewCell
+        
+        let data = viewModel.result.value?.engrave?.effect.components(separatedBy: "\n")
+        cell.data = data?[safe: indexPath.item]
+        
+        return cell
     }
     
     

@@ -129,16 +129,12 @@ class RecipeViewController: UIViewController, Storyboarded {
         }
         
         contentsView.addGestureRecognizer(with: .longPress) { _ in
-            Alert.message(self, title: "저장하기", message: "사진을 저장하시겠습니까?", option: .successAndCancelAction) { _ in
-                let image = self.rendering()
-                
-                SaveManager.shared.savePhotoToLibrary(image: image) { result in
-                    DispatchQueue.main.async {
-                        
-                        Alert.message(self, title: "", message: result ? "사진을 저장했습니다." : "사진을 저장하는데 실패했습니다.", handler: nil)
-                    }
-                }
-            }
+            let image = self.rendering()
+            
+            let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
         }
     }
     

@@ -497,13 +497,34 @@ class Parsing: NSObject {
             let json = JSON.init(parseJSON: html)
             let data = json["Equip"].filter({ !$0.0.contains("Gem") }).sorted(by: { $0.0 < $1.0 })
 
-            let isSetType = data.first?.1["Element_008"]["type"].stringValue.contains("IndentStringGroup") ?? false
             
+            var type = data.map { key, json in
+                let isEsther = json["Element_001"]["value"]["leftStr0"].stringValue.contains("에스더")
+                
+                if isEsther {
+                    return "에스더"
+                } else {
+                    let isSetType = json["Element_007"]["value"]["Element_000"].stringValue.contains("세트")
+                    let type = isSetType ? json["Element_007"]["value"]["Element_001"].stringValue : json["Element_008"]["value"]["Element_001"].stringValue
+                    var string = type.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).components(separatedBy: " ").first ?? ""
+                    
+                    let isGlove = json["Element_001"]["value"]["leftStr0"].stringValue.contains("장갑")
+                    if isGlove {
+                        string += " 장갑"
+                    }
+                    
+                    return string
+                }
+            }.filter({ $0 != "" })
             
-            let types = isSetType ? data.first?.1["Element_008"]["value"]["Element_000"]["contentStr"] : data.first?.1["Element_009"]["value"]["Element_000"]["contentStr"]
-            let type = types?.dictionary?.values.map { json in
-                return json["contentStr"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).components(separatedBy: " ").first ?? ""
-            } ?? []
+            let glove = type.filter { $0.contains("장갑")}.first?.components(separatedBy: " ").first ?? ""
+            type = type.map { string in
+                if type.contains("에스더") {
+                    return string == "에스더" || string.contains("장갑") ? glove : string
+                } else {
+                    return string.contains("장갑") ? glove : string
+                }
+            }
             
             let set = Array(Set(type))
             
