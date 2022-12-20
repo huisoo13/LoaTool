@@ -107,7 +107,7 @@ class CommunityTableViewCell: UITableViewCell {
     func setupGestureRecognizer() {
         jobView.addGestureRecognizer { _ in
             guard let data = self.data else { return }
-            self.coordinator?.pushToCharacterViewController(data.name, animated: true)
+            self.coordinator?.presentToSummaryViewController(nil, data.name, animated: true)
         }
         
         contentImageView.isUserInteractionEnabled = true

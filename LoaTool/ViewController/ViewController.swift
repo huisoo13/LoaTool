@@ -59,9 +59,13 @@ extension ViewController: CharacterListDelegate {
         setTitle("대표 캐릭터".localized, size: 20)
         
         let list = UIBarButtonItem(image: UIImage(systemName: "list.dash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
+        let share = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
+
+        list.tag = 0
+        share.tag = 1
         
         let mainCharacter = User.shared.name == ""
-        addRightBarButtonItems(mainCharacter ? [] : [list])
+        addRightBarButtonItems(mainCharacter ? [] : [list, share])
     }
     
     func character(_ server: String, didSelectRowAt name: String) {
@@ -145,12 +149,20 @@ extension ViewController: CharacterListDelegate {
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
         switch selectedIndex {
         case 0:
-            let list = RealmManager.shared.readAll(Character.self).last?.info?.memberList
-                .components(separatedBy: " ")
-                .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-                .filter({ $0 != "" }) ?? []
-            
-            coordinator?.presentToCharacterListViewController(self, list: list, animated: true)
+            switch sender.tag {
+            case 0:
+                let list = RealmManager.shared.readAll(Character.self).last?.info?.memberList
+                    .components(separatedBy: " ")
+                    .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+                    .filter({ $0 != "" }) ?? []
+                
+                coordinator?.presentToCharacterListViewController(self, list: list, animated: true)
+            case 1:
+                let data = RealmManager.shared.readAll(Character.self).last
+                coordinator?.presentToSummaryViewController(data, animated: true)
+            default:
+                break
+            }
         case 1:
             break
         case 2:

@@ -358,13 +358,16 @@ class AppCoordinator: Coordinator {
         router?.present(viewController, animated: animated)
     }
     
-    func presentToSummaryViewController(animated: Bool) {
+    func presentToSummaryViewController(_ data: Character? = nil, _ text: String? = nil, animated: Bool) {
         let viewController = SummaryViewController.instantiate("Screenshot")
         viewController.coordinator = self
         
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
 
+        viewController.data = data
+        viewController.text = text
+        
         router?.present(viewController, animated: animated)
     }
     

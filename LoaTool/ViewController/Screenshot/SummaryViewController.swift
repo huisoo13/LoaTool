@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Vision
+import Kingfisher
 
 class SummaryViewController: UIViewController, Storyboarded {
     @IBOutlet weak var backgroundView: UIView!
@@ -51,7 +53,8 @@ class SummaryViewController: UIViewController, Storyboarded {
     @IBOutlet weak var tripleView: TripleDivisionCircleView!
     weak var coordinator: AppCoordinator?
     
-    var text: String = "후이수"
+    var data: Character?
+    var text: String?
     var viewModel = CharacterViewModel()
 
     override func viewDidLoad() {
@@ -59,7 +62,8 @@ class SummaryViewController: UIViewController, Storyboarded {
 
         setupView()
         setupCollectionView()
-        setupViewModelObserver()
+        setupData()
+        updateContentView()
         setupGestureRecognizer()
 
     }
@@ -73,15 +77,7 @@ class SummaryViewController: UIViewController, Storyboarded {
         super.traitCollectionDidChange(previousTraitCollection)
         setupView()
     }
-    
-    fileprivate func setupViewModelObserver() {
-        viewModel.result.bind { result in
-            self.updateContentView()
-        }
         
-        viewModel.configure(self, search: text, isMain: false, showIndicator: true)
-    }
-    
     func setupView() {
         contentsView.subviews.first?.layer.borderColor = UIColor.label.cgColor
         contentsView.subviews.first?.layer.borderWidth = 0.5
@@ -103,20 +99,34 @@ class SummaryViewController: UIViewController, Storyboarded {
         }
     }
     
+    func setupData() {
+        guard let text = self.text else { return }
+        
+        setupViewModelObserver()
+        viewModel.configure(self, search: text, isMain: false, showIndicator: true)
+    }
+    
+    fileprivate func setupViewModelObserver() {
+        viewModel.result.bind { result in
+            self.data = result
+            self.updateContentView()
+        }
+    }
+    
     func updateContentView() {
-        guard let data = viewModel.result.value else { return }
+        guard let data = self.data else { return }
         
         if let info = data.info {
-            imageView.kf.setImage(with: URL(string: info.imageURL))
             nameLabel.text = info.name.components(separatedBy: " ").last ?? ""
             serverLabel.text = info.server
-            guildLabel.text = "@\(info.guild)"
+            guildLabel.text = info.guild != "-" ? "@\(info.guild)" : ""
             guildLabel.textColor = .custom.qualityGreen.darker(by: 50)
             guildMasterImageView.isHidden = !info.isMaster
             levelLabel.text = "Lv. \(info.level)"
             expeditionLabel.text = "\(info.expedition)"
             
             jobImageView.image = info.job.getSymbol()
+            setupImageView(with: info.imageURL)
         }
         
         if let stats = data.stats {
@@ -161,11 +171,11 @@ class SummaryViewController: UIViewController, Storyboarded {
                 switch multiplier {
                 case 1..<2:
                     barView.backgroundColor = .custom.qualityOrange
-                case (0.9)..<1:
+                case (0.85)..<1:
                     barView.backgroundColor = .custom.qualityPurple
-                case (0.7)..<0.9:
+                case (0.6)..<0.85:
                     barView.backgroundColor = .custom.qualityBlue
-                case (0.3)..<0.7:
+                case (0.3)..<0.6:
                     barView.backgroundColor = .custom.qualityGreen
                 case (0.1)..<0.3:
                     barView.backgroundColor = .custom.qualityYellow
@@ -258,20 +268,22 @@ class SummaryViewController: UIViewController, Storyboarded {
                 let description = "(최대 \(18 * 5) 레벨 중 \(sum) 레벨 적용)"
                 tripodDescriptionLabel.text = description
             } else if upgradeTripodCount < 18 && (selectedTripodCount - maxLevelIsOneTripodCount) <= 18 {
-                let level = Double(sum) / Double(selectedTripodCount - maxLevelIsOneTripodCount)
-                tripodLabel.text = String(format: "%0.2f", level)
+                let selectableTripodCount = selectedTripodCount - maxLevelIsOneTripodCount
 
-                let description = "(최대 \((selectedTripodCount - maxLevelIsOneTripodCount) * 5) 레벨 중 \(sum) 레벨 적용)"
+                let level = Double(sum + (selectableTripodCount - upgradeTripodCount)) / Double(selectableTripodCount)
+                tripodLabel.text = String(format: "%0.2f", level)
+                                   
+                let description = "(최대 \(selectableTripodCount * 5) 레벨 중 \(sum + (selectableTripodCount - upgradeTripodCount)) 레벨 적용)"
                 tripodDescriptionLabel.text = description
             } else if upgradeTripodCount < 18 && (selectedTripodCount - maxLevelIsOneTripodCount) > 18 {
                 let level = Double(sum + (18 - upgradeTripodCount)) / Double(18)
                 tripodLabel.text = String(format: "%0.2f", level)
-
+                
                 let description = "(최대 \(18 * 5) 레벨 중 \((sum + (18 - upgradeTripodCount))) 레벨 적용)"
                 tripodDescriptionLabel.text = description
             }
             
-            gemBarChartView.values = Array(data.gem)
+            gemBarChartView.values = Array(data.gem).sorted(by: { ($0.level, $1.title) > ($1.level, $0.title) })
         }
         
         collectionView.reloadData()
@@ -337,7 +349,7 @@ extension SummaryViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let data = viewModel.result.value?.engrave?.effect.components(separatedBy: "\n")
+        let data = self.data?.engrave?.effect.components(separatedBy: "\n")
         return data?.count ?? 0
     }
     
@@ -357,11 +369,78 @@ extension SummaryViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EngravingCollectionViewCell", for: indexPath) as! EngravingCollectionViewCell
         
-        let data = viewModel.result.value?.engrave?.effect.components(separatedBy: "\n")
+        let data = self.data?.engrave?.effect.components(separatedBy: "\n")
         cell.data = data?[safe: indexPath.item]
         
         return cell
     }
+}
+
+
+// MARK: - Vision
+extension SummaryViewController {
+    func setupImageView(with urlString: String, placeholder: UIImage? = UIImage(), size: CGSize = CGSize(width: 512, height: 512)) {
+        if let url = URL(string: urlString) {
+            let processor = DownsamplingImageProcessor(size: size) |> RoundCornerImageProcessor(cornerRadius: 0)
+            let resource = ImageResource(downloadURL: url, cacheKey: url.absoluteString)
+            imageView.kf.indicatorType = .activity
+            
+            DispatchQueue.main.async {
+                self.imageView.kf.setImage(with: resource, placeholder: placeholder, options: [
+                    .processor(processor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .cacheOriginalImage,
+                    .transition(.fade(0.5))
+                ], completionHandler: { result in
+                    switch result {
+                    case .success(let value):
+                        let image = value.image
+                        self.detectFaceLandmarksRequest(with: image)
+                    case .failure(let error):
+                        print("Error: \(error)")
+                    }
+                })
+            }
+        }
+    }
+    
+    // MARK: - VNDetectFaceRectanglesRequest
+    func detectFaceLandmarksRequest(with image: UIImage?) {
+        guard let cgImage = image?.cgImage else { return }
+
+        let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
+            DispatchQueue.main.async {
+                if let results = request.results as? [VNFaceObservation], results.count > 0 {
+                    self.handleFaceDetectionResults(results, willCrop: image)
+                } else {
+                    print("not found")
+                    self.imageView.image = image
+                }
+            }
+        })
+        let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .downMirrored, options: [:])
+        try? imageRequestHandler.perform([faceDetectionRequest])
+    }
     
     
+    
+    private func handleFaceDetectionResults(_ observedFaces: [VNFaceObservation], willCrop image: UIImage?) {
+        let faceBouningBoxes = observedFaces.map({ observedFace in
+            return observedFace
+        })
+                                                 
+        faceBouningBoxes.forEach { faceObservation in
+            guard let image = image else { return }
+                        
+            let faceBoundingBoxOnScreen = VNImageRectForNormalizedRect(faceObservation.boundingBox, Int(image.size.width ), Int(image.size.height))
+            let croppedCGImage = image.cgImage?.cropping(to: CGRect(x: (faceBoundingBoxOnScreen.minX - faceBoundingBoxOnScreen.width) * image.scale,
+                                                                   y: (faceBoundingBoxOnScreen.minY - faceBoundingBoxOnScreen.height) * image.scale,
+                                                                   width: 3 * faceBoundingBoxOnScreen.width * image.scale,
+                                                                   height: 4 * faceBoundingBoxOnScreen.height * image.scale))
+            
+            let croppedImage = UIImage(cgImage: croppedCGImage!)
+
+            self.imageView.image = croppedImage
+        }
+    }
 }

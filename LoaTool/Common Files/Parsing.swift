@@ -274,7 +274,7 @@ class Parsing: NSObject {
                 let type = json["Element_001"]["value"]["level"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                 let iconPath = "https://cdn-lostark.game.onstove.com/" + json["Element_001"]["value"]["slotData"]["iconPath"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                 let level = json["Element_003"]["value"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                let tripods = json["Element_006"]["value"]
+                let tripods = json["Element_005"]["type"].stringValue.contains("TripodSkillCustom") ? json["Element_005"]["value"] : json["Element_006"]["value"]
                 
                 tripods.enumerated().forEach { i, tripod in
                     let name = tripod.1["name"].stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -303,7 +303,10 @@ class Parsing: NSObject {
                 
                 // 룬
                 let rune = Rune()
-                let runeString = (json["Element_007"]["value"]["Element_000"].stringValue.contains("스킬 룬 효과") ? json["Element_007"]["value"]["Element_001"].stringValue : "").replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                let runeString = (json["Element_006"]["value"]["Element_000"].stringValue.contains("스킬 룬 효과")
+                                  ? json["Element_006"]["value"]["Element_001"].stringValue
+                                  : json["Element_007"]["value"]["Element_001"].stringValue)
+                    .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                 let _ = json["Element_007"]["value"]["Element_000"].stringValue.contains("보석 효과") ? json["Element_007"]["value"]["Element_001"].stringValue : json["Element_008"]["value"]["Element_001"].stringValue
                 
                 rune.title = (runeString.components(separatedBy: "]").first ?? "")?.replacingOccurrences(of: "[", with: "") ?? ""
@@ -556,120 +559,6 @@ class Parsing: NSObject {
         return etc
     }
 
-    
-    func downloadHTML(parsingSkillWith text: String, completionHandler: @escaping ([Skill]?) -> Void) {
-        guard let url = "https://m-lostark.game.onstove.com/Profile/Character/\(text)"
-            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            debug("\(#function) : URL Error")
-            return
-        }
-        
-        let startTime = CFAbsoluteTimeGetCurrent()
-        debug("스킬 데이터 호출")
-        
-        AF.request(url, method: .post, encoding: URLEncoding.httpBody).responseString { (response) in
-            guard let html = response.value else {
-                return
-            }
-            
-            var skills: [Skill] = []
-            
-            do {
-                let document: Document = try SwiftSoup.parse(html)
-                
-                let elements: Elements = try document.select("#lostark-wrapper")
-                for element in elements {
-                    let isInspection = try element.select("div > main > div > div > div > p.check_time").text().contains("점검")
-                    if isInspection {
-                        completionHandler(nil)
-                        debug("스킬 데이터 호출 실패: 로스트아크 공식 홈페이지 점검")
-                        return
-                    }
-                }
-                
-                if elements.count == 0 {
-                    completionHandler(nil)
-                    debug("스킬 데이터 호출 실패: 데이터 없음")
-                    
-                    return
-                }
-                
-                for element in elements {
-                    let data = try element.select("#profile-skill-battle > div > div.profile-skill__list > div")
-                    
-                    for desc in data {
-                        let skill = Skill()
-                        
-                        let category = try desc.select("span.profile-skill__category").text()
-                        let title = try desc.select("span.profile-skill__title").text()
-                        let iconPath = try desc.select("div.profile-skill__slot").select("img").attr("src")
-                        let level = try desc.select("div.profile-skill__lv").text()
-                        let status = try desc.select("div.profile-skill__status").select("span")
-                        let subject = try desc.select("div.profile-skill__subject > div").attr("data-runetooltip")
-                        
-                        skill.category = category
-                        skill.title = title
-                        skill.iconPath = iconPath
-                        skill.level = level.components(separatedBy: " ").reversed().joined().replacingOccurrences(of: "스킬레벨", with: "스킬레벨 ")
-                        
-                        for (i, tripod) in status.enumerated() {
-                            switch i {
-                            case 0:
-                                skill.tripod1 = try tripod.text()
-                            case 1:
-                                skill.tripod2 = try tripod.text()
-                            case 2:
-                                skill.tripod3 = try tripod.text()
-                            default:
-                                break
-                            }
-                        }
-                        
-                        let rune = Rune()
-                        let json = JSON.init(parseJSON: subject)
-                        let runes = json.dictionaryValue.sorted(by: { $0 < $1 })
-                        for data in runes {
-                            let type = data.value["type"].stringValue
-                            let value = data.value["value"]
-                            
-                            switch type {
-                            case "NameTagBox":
-                                let title = value.stringValue.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                                
-                                rune.title = title
-                            case "ItemTitle":
-                                let grade = value["slotData"]["iconGrade"].intValue
-                                let iconPath = value["slotData"]["iconPath"].stringValue
-                                
-                                rune.grade = grade
-                                rune.iconPath = "https://cdn-lostark.game.onstove.com/" + iconPath
-                            case "ItemPartBox":
-                                let tooltip = value["Element_001"].stringValue
-                                
-                                rune.tooltip = tooltip
-                            default:
-                                break
-                            }
-                        }
-                        
-                        if rune.title != "" {
-                            skill.rune = rune
-                        }
-                        
-                        skills.append(skill)
-                    }
-                    
-                    let durationTime = CFAbsoluteTimeGetCurrent() - startTime
-                    debug("스킬 데이터 호출 완료: \(String(format: "%.4f", durationTime))초")
-                    
-                    completionHandler(skills)
-                }
-            } catch {
-                debug("\(#function): \(error)")
-            }
-        }
-    }
-    
     func downloadHTML(parsingMemberListWith text: [String], completionHandler: @escaping ([Sub]?) -> Void) {
         if text.count <= 0 { return }
         

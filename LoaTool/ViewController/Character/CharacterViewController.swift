@@ -79,15 +79,30 @@ extension CharacterViewController: CharacterListDelegate {
         setTitle("캐릭터 정보".localized, size: 20)
         
         let list = UIBarButtonItem(image: UIImage(systemName: "list.dash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
-        addRightBarButtonItems([list])
+        let share = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
+
+        list.tag = 0
+        share.tag = 1
+
+        addRightBarButtonItems([list, share])
     }
     
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
-        let list = viewModel.result.value?.info?.memberList
-            .components(separatedBy: " ")
-            .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-            .filter({ $0 != "" }) ?? []
-        coordinator?.presentToCharacterListViewController(self, list: list, animated: true)
+        switch sender.tag {
+        case 0:
+            let list = viewModel.result.value?.info?.memberList
+                .components(separatedBy: " ")
+                .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+                .filter({ $0 != "" }) ?? []
+            coordinator?.presentToCharacterListViewController(self, list: list, animated: true)
+        case 1:
+            let data = viewModel.result.value
+            coordinator?.presentToSummaryViewController(data, animated: true)
+        default:
+            break
+        }
+        
+
     }
 
     func character(_ server: String, didSelectRowAt name: String) {
