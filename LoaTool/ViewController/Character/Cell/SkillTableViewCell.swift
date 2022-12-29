@@ -24,7 +24,8 @@ class SkillTableViewCell: UITableViewCell {
                 return
             }
             
-            iconImageView.layer.cornerRadius = iconImageView.bounds.height / 2
+            iconImageView.contentMode = .scaleAspectFit
+            iconImageView.layer.cornerRadius = data.type.contains("각성") ? 0 : iconImageView.bounds.height / 2
             iconImageView.kf.setImage(with: URL(string: data.iconPath))
             nameLabel.text = data.title
             levelLabel.text = data.level
@@ -34,13 +35,13 @@ class SkillTableViewCell: UITableViewCell {
                 
                 switch i {
                 case 0:
-                    label.text = data.tripod1
+                    label.text = data.tripod1?.replacingOccurrences(of: "레벨", with: "Lv.").replacingOccurrences(of: "(최대)", with: "")
                     tripodView.isHidden = data.tripod1 == nil
                 case 1:
-                    label.text = data.tripod2
+                    label.text = data.tripod2?.replacingOccurrences(of: "레벨", with: "Lv.").replacingOccurrences(of: "(최대)", with: "")
                     view.isHidden = data.tripod2 == nil
                 case 2:
-                    label.text = data.tripod3
+                    label.text = data.tripod3?.replacingOccurrences(of: "레벨", with: "Lv.").replacingOccurrences(of: "(최대)", with: "")
                     view.isHidden = data.tripod3 == nil
                 default:
                     break
@@ -52,7 +53,7 @@ class SkillTableViewCell: UITableViewCell {
                 
                 runeImageView.kf.setImage(with: URL(string: data.rune?.iconPath ?? ""))
                 runeLabel.text = data.rune?.tooltip
-                runeView.isHidden = data.rune?.tooltip == nil
+                runeView.isHidden = data.rune?.tooltip == ""
             }
             
             typeLabel.text = data.category

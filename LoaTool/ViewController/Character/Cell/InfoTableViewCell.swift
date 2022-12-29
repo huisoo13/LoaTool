@@ -42,7 +42,7 @@ class InfoTableViewCell: UITableViewCell {
             guildLabel.text = info.guild.replacingOccurrences(of: "-", with: "")
             serverLabel.text = info.server
             expeditionLabel.text = "Lv.\(info.expedition)"
-            strongholdLabel.text = info.stronghold
+            strongholdLabel.text = info.town
             combatLabel.text = info.name.components(separatedBy: " ").first
             itemLabel.text = "Lv.\(info.level)"
             

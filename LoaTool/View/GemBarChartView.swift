@@ -32,7 +32,8 @@ class GemBarChartView: UIView {
 
                 setProgress(view, value: values[safe: i]?.level ?? 0)
                 let text = values[safe: i]?.title.replacingOccurrences(of: "[0-9]+레벨 ", with: "", options: .regularExpression) ?? ""
-                label.text = "\(text[safe: text.startIndex] ?? " ")"
+                let index = text.count != 0 ? text.index(after: text.startIndex) : text.startIndex
+                label.text = ["\(text[safe: text.startIndex] ?? " ")", "\(text[safe: index] ?? " ")"].joined()
 
                 view.layer.cornerRadius = 2
             }

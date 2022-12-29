@@ -1,0 +1,117 @@
+//
+//  OST.swift
+//  LoaTool
+//
+//  Created by Trading Taijoo on 2022/11/08.
+//
+
+import UIKit
+
+struct OST {
+    var album: String
+    var track: Int
+    var artist: String
+    var title: String
+    var imageURL: String
+    var soundURL: String
+    
+    static func data() -> [OST] {
+        return [OST(album: "Vol.3 In-Game Track",
+                    track: 1,
+                    artist: "LOST ARK",
+                    title: "모험의 시작 Part.2 (The New Beginning)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/657a5461f3eb4dd882ff56abf3deb852.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_01_The New Beginning.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 2,
+                    artist: "LOST ARK",
+                    title: "영혼을 데우는 스프 (Consolation)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/982fd59e0a944adbb251e4ca3e9fafd4.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_02_Consolation.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 3,
+                    artist: "LOST ARK",
+                    title: "서리감옥 고원 (Frost Jail Plateau)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/0e1eb639079546d8aa913c0239831619.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_03_Frost Jail Plateau.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 4,
+                    artist: "LOST ARK",
+                    title: "창천 (Chang Chun)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/240bd69603344fda8ce661c84a2abb95.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_04_Chang Chun.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 5,
+                    artist: "LOST ARK",
+                    title: "베른 성 (Bern Castle)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/b4e371ded39542788083cb81c140a737.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_05_Bern Castle.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 6,
+                    artist: "LOST ARK",
+                    title: "칼라자 마을 (Karlaja Village)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/cd288d2f97ed460db41c6ac9a649f372.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_06_Karlaja Village.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 7,
+                    artist: "LOST ARK",
+                    title: "니아 마을 (Nia Village)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/d77230febea74e5aa831d14c6b6592c5.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_07_Nia Village.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 8,
+                    artist: "LOST ARK",
+                    title: "델파이 현 (Delphi County)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/29fe1d9a7d004e3488f8ac7022c6e2eb.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_08_Delphi County.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 9,
+                    artist: "LOST ARK",
+                    title: "살란드 구릉지 (Saland Hill)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/bae16c06771c4befa28993b8ae01694f.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_09_Saland Hill.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 10,
+                    artist: "LOST ARK",
+                    title: "별모래 해변 (Star Sandy Beach)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/2c8860c012134226a7efdb77fb14d352.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_10_Star Sandy Beach.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 11,
+                    artist: "LOST ARK",
+                    title: "그림자달 시장 (Shadow Moon Market)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/592d77c7a28444739154461978f23ef1.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_11_Shadow Moon Market.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 12,
+                    artist: "LOST ARK",
+                    title: "속삭이는 작은 섬 (Whispering Small Island)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/c0a123b55e0f417a9c2983f4d90daf32.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_12_Whispering Small Island.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 13,
+                    artist: "LOST ARK",
+                    title: "해상 낙원 페이토 (Peyto)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/8a64ec6e8f564276b64aa83dcb1808b2.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_13_Peyto.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 14,
+                    artist: "LOST ARK",
+                    title: "노을의 노래 (Song of Sunset)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/7df3341ec8f646a1bb15ea4d5f040f84.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_14_Song of Sunset.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 15,
+                    artist: "LOST ARK",
+                    title: "그대 기억 하나요? (Oe e hoʻomanaʻo?)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/10df00f59b1648228094a05e6894a318.jpg",
+                    soundURL: "https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_15_Oe e hoomanao.mp3"),
+                OST(album: "Vol.3 In-Game Track",
+                    track: 16,
+                    artist: "LOST ARK",
+                    title: "알비온의 분노 (Albion's Rage)",
+                    imageURL: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/4b2520cb63284e5887501ab5adba9725.jpg",
+                    soundURL: "https://https://cdn-lostark.game.onstove.com/uploadfiles/ost/vol3_16_Albion's Rage.mp3")
+        ]
+    }
+}

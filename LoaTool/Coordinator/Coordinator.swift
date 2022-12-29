@@ -197,8 +197,14 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
-    func pushToOSTViewController(animated: Bool) {
-        let viewController = OSTViewController.instantiate()
+    func pushToOSTPlayerViewController(animated: Bool) {
+        let viewController = OSTPlayerViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToProfitAndLossViewController(animated: Bool) {
+        let viewController = ProfitAndLossViewController.instantiate()
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: animated)
     }
@@ -319,6 +325,52 @@ class AppCoordinator: Coordinator {
         
         router?.present(viewController, animated: animated)
     }
+    
+    func presentToOSTViewController(animated: Bool) {
+        let viewController = OSTViewController.instantiate()
+        viewController.coordinator = self
+        
+        viewController.modalPresentationStyle = .overCurrentContext
+
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToOSTPlayerViewController(animated: Bool) {
+        let viewController = OSTPlayerViewController.instantiate()
+        viewController.coordinator = self
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToRecipeViewController(_ recipe: Recipe? = nil, reducedCrafingFeeAtPercent: Double, animated: Bool) {
+        let viewController = RecipeViewController.instantiate("Screenshot")
+        viewController.coordinator = self
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        
+        viewController.reducedCrafingFeeAtPercent = reducedCrafingFeeAtPercent
+        viewController.data = recipe
+
+        router?.present(viewController, animated: animated)
+    }
+    
+    func presentToSummaryViewController(_ data: Character? = nil, _ text: String? = nil, animated: Bool) {
+        let viewController = SummaryViewController.instantiate("Screenshot")
+        viewController.coordinator = self
+        
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+
+        viewController.data = data
+        viewController.text = text
+        
+        router?.present(viewController, animated: animated)
+    }
+    
     
     // MARK: - Dismiss
     func dismiss(animated: Bool) {

@@ -58,29 +58,32 @@ class EquipTableViewCell: UITableViewCell {
         itemViews.enumerated().forEach { i, itemView in
             guard let progressView = itemView.subviews.first as? CircleProgressView,
                   let label = itemView.subviews.last as? UILabel,
-                  let name = data[safe: i]?.name,
+                  let name = data[safe: i]?.title,
+                  let category = data[safe: i]?.category,
                   let grade = data[safe: i]?.grade,
                   let quality = data[safe: i]?.quality else { return }
             
-            let components = name.components(separatedBy: " ")
-            let prefix = (components[safe: 1] ?? "").replacingOccurrences(of: "의", with: "")
+            let filter = name.components(separatedBy: " ").filter { string in
+                return !category.contains(string)
+            }.joined(separator: " ")
             
-            let title = prefix.containOfSet()
-            ? (components[safe: 0] ?? "") + " " + (components[safe: 1] ?? "").replacingOccurrences(of: "의", with: "")
-            : (components[safe: 0] ?? "") + " " + (components[safe: 1] ?? "") + " " + (components[safe: 2] ?? "").replacingOccurrences(of: "의", with: "")
+            let components = filter.components(separatedBy: " ")
+            let index = components.firstIndex(of: (components.filter({ $0.contains("의") }).last ?? "")) ?? 0
+            
+            let title = components.enumerated().map { i, string in
+                return i <= index + 1 ? string : ""
+            }.joined(separator: " ")
             
             progressView.value = quality >= 0 ? Double(quality) / 100 : nil
             label.text = title
             label.textColor = grade.getColor()
-            
-            
         }
     }
     
     fileprivate func setupDetailView(_ data: Equip) {
         qualityView.value = data.quality >= 0 ? Double(data.quality) / 100 : nil
         
-        switch Int(data.position) {
+        switch Int(data.category) {
         case 0:
             partLabel.text = "무기"
         case 1:
@@ -94,32 +97,15 @@ class EquipTableViewCell: UITableViewCell {
         case 5:
             partLabel.text = "어깨장식"
         default:
-            break
+            partLabel.text = data.category
         }
         
-        nameLabel.text = data.name
+        nameLabel.text = data.title
         nameLabel.textColor = data.grade.getColor()
         
-        defaultLabel.text = data.defaultOption
-        additionalLabel.text = data.additionalOption
+        defaultLabel.text = data.basicEffect
+        additionalLabel.text = data.additionalEffect
 
-        
-        let tripod = data.tripod ?? ""
-        var attributedString = NSMutableAttributedString(string: tripod)
-
-        let parts = tripod.split(separator: "]")
-        let values = parts.compactMap { (part: Substring) -> String? in
-            let parts = part.split(separator: "L", omittingEmptySubsequences: false)
-            guard parts.count == 2 else {
-                return nil
-            }
-            return String(parts[0])
-        }
-        
-        values.forEach({
-            attributedString = attributedString.addAttribute(of: $0, key: .foregroundColor, value: UIColor.systemPurple)
-        })
-
-        tripodLabel.attributedText = attributedString
+        tripodLabel.isHidden = true
     }
 }

@@ -93,5 +93,34 @@ extension Int {
 
         return color
     }
-    
+}
+
+extension String {
+    func getColor() -> UIColor {
+        var color: UIColor
+        
+        switch self {
+        case "일반":
+            color = .white
+        case "고급":
+            color = .custom.itemGrade1
+        case "희귀":
+            color = .custom.itemGrade2
+        case "영웅":
+            color = .custom.itemGrade3
+        case "전설":
+            color = .custom.itemGrade4
+        case "유물":
+            color = .custom.itemGrade5
+        case "고대":
+            color = .custom.itemGrade6
+        case "에스더":
+            color = .custom.itemGrade7
+        default:
+            color = .label
+        }
+        
+
+        return color
+    }
 }

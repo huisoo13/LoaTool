@@ -25,21 +25,26 @@ class AccessoryTableViewCell: UITableViewCell {
     var data: Character? {
         didSet {
             guard let engrave = data?.engrave?.equips,
-                  let data: [Equip] = data?.equip.map({ $0 }) else {
+                  let data: [Equip] = data?.equip.filter({ item in
+                      let accessory = ["목걸이", "귀걸이", "반지", "어빌리티 스톤", "팔찌"]
+                      let count = accessory.filter({ category in
+                          return item.category.contains(category)
+                      }).count
+                      
+                      return count != 0
+                  }) else {
                 detailView.isHidden = true
                 summaryView.isHidden = true
                 
                 return
             }
             
-            summaryView.isHidden = selectedPosition > 5
+            summaryView.isHidden = 0...7 ~= selectedPosition
             detailView.isHidden = !summaryView.isHidden
 
             if !summaryView.isHidden {
                 setupSummaryView(data, engrave: engrave)
             } else {
-                selectedPosition = selectedPosition == 26 ? 12 : selectedPosition
-                
                 guard let data = data[safe: selectedPosition] else { return }
                 setupDetailView(data)
             }
@@ -59,49 +64,53 @@ class AccessoryTableViewCell: UITableViewCell {
     
     
     fileprivate func setupSummaryView(_ data: [Equip], engrave: String) {
-        itemViews.enumerated().forEach { i, itemView in
+        itemViews.enumerated().forEach { i, itemView in            
             guard let progressView = itemView.subviews.first as? CircleProgressView,
-                  let label = itemView.subviews.last as? UILabel else { return }
-            
-            data.forEach { item in
-                if Int(item.position) == itemView.tag {
-                    let name = item.name
-                    let quality = item.quality
-                    let grade = item.grade
-                    
-                    let components = name.components(separatedBy: " ")
-                    let prefix = components.first ?? ""
-                    
-                    let title = prefix.contains("의")
-                    ? (components[safe: 0] ?? "") + " " + (components[safe: 1] ?? "")
-                    : name.components(separatedBy: "의").first ?? ""
-                    
-                    progressView.value = quality >= 0 ? Double(quality) / 100 : nil
-                    
-                    label.text = title
-                    label.textColor = grade.getColor()
-
-                    if itemView.tag == 11 { // 어빌리티 스톤
-                        let stone = (item.engrave ?? "")
-                            .replacingOccurrences(of: "[", with: "")
-                            .replacingOccurrences(of: "] 활성도", with: "")
-                                                
-                        var attributedString = NSMutableAttributedString(string: stone)
-
-                        stone.components(separatedBy: "\n").forEach { engrave in
-                            attributedString = attributedString.addAttribute(of: engrave, key: .foregroundColor, value: engrave.contains("감소") ? UIColor.systemRed : UIColor.custom.textBlue)
-                        }
-                        
-                        label.attributedText = attributedString
-                    }
-                }
+                  let label = itemView.subviews.last as? UILabel  else { return }
+                  
+            if 5...7 ~= i { progressView.setProgress("-") }
+            if i == 7 { // 착용 각인
+                progressView.setProgress("+")
+                label.text = engrave + "\n"
+                label.textColor = .custom.textBlue
             }
             
-            if 11...26 ~= itemView.tag { progressView.setProgress("-") }
-            if itemView.tag == 27 { // 착용 각인
-                progressView.setProgress("+")
-                label.text = engrave
-                label.textColor = .custom.textBlue
+            guard let item = data[safe: i] else {
+                if i != 7 {
+                    label.text = "  "
+                }
+                
+                return
+            }
+            
+            let name = item.title
+            let quality = item.quality
+            let grade = item.grade
+            
+            let components = name.components(separatedBy: " ")
+            let prefix = components.first ?? ""
+            
+            let title = prefix.contains("의")
+            ? (components[safe: 0] ?? "") + " " + (components[safe: 1] ?? "")
+            : name.components(separatedBy: "의").first ?? ""
+            
+            progressView.value = quality >= 0 ? Double(quality) / 100 : nil
+            
+            label.text = title
+            label.textColor = grade.getColor()
+            
+            if i == 5 { // 어빌리티 스톤
+                let stone = (item.engravingEffect ?? "")
+                    .replacingOccurrences(of: "[", with: "")
+                    .replacingOccurrences(of: "] 활성도", with: "")
+
+                var attributedString = NSMutableAttributedString(string: stone)
+
+                stone.components(separatedBy: "\n").forEach { engrave in
+                    attributedString = attributedString.addAttribute(of: engrave, key: .foregroundColor, value: engrave.contains("감소") ? UIColor.systemRed : UIColor.custom.textBlue)
+                }
+
+                label.attributedText = attributedString
             }
         }
     }
@@ -110,29 +119,16 @@ class AccessoryTableViewCell: UITableViewCell {
         qualityView.value = data.quality >= 0 ? Double(data.quality) / 100 : nil
         if data.quality < 0 { qualityView.setProgress("-") }
         
-        switch Int(data.position) {
-        case 6:
-            partLabel.text = "목걸이"
-        case 7, 8:
-            partLabel.text = "귀걸이"
-        case 9, 10:
-            partLabel.text = "반지"
-        case 11:
-            partLabel.text = "어빌리티 스톤"
-        case 26:
-            partLabel.text = "팔찌"
-        default:
-            break
-        }
+        partLabel.text = data.category
         
-        nameLabel.text = data.name
+        nameLabel.text = data.title
         nameLabel.textColor = data.grade.getColor()
         
-        defaultLabel.text = (data.defaultOption ?? "").trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\n ", with: "\n")
-        additionalLabel.text = data.additionalOption
-        additionalLabel.superview?.isHidden = data.additionalOption == nil
+        defaultLabel.text = (data.basicEffect ?? "").trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\n ", with: "\n")
+        additionalLabel.text = data.additionalEffect
+        additionalLabel.superview?.isHidden = data.additionalEffect == nil
 
-        let engrave = data.engrave ?? ""
+        let engrave = data.engravingEffect ?? ""
         var attributedString = NSMutableAttributedString(string: engrave)
 
         let parts = engrave.split(separator: "[")

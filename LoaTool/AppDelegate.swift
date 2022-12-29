@@ -171,7 +171,7 @@ extension AppDelegate {
 extension AppDelegate {
     func migrationForRealm() {
         let oldSchemaVersion = UserDefaults.standard.integer(forKey: "oldSchemaVersion")
-        let newSchemaVersion = 13
+        let newSchemaVersion = 15
         
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
@@ -199,9 +199,35 @@ extension AppDelegate {
                     }
                 }
                 
-                if oldSchemaVersion < newSchemaVersion {
+                if oldSchemaVersion < 13 {
                     migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
                         newObject!["gate"] = ""
+                    }
+                }
+                
+                if oldSchemaVersion < 14 { // 22. 12. 15
+                    migration.create(ETC.className())
+                    
+                    migration.enumerateObjects(ofType: Character.className()) { oldObject, newObject in
+                        newObject!["etc"] = ETC()
+                    }
+                    
+                    migration.renameProperty(onType: Info.className(), from: "stronghold", to: "town")
+                    
+                    migration.renameProperty(onType: Equip.className(), from: "defaultOption", to: "basicEffect")
+                    migration.renameProperty(onType: Equip.className(), from: "additionalOption", to: "additionalEffect")
+                    migration.renameProperty(onType: Equip.className(), from: "engrave", to: "engravingEffect")
+                    migration.renameProperty(onType: Equip.className(), from: "position", to: "category")
+                    
+                    migration.enumerateObjects(ofType: Skill.className()) { oldObject, newObject in
+                        newObject!["type"] = ""
+                    }
+                }
+                
+                if oldSchemaVersion < newSchemaVersion { // 22. 12. 16
+                    migration.renameProperty(onType: Equip.className(), from: "name", to: "title")
+                    migration.enumerateObjects(ofType: Equip.className()) { oldObject, newObject in
+                        newObject!["level"] = 0
                     }
 
                     UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")
@@ -220,3 +246,71 @@ extension AppDelegate {
     }
 }
 
+
+/** 22.12.15 변경 사항
+ * key
+ * identifier
+ * lastUpdated
+ * info
+     * name
+     * server
+     * job
+     * imageURL
+     * level
+     * expedition
+     * guild
+     * isMaster
+     * stronghold → town
+     * memberList
+ * stats
+     * attack
+     * health
+     * critical: 치명
+     * specialization: 특화
+     * domination: 제압
+     * swiftness: 신속
+     * endurance: 인내
+     * expertise: 숙련
+ * equip
+     * position → category
+     * name → title
+     * tier
+     * grade
+     * quality
+     * iconPath
+     * defaultOption → basicEffect
+     * additionalOption → additionalEffect
+     * engrave → engravingEffect
+     * tripod → 삭제
+ * engrave
+     * equips
+     * effect
+ * skill
+     * type → 추가
+     * category
+     * title
+     * iconPath
+     * level
+     * tripod1
+     * tripod2
+     * tripod3
+     * rune
+         * title
+         * grade
+         * tooltip
+         * iconPath
+ * gem
+     * title
+     * level
+     * grade
+     * iconPath
+     * tooltip
+ * card
+     * title
+     * tooltip
+ * etc → 추가
+     * setType → 추가
+     * maxSkillPoint → 추가
+     * usedSkillPoint → 추가
+
+ */

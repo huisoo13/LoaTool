@@ -25,3 +25,14 @@ extension Collection where Indices.Iterator.Element == Index {
     }
 }
 
+extension Array {
+    subscript(safe range: Range<Index>) -> ArraySlice<Element>? {
+        if range.endIndex > endIndex {
+            if range.startIndex >= endIndex {return nil}
+            else {return self[range.startIndex..<endIndex]}
+        }
+        else {
+            return self[range]
+        }
+    }
+}
