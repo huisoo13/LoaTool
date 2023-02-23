@@ -18,7 +18,7 @@ class EquipTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var defaultLabel: UILabel!
     @IBOutlet weak var additionalLabel: UILabel!
-    @IBOutlet weak var tripodLabel: UILabel!
+    @IBOutlet weak var elixirLabel: UILabel!
     
     var selectedPosition: Int = -1
     var data: [Equip]? {
@@ -106,6 +106,24 @@ class EquipTableViewCell: UITableViewCell {
         defaultLabel.text = data.basicEffect
         additionalLabel.text = data.additionalEffect
 
-        tripodLabel.isHidden = true
+        // 엘릭서
+        let elixir = data.engravingEffect == "" ? "없음" : data.engravingEffect ?? ""
+
+        var attributedString = NSMutableAttributedString(string: elixir)
+
+        let parts = elixir.split(separator: "[")
+        let values = parts.compactMap { (part: Substring) -> String? in
+            let parts = part.split(separator: "]", omittingEmptySubsequences: false)
+            guard parts.count == 2 else {
+                return nil
+            }
+            return String(parts[0])
+        }
+        
+        values.forEach({
+            attributedString = attributedString.addAttribute(of: $0, key: .foregroundColor, value: UIColor.systemYellow)
+        })
+
+        elixirLabel.attributedText = attributedString
     }
 }

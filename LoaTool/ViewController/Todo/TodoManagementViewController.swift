@@ -132,7 +132,8 @@ extension TodoManagementViewController: UITableViewDelegate, UITableViewDataSour
         header.label.text = section == 0 ? "캐릭터" : "컨텐츠"
         header.button.setTitle(section == 0 ? "캐릭터 정보 자동 갱신" : "컨텐츠 프리셋 보기", for: .normal)
         header.button.addTarget(self, action: #selector(touchUpInside(_:)), for: .touchUpInside)
-
+        header.button.tag = section
+        
         header.typeView.isHidden = true
         header.button.isHidden = false // section == 1
         
@@ -140,29 +141,26 @@ extension TodoManagementViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func touchUpInside(_ sender: UIButton) {
-        let position = sender.convert(CGPoint.zero, to: self.tableView)
-        
-        if let indexPath = self.tableView.indexPathForRow(at: position) {
-            switch indexPath.section {
-            case 0:
-                let alert = UIAlertController(title: "정보 갱신", message: "캐릭터의 정보를 갱신합니다.\n등록 캐릭터의 수가 많을수록 시간이 오래 걸립니다.", preferredStyle: .alert)
-                
-                let ok = UIAlertAction(title: "갱신", style: .default) { _ in
-                    self.viewModel.updateMemberInfo()
-                }
-                
-                let no = UIAlertAction(title: "취소", style: .destructive) { _ in }
-                
-                alert.addAction(no)
-                alert.addAction(ok)
-                
-                self.present(alert, animated: true)
-            case 1:
-                coordinator?.pushToContentPresetViewController(animated: true)
-            default:
-                break
+        switch sender.tag {
+        case 0:
+            let alert = UIAlertController(title: "정보 갱신", message: "캐릭터의 정보를 갱신합니다.\n등록 캐릭터의 수가 많을수록 시간이 오래 걸립니다.", preferredStyle: .alert)
+            
+            let ok = UIAlertAction(title: "갱신", style: .default) { _ in
+                self.viewModel.updateMemberInfo()
             }
+            
+            let no = UIAlertAction(title: "취소", style: .destructive) { _ in }
+            
+            alert.addAction(no)
+            alert.addAction(ok)
+            
+            self.present(alert, animated: true)
+        case 1:
+            coordinator?.pushToContentPresetViewController(animated: true)
+        default:
+            break
         }
+
     }
 
     

@@ -106,7 +106,7 @@ class IndicatorView {
             IndicatorView.loadingView.alpha = 1
         }, completion: nil)
         
-        let _ = Timer.scheduledTimer(withTimeInterval: 10, repeats: false, block: { _ in
+        let _ = Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { _ in
             if IndicatorView.loadingView != UIView() {
                 UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
                     IndicatorView.loadingView.alpha = 0

@@ -146,6 +146,7 @@ extension ProfitAndLossViewController: UITableViewDelegate, UITableViewDataSourc
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .singleLine
         
         tableView.keyboardDismissMode = .onDrag
 

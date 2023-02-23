@@ -52,7 +52,7 @@ class InfoTableViewCell: UITableViewCell {
             statsLabel.text = convertStatsToString(stats)
             engraveLabel.text = convertEngraveToString(engrave)
             cardLabel.text = convertCardToString(data.card.map({ $0 }))
-                               
+            
             jobImageView.image = info.job.getSymbol()
             jobImageView.tintColor = .label
             

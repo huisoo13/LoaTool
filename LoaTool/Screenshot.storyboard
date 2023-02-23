@@ -781,6 +781,7 @@
                                     <constraint firstItem="i00-Ai-qzX" firstAttribute="leading" secondItem="gb6-dl-1QD" secondAttribute="leading" constant="8" id="nhz-Ws-PCB"/>
                                     <constraint firstItem="1Xk-yN-1fW" firstAttribute="leading" secondItem="gb6-dl-1QD" secondAttribute="leading" id="o6g-iu-SJl"/>
                                     <constraint firstAttribute="trailing" secondItem="T1D-PG-zfM" secondAttribute="trailing" id="pTB-Vw-HK4"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="430" id="pha-fv-UIM"/>
                                     <constraint firstItem="OuA-Wg-Ys5" firstAttribute="top" secondItem="1Xk-yN-1fW" secondAttribute="bottom" id="pjb-F3-BHh"/>
                                     <constraint firstItem="vn3-Tq-dHe" firstAttribute="leading" secondItem="gb6-dl-1QD" secondAttribute="leading" id="qfS-4K-mxT"/>
                                     <constraint firstItem="8jF-DH-J5r" firstAttribute="leading" secondItem="gb6-dl-1QD" secondAttribute="leading" constant="16" id="rY8-Z6-7Sw"/>
@@ -814,9 +815,10 @@
                             <constraint firstItem="2MP-Jf-2nr" firstAttribute="leading" secondItem="jG1-js-1fh" secondAttribute="leading" id="WT8-Pr-Xa2"/>
                             <constraint firstItem="0oh-mg-TSX" firstAttribute="centerX" secondItem="uML-cU-mKS" secondAttribute="centerX" id="YEd-Z4-CaM"/>
                             <constraint firstItem="gb6-dl-1QD" firstAttribute="centerY" secondItem="uML-cU-mKS" secondAttribute="centerY" id="fe8-rt-nrs"/>
-                            <constraint firstItem="gb6-dl-1QD" firstAttribute="leading" secondItem="jG1-js-1fh" secondAttribute="leading" id="qzW-B3-2ng"/>
+                            <constraint firstItem="gb6-dl-1QD" firstAttribute="leading" secondItem="jG1-js-1fh" secondAttribute="leading" priority="999" id="qzW-B3-2ng"/>
                             <constraint firstItem="2MP-Jf-2nr" firstAttribute="top" secondItem="uML-cU-mKS" secondAttribute="top" id="u3B-S3-Bry"/>
-                            <constraint firstItem="jG1-js-1fh" firstAttribute="trailing" secondItem="gb6-dl-1QD" secondAttribute="trailing" id="z8a-HA-cvh"/>
+                            <constraint firstItem="gb6-dl-1QD" firstAttribute="centerX" secondItem="uML-cU-mKS" secondAttribute="centerX" id="vUb-Wb-mnV"/>
+                            <constraint firstItem="jG1-js-1fh" firstAttribute="trailing" secondItem="gb6-dl-1QD" secondAttribute="trailing" priority="999" id="z8a-HA-cvh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1809,6 +1811,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="430" id="2qI-Bu-xrg"/>
                                     <constraint firstAttribute="trailing" secondItem="78r-5I-0bV" secondAttribute="trailing" id="Gyk-5F-KxF"/>
                                     <constraint firstItem="p1p-KD-HVc" firstAttribute="top" secondItem="b8O-em-9eR" secondAttribute="bottom" id="Jz7-1z-k4n"/>
                                     <constraint firstItem="78r-5I-0bV" firstAttribute="leading" secondItem="wC9-pS-Glb" secondAttribute="leading" id="Ky7-OO-uZr"/>
@@ -1857,8 +1860,8 @@
                             <constraint firstItem="wC9-pS-Glb" firstAttribute="top" secondItem="4ZF-t8-7Z5" secondAttribute="bottom" constant="8" id="SCs-gz-Alp"/>
                             <constraint firstItem="WR6-B3-60G" firstAttribute="centerX" secondItem="hfC-Nj-BSy" secondAttribute="centerX" id="XOl-8Q-JP4"/>
                             <constraint firstItem="WR6-B3-60G" firstAttribute="top" secondItem="wC9-pS-Glb" secondAttribute="bottom" constant="8" id="iws-Tz-3ZS"/>
-                            <constraint firstAttribute="trailing" secondItem="wC9-pS-Glb" secondAttribute="trailing" id="lO4-tC-lo1"/>
-                            <constraint firstItem="wC9-pS-Glb" firstAttribute="leading" secondItem="1Ck-Rc-BGo" secondAttribute="leading" id="tr5-TR-QHt"/>
+                            <constraint firstAttribute="trailing" secondItem="wC9-pS-Glb" secondAttribute="trailing" priority="999" id="lO4-tC-lo1"/>
+                            <constraint firstItem="wC9-pS-Glb" firstAttribute="leading" secondItem="1Ck-Rc-BGo" secondAttribute="leading" priority="999" id="yIa-hx-Y8t"/>
                         </constraints>
                     </view>
                     <connections>

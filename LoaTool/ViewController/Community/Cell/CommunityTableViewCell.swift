@@ -40,7 +40,7 @@ class CommunityTableViewCell: UITableViewCell {
             guard let data = data else { return }
 
             jobImageView.image = data.job.getSymbol()
-            levelLabel.text = "Lv.\(data.level)"
+            levelLabel.text = "Lv." + String(format: "%.2f", data.level)
             nameLabel.text = data.name
             serverLabel.text = data.server
                         
@@ -102,6 +102,15 @@ class CommunityTableViewCell: UITableViewCell {
         jobImageView.tintColor = .label
         
         menuButton.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        
+        heartButton.primaryColor = .custom.qualityRed
+        heartButton.defaultImage = UIImage(systemName: "heart")
+        heartButton.selectedImage = UIImage(systemName: "heart.fill")
+        heartButton.imageToAnimate = UIImage(systemName: "heart.fill")
+        
+        bookmarkButton.primaryColor = .custom.qualityYellow
+        bookmarkButton.defaultImage = UIImage(systemName: "bookmark")
+        bookmarkButton.selectedImage = UIImage(systemName: "bookmark.fill")
     }
     
     func setupGestureRecognizer() {
