@@ -18,12 +18,10 @@ class AdditionalTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let numberOfLimitCompleted = 3 // 군단장 3회 제한
-
-    // 수정 - 003: 스크롤 변경
-    // 해당 부분 버그 발견 시 검토
+    let numberOfLimitCompleted = 3 // 골드 보상 3회 제한
+    
     var isDragging: Bool = false
-    //
+    
     var data: AdditionalContent? {
         didSet {
             guard let data = data else {
@@ -142,8 +140,16 @@ class AdditionalTableViewCell: UITableViewCell {
     
     func updatedView(_ data: AdditionalContent) {
         let numberOfOverflow = inspectionNumberOfOverflow(data)
+        
+        // !usingTakenGold
         let count = data.included.count - data.completed.count - numberOfOverflow
 
+        // TODO: -
+        /*  usingTakenGold
+         let completedCount = data.included.count - data.completed.count
+         let goldCount = data.included.count - data.completed.count - numberOfOverflow
+         */
+        
         switch data.type % 10 {
         case 0:
             desciptionLabel.attributedText = count > 0
@@ -170,7 +176,13 @@ class AdditionalTableViewCell: UITableViewCell {
         var numberOfOverflow = 0
         
         if data.type / 10 == 4 {
+            // !usingTakenGold
             guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return 0 }
+            
+            // TODO: -
+            // usingTakenGold
+            // data.completed → data.takenGold
+            // 골드를 받은 캐릭터들을 확인하기
             
             // 수정 - 004: 동일 군단장 설정
             data.included.forEach { identifier in
@@ -302,13 +314,19 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         } else {
             cell.contentView.isHidden = false
         }
-
+        
         cell.completed = data.completed.contains(identifier)
 
         if data.type >= 40 {
+            // !usingTakenGold 그대로
+            
+            // TODO: -
+            // usingTakenGold
+            // data.completed → data.takenGold
+            // 골드를 받은 캐릭터들을 확인하기
+
             guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
 
-            // 수정 - 004
             var numberOfCompleted = 0
             var linkingContent: [String] = []
             additional.forEach { content in
@@ -340,7 +358,6 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
             cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
             ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemRed)
             : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemPurple) : sameGateContentCompletedColor)
-            //
         } else {
             cell.nameLabel.textColor = .label
         }
@@ -386,12 +403,17 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
             if data.completed.contains(identifier) {
                 guard let index = data.completed.firstIndex(of: identifier) else { return }
                 data.completed.remove(at: index)
+                
+                // usingTakenGold
+                // guard let index = data.takenGold.firstIndex(of: identifier) else { return }
+                // data.takenGold.remove(at: index)
             } else {
                 if data.type >= 40 {
                     var numberOfCompleted = 0
 
+                    // !usingTakenGold
                     guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                    // 수정 - 004
+                    
                     var linkingContent: [String] = []
                     additional.forEach { content in
                         if content.type >= 40 && content.completed.contains(identifier) {
@@ -429,12 +451,74 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
                     default:
                         break
                     }
-                    //
                 }
                 
                 data.completed.append(identifier)
+                
+                /*
+                 if data.type >= 40 {
+                     var numberOfCompleted = 0
+
+                     // usingTakenGold
+                     guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
+                     // 수정 - 004
+                     var linkingContent: [String] = []
+                     additional.forEach { content in
+                         if content.type >= 40 && content.takenGold.contains(identifier) {
+                             numberOfCompleted += 1
+
+                             if linkingContent.contains(content.link) && content.link != "" {
+                                 numberOfCompleted -= 1
+                             } else if content.link != "" {
+                                 linkingContent.append(content.link)
+                             }
+                         }
+                     }
+                     
+                     let link = additional.filter { content in
+                         return content.type >= 40 && content.takenGold.contains(identifier) && content.link != ""
+                     }.map { content in content.link }
+                     
+                     let gate = additional.filter { content in
+                         return content.type >= 40 && content.takenGold.contains(identifier) && content.gate != ""
+                     }.map { content in content.gate }
+
+                     let isLinkingContentCompleted = link.contains(data.link)
+                     let isSameGateContentCompleted = gate.contains(data.gate)
+
+                     switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted, isSameGateContentCompleted) {
+                     case (true, false, false):
+                         isExceeded = true
+                     case (true, true, true):
+                         isExceeded = true
+                     case (false, true, true):
+                         isExceeded = true
+                     default:
+                         break
+                     }
+                     //
+                 }
+                 
+                 if isExceeded {
+                     골드 미획득
+                     data.completed.append(identifier)
+
+                 } else {
+                     alert 추가
+                     골드 획득
+                     data.completed.append(identifier)
+                     data.takenGold.append(identifier)
+
+                     골드 미획득
+                     data.completed.append(identifier)
+
+                     취소
+                 }
+                 
+                 */
             }
         }
+        
         
         if isExceeded { return }
 

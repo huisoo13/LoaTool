@@ -29,6 +29,7 @@
 		50D18B0D2990BCC500922CE7 /* Auction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B0C2990BCC500922CE7 /* Auction.swift */; };
 		50D18B0F2993341100922CE7 /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B0E2993341100922CE7 /* CalculatorViewModel.swift */; };
 		50D18B112993377500922CE7 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B102993377500922CE7 /* Calculator.swift */; };
+		50EA50D429A863410066019E /* AdditionalTableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA50D329A863410066019E /* AdditionalTableViewCell+Extension.swift */; };
 		614304CC6F32E0260022DFEA /* Pods_LoaTool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A14DF66339B1A126645F8E6 /* Pods_LoaTool.framework */; };
 		F10695EE277D68B700D28F1F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10695ED277D68B700D28F1F /* Coordinator.swift */; };
 		F10695F0277D691400D28F1F /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10695EF277D691400D28F1F /* Storyboarded.swift */; };
@@ -266,6 +267,7 @@
 		50D18B0C2990BCC500922CE7 /* Auction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auction.swift; sourceTree = "<group>"; };
 		50D18B0E2993341100922CE7 /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
 		50D18B102993377500922CE7 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		50EA50D329A863410066019E /* AdditionalTableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdditionalTableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		F10695ED277D68B700D28F1F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F10695EF277D691400D28F1F /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		F106AB3027F53FC100C0B56C /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
@@ -1083,6 +1085,7 @@
 				F1FEC39327F4235E00D56518 /* SpecialDailyTableViewCell.swift */,
 				F1FEC39427F4235E00D56518 /* SpecialDailyTableViewCell.xib */,
 				F1FEC39B27F4237F00D56518 /* AdditionalTableViewCell.swift */,
+				50EA50D329A863410066019E /* AdditionalTableViewCell+Extension.swift */,
 				F1FEC39C27F4237F00D56518 /* AdditionalTableViewCell.xib */,
 				F117FB0228040D5A00EF30BB /* AdditionalCollectionViewCell.swift */,
 				F117FB0328040D5A00EF30BB /* AdditionalCollectionViewCell.xib */,
@@ -1327,6 +1330,7 @@
 				F12B9710280536FE00013A3A /* TodoConfigureViewController.swift in Sources */,
 				F182258727FFF41100546864 /* Version.swift in Sources */,
 				F114C20F285AC57B0035B892 /* FastArrowLayer.swift in Sources */,
+				50EA50D429A863410066019E /* AdditionalTableViewCell+Extension.swift in Sources */,
 				F119B966281A1D2400F25F4B /* ImagePickerViewController+UITableView.swift in Sources */,
 				F115AD0D28065C79006CE991 /* IconPickerViewController.swift in Sources */,
 				F1FEC3A127F4305D00D56518 /* DailyCollectionViewCell.swift in Sources */,
@@ -1596,7 +1600,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LoaTool/LoaTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YJ4XY4GYA8;
 				INFOPLIST_FILE = LoaTool/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1605,7 +1609,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 23.1.18;
+				MARKETING_VERSION = 23.2.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1621,7 +1625,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LoaTool/LoaTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YJ4XY4GYA8;
 				INFOPLIST_FILE = LoaTool/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1630,7 +1634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 23.1.18;
+				MARKETING_VERSION = 23.2.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
