@@ -68,6 +68,7 @@ class TodoViewModel {
             if content.type < 20 {
                 RealmManager.shared.update {
                     content.completed.removeAll()
+                    content.takenGold.removeAll()
                 }
             }
         }
@@ -80,6 +81,7 @@ class TodoViewModel {
             todo.additional.forEach { content in
                 RealmManager.shared.update {
                     content.completed.removeAll()
+                    content.takenGold.removeAll()
                 }
             }
         }
@@ -118,9 +120,13 @@ class TodoViewModel {
             contents.forEach { content in
                 let included = content.included
                 let completed = content.completed
-                
+                let takenGold = content.takenGold
+
                 completed.enumerated().forEach { i, member in
-                    if !included.contains(member) { completed.remove(at: i) }
+                    if !included.contains(member) {
+                        completed.remove(at: i)
+                        takenGold.remove(at: i)
+                    }
                 }
             }
         }
@@ -132,14 +138,15 @@ class TodoViewModel {
 
         self.sortedIncludedMember()
         self.updateCompletedMember()
-        
-        RealmManager.shared.update {
-            
-            if calculate > 0 {
-                self.updateDailyContent(data, calculate: calculate)
-                self.updateWeeklyContent(data)
+                
+        data.additional.forEach { content in
+            RealmManager.shared.update {
+                content.completed.removeAll()
+                content.takenGold.removeAll()
             }
-            
+        }
+
+        RealmManager.shared.update {
             data.lastUpdate = DateManager.shared.currentDate()
             data.nextLoaWeekday = DateManager.shared.nextLoaWeekday(DateManager.shared.currentDate())
         }

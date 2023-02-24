@@ -106,7 +106,7 @@ class TodoViewController: UIViewController, Storyboarded {
         let acquired = viewModel.result.value?.gold
         
         viewModel.result.value?.additional.forEach { additional in
-            additional.completed.forEach { completed in
+            additional.takenGold.forEach { completed in
                 guard let allow = acquired?.contains(completed),
                       let member = RealmManager.shared.read(Member.self, identifier: completed).first,
                       allow else { return }
@@ -271,7 +271,7 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdditionalTableViewCell", for: indexPath) as! AdditionalTableViewCell
             
             cell.data = viewModel.result.value?.additional[safe: indexPath.row]
-
+            cell.target = self
             return cell
         default:
             break

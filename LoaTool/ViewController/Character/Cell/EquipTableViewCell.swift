@@ -107,7 +107,7 @@ class EquipTableViewCell: UITableViewCell {
         additionalLabel.text = data.additionalEffect
 
         // 엘릭서
-        let elixir = data.engravingEffect == "" ? "없음" : data.engravingEffect ?? ""
+        let elixir = data.engravingEffect == "" || data.engravingEffect == nil ? "없음" : data.engravingEffect ?? ""
 
         var attributedString = NSMutableAttributedString(string: elixir)
 

@@ -2707,10 +2707,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hch-kT-gkg">
-                                        <rect key="frame" x="0.0" y="408" width="414" height="164"/>
+                                        <rect key="frame" x="0.0" y="408" width="414" height="92"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="I2q-Xc-tjv">
-                                                <rect key="frame" x="0.0" y="10" width="414" height="144"/>
+                                                <rect key="frame" x="0.0" y="10" width="414" height="72"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZY-CV-uu7">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
@@ -2800,8 +2800,8 @@
                                                             <constraint firstAttribute="height" constant="72" id="zen-67-rcx"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5o-qn-c9a">
-                                                        <rect key="frame" x="0.0" y="72" width="414" height="72"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5o-qn-c9a">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLS-jU-u7E">
                                                                 <rect key="frame" x="26" y="7" width="32" height="32"/>
@@ -2900,14 +2900,14 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4Q-hV-dbd">
-                                        <rect key="frame" x="0.0" y="572" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="500" width="414" height="0.5"/>
                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="0RQ-O8-qIQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYF-Pp-H9c">
-                                        <rect key="frame" x="0.0" y="582.5" width="414" height="34"/>
+                                        <rect key="frame" x="0.0" y="510.5" width="414" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="골드 획득 설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7i-6U-EwK">
                                                 <rect key="frame" x="16" y="8.5" width="382" height="17"/>
@@ -2935,7 +2935,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E58-8w-gf2">
-                                        <rect key="frame" x="0.0" y="616.5" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="544.5" width="414" height="44"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-BZ-24z">
                                                 <rect key="frame" x="16" y="7.5" width="317" height="29"/>
@@ -2969,7 +2969,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JwN-ig-TDy">
-                                        <rect key="frame" x="0.0" y="660.5" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="588.5" width="414" height="0.5"/>
                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="YEp-id-Sgn"/>
@@ -3575,7 +3575,7 @@
                                                     <segment title="일일"/>
                                                     <segment title="주간"/>
                                                     <segment title="어비스"/>
-                                                    <segment title="군단장"/>
+                                                    <segment title="엔드"/>
                                                 </segments>
                                             </segmentedControl>
                                         </subviews>
