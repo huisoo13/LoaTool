@@ -243,6 +243,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
 
     var included = List<String>()
     var completed = List<String>()
+    var takenGold = List<String>()
     var weekday = List<Int>()
     
     var parent = LinkingObjects(fromType: Todo.self, property: "additional")
@@ -261,7 +262,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
      - parameters:
      - identifier: 고유아이디
      - title: 컨텐츠 이름
-     - type: 일일 / 주간 / 어비스 / 군단장 / 기타
+     - type: 일일 / 주간 / 어비스 / 엔드 컨텐츠 / 기타
      - icon: 아이콘
      - level: 컨텐츠 제한 레벨
      - limit: 골드 획득 제한 레벨
@@ -273,7 +274,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
      - completed: 완료 캐릭터
      - weekday: 요일
      */
-    init(identifier: String, title: String, type: Int, icon: Int, level: Double, limit: Double = 0, allowLimit: Bool = false, gold: Int, link: String = "", gate: String = "", included: [String], completed: [String], weekday: [Int]) {
+    init(identifier: String, title: String, type: Int, icon: Int, level: Double, limit: Double = 0, allowLimit: Bool = false, gold: Int, link: String = "", gate: String = "", included: [String], completed: [String], takenGold: [String], weekday: [Int]) {
         self.identifier = identifier
         self.title = title
         self.type = type
@@ -291,6 +292,9 @@ class AdditionalContent: Object, NSItemProviderWriting {
         self.completed.removeAll()
         self.completed.append(objectsIn: completed)
         
+        self.takenGold.removeAll()
+        self.takenGold.append(objectsIn: completed)
+
         self.weekday.removeAll()
         self.weekday.append(objectsIn: weekday)
     }
@@ -303,6 +307,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-002",
                                                                 title: "도전 어비스 던전",
@@ -312,6 +317,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-003",
                                                                 title: "주간 에포나 의뢰",
@@ -321,6 +327,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-004",
                                                                 title: "툴루비크",
@@ -330,6 +337,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 4, 7]),
                                               AdditionalContent(identifier: "PRESET-005",
                                                                 title: "유령선",
@@ -339,6 +347,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [3, 5, 7]),
                                               AdditionalContent(identifier: "PRESET-006",
                                                                 title: "길드 출석",
@@ -348,6 +357,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-007",
                                                                 title: "어비스 던전",
@@ -357,6 +367,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-008",
                                                                 title: "[노말] 카양겔",
@@ -366,6 +377,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-009",
                                                                 title: "[하드1] 카양겔",
@@ -375,6 +387,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-010",
                                                                 title: "[하드2] 카양겔",
@@ -384,6 +397,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-011",
                                                                 title: "[하드3] 카양겔",
@@ -393,6 +407,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 0,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-012",
                                                                 title: "아르고스",
@@ -404,6 +419,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 1000,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-013",
                                                                 title: "[노말] 발탄",
@@ -413,6 +429,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 1200,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-014",
                                                                 title: "[하드] 발탄",
@@ -422,6 +439,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 1800,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-015",
                                                                 title: "[노말] 비아키스",
@@ -431,6 +449,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 1600,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-016",
                                                                 title: "[하드] 비아키스",
@@ -440,6 +459,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 2400,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-017",
                                                                 title: "[노말] 쿠크세이튼",
@@ -449,6 +469,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 4500,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-018-1",
                                                                 title: "[노말] 아브렐슈드 1-2",
@@ -460,6 +481,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gate: "GATE-001",
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-018-2",
                                                                 title: "[노말] 아브렐슈드 3-4",
@@ -471,6 +493,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gate: "GATE-002",
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-018-3",
                                                                 title: "[노말] 아브렐슈드 5-6",
@@ -482,6 +505,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gate: "GATE-003",
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-019-1",
                                                                 title: "[하드] 아브렐슈드 1-2",
@@ -493,6 +517,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gate: "GATE-001",
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-019-2",
                                                                 title: "[하드] 아브렐슈드 3-4",
@@ -504,6 +529,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gate: "GATE-002",
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-019-3",
                                                                 title: "[하드] 아브렐슈드 5-6",
@@ -515,6 +541,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gate: "GATE-003",
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-020",
                                                                 title: "[노말] 일리아칸",
@@ -524,6 +551,7 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 5500,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
                                               AdditionalContent(identifier: "PRESET-021",
                                                                 title: "[하드] 일리아칸",
@@ -533,6 +561,27 @@ class AdditionalContent: Object, NSItemProviderWriting {
                                                                 gold: 7500,
                                                                 included: [],
                                                                 completed: [],
+                                                                takenGold: [],
+                                                                weekday: [1, 2, 3, 4, 5, 6, 7]),
+                                              AdditionalContent(identifier: "PRESET-022",
+                                                                title: "[노말] 혼돈의 상아탑",
+                                                                type: 41,
+                                                                icon: 2,
+                                                                level: 1600,
+                                                                gold: 7500,
+                                                                included: [],
+                                                                completed: [],
+                                                                takenGold: [],
+                                                                weekday: [1, 2, 3, 4, 5, 6, 7]),
+                                              AdditionalContent(identifier: "PRESET-023",
+                                                                title: "[하드] 혼돈의 상아탑",
+                                                                type: 41,
+                                                                icon: 2,
+                                                                level: 1620,
+                                                                gold: 11000,
+                                                                included: [],
+                                                                completed: [],
+                                                                takenGold: [],
                                                                 weekday: [1, 2, 3, 4, 5, 6, 7]),
     ]
 }

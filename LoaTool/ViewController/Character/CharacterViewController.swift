@@ -139,22 +139,13 @@ extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        let spacing: CGFloat = collectionView.bounds.width > 375 * 3
-        ? 10
-        : (collectionView.bounds.width > 375 * 2
-           ? 10
-           : .zero)
-        
+        let spacing: CGFloat = collectionView.bounds.width > 375 * 2 ? 10 : .zero
         return spacing
         // .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let spacing: CGFloat = collectionView.bounds.width > 375 * 3
-        ? 10
-        : (collectionView.bounds.width > 375 * 2
-           ? 10
-           : .zero)
+        let spacing: CGFloat = collectionView.bounds.width > 375 * 2 ? 10 : .zero
         
         return spacing
         // .zero

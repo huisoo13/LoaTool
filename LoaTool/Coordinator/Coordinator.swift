@@ -209,6 +209,26 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
+    func pushToCalculatorViewController(animated: Bool) {
+        let viewController = CalculatorViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToCalculatorACcessoryViewController(_ accessory: Accessory?, animated: Bool) {
+        let viewController = CalculatorAccessoryViewController.instantiate()
+        viewController.coordinator = self
+        viewController.data = accessory
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func pushToCalculatorResultViewController(animated: Bool) {
+        let viewController = CalculatorResultViewController.instantiate()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: animated)
+
+    }
+    
     /*
      - 일반적인 Push
      let viewController = ViewController.instantiate()
@@ -236,7 +256,7 @@ class AppCoordinator: Coordinator {
         router?.present(viewController, animated: animated)
     }
     
-    func presentToTextFieldViewController(_ delegate: TextFieldDelegate?, title: String, keyboardType: UIKeyboardType, animated: Bool) {
+    func presentToTextFieldViewController(_ delegate: TextFieldDelegate?, title: String, allowPickerView: Bool = false, data: [String] = [], usingFilter: Bool = true, keyboardType: UIKeyboardType, animated: Bool) {
         let viewController = TextFieldViewController.instantiate("Popup")
         
         viewController.coordinator = self
@@ -244,6 +264,10 @@ class AppCoordinator: Coordinator {
         viewController.text = title
         viewController.keyboardType = keyboardType
         
+        viewController.allowPickerView = allowPickerView
+        viewController.data = data
+        viewController.usingFilter = usingFilter
+                
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
         

@@ -65,11 +65,11 @@ extension OptionViewController: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        4
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
+        UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,6 +85,9 @@ extension OptionViewController: UITableViewDelegate, UITableViewDataSource {
         case 2:
             let isOn = UserDefaults.standard.bool(forKey: "showExcludedMember")
             cell.setup("추가 컨텐츠 스크롤 그룹화", description: "추가 컨텐츠의 보기 방식을 개별에서 그룹으로 변경합니다.", isOn: isOn, switchButton: false)
+        case 3:
+            let isOn = UserDefaults.standard.bool(forKey: "usingTakenGold")
+            cell.setup("골드 보상 획득 여부 선택", description: "컨텐츠 완료 시 골드 보상 획득 여부를 선택하며, 엔드 컨텐츠를 3회 이상 완료 표시 할 수 있습니다.", isOn: isOn, switchButton: false)
         default:
             break
         }
@@ -109,6 +112,11 @@ extension OptionViewController: UITableViewDelegate, UITableViewDataSource {
         case 2:
             let isOn = UserDefaults.standard.bool(forKey: "showExcludedMember")
             UserDefaults.standard.set(!isOn, forKey: "showExcludedMember")
+            
+            cell.switchButton.setOn(!isOn, animated: true)
+        case 3:
+            let isOn = UserDefaults.standard.bool(forKey: "usingTakenGold")
+            UserDefaults.standard.set(!isOn, forKey: "usingTakenGold")
             
             cell.switchButton.setOn(!isOn, animated: true)
         default:

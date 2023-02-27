@@ -43,6 +43,8 @@ class MoreToolTableViewCell: UITableViewCell {
                 case 0:
                     self.coordinator?.pushToProfitAndLossViewController(animated: true)
                 case 1:
+                    self.coordinator?.pushToCalculatorViewController(animated: true)
+                case 2:
                     let usingCloudKit = UserDefaults.standard.bool(forKey: "usingCloudKit")
                     let message = usingCloudKit ? "동기화를 중지해도 기존의 데이터는 남아있습니다.\n\n동기화를 중지하시겠습니까?" : "동일한 iCloud에 로그인 되어있는 기기에서 데이터를 동기화합니다.\n\n해당 기능을 사용 하시겠습니까?"
                     Alert.message(self.target, title: "iCloud 동기화", message: message, option: .successAndCancelAction) { _ in
@@ -54,11 +56,9 @@ class MoreToolTableViewCell: UITableViewCell {
                         
                         Alert.message(self.target, title: "설정 완료", message: "앱 재실행 후 적용됩니다.\n 재실행 후 '할 일' 탭을 확인해주세요. ", option: .onlySuccessAction, handler: nil)
                     }
-                case 2:
+                case 3:
                     guard let url = URL(string: "https://open.kakao.com/o/sBIbVWyd"), UIApplication.shared.canOpenURL(url) else { return }
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                case 3:
-                    break
                 default:
                     break
                 }

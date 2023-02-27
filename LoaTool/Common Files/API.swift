@@ -19,6 +19,7 @@ class API {
     var method: HTTPMethod = .post
     
     private let _SERVER: String = "http://15.164.244.43/api/"
+    private let _LOSTARK: String = "https://developer-lostark.game.onstove.com/"
     
     init(method: HTTPMethod) {
         self.method = method
@@ -917,7 +918,43 @@ class API {
     
     
     // MARK: - DELETE
+    
+}
 
-    
-    
+extension API {     // Lostark API
+    func searchAuctions(_ data: AuctionRequest, forKey: String, completionHandler: ((_ result: Bool)->())? = nil) {
+        let parameters: Parameters = data.toDictionary()
+        let headers: HTTPHeaders = [.accept("application/json"),
+                                    .authorization(bearerToken: forKey),
+                                    .contentType("application/json")]
+        
+        print(_LOSTARK + "auctions/items")
+        print(headers)
+        print(parameters)
+        
+        let evaluators: [String: ServerTrustEvaluating] = [
+            _LOSTARK: PublicKeysTrustEvaluator(
+                performDefaultValidation: false,
+                validateHost: false
+            )
+        ]
+        let serverTrustManager = ServerTrustManager(evaluators: evaluators)
+        let session = Session(serverTrustManager: serverTrustManager)
+
+        session.request(_LOSTARK + "auctions/items", method: method, parameters: parameters, encoding: URLEncoding.default, headers: headers).validate().responseData { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                
+                print(json)
+                
+                /*
+                let result = json["result"].boolValue
+                completionHandler?(result)
+                 */
+            case .failure(let error):
+                debug("\(#function): \(error)")
+            }
+        }
+    }
 }

@@ -171,39 +171,12 @@ extension AppDelegate {
 extension AppDelegate {
     func migrationForRealm() {
         let oldSchemaVersion = UserDefaults.standard.integer(forKey: "oldSchemaVersion")
-        let newSchemaVersion = 15
+        let newSchemaVersion = 16
         
         let configuration = Realm.Configuration(
             schemaVersion: UInt64(newSchemaVersion),
             migrationBlock: { migration, oldSchemaVersion in
                 debug("Realm migration")
-                
-                if oldSchemaVersion < 9 {
-                    migration.enumerateObjects(ofType: Member.className()) { oldObject, newObject in
-                        newObject!["cube"] = 0
-                        newObject!["boss"] = 0
-                    }
-                }
-                
-                if oldSchemaVersion < 11 {
-                    migration.enumerateObjects(ofType: Todo.className()) { oldObject, newObject in
-                        newObject!["gold"] = List<String>()
-                    }
-                }
-                
-                if oldSchemaVersion < 12 {
-                    migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
-                        newObject!["limit"] = 0
-                        newObject!["allowLimit"] = false
-                        newObject!["link"] = ""
-                    }
-                }
-                
-                if oldSchemaVersion < 13 {
-                    migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
-                        newObject!["gate"] = ""
-                    }
-                }
                 
                 if oldSchemaVersion < 14 { // 22. 12. 15
                     migration.create(ETC.className())
@@ -224,10 +197,16 @@ extension AppDelegate {
                     }
                 }
                 
-                if oldSchemaVersion < newSchemaVersion { // 22. 12. 16
+                if oldSchemaVersion < 15 { // 22. 12. 16
                     migration.renameProperty(onType: Equip.className(), from: "name", to: "title")
                     migration.enumerateObjects(ofType: Equip.className()) { oldObject, newObject in
                         newObject!["level"] = 0
+                    }
+                }
+                
+                if oldSchemaVersion < newSchemaVersion { // 23. 2. 24
+                    migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
+                        newObject!["takenGold"] = []
                     }
 
                     UserDefaults.standard.set(newSchemaVersion, forKey: "oldSchemaVersion")
@@ -247,70 +226,31 @@ extension AppDelegate {
 }
 
 
-/** 22.12.15 변경 사항
- * key
- * identifier
- * lastUpdated
- * info
-     * name
-     * server
-     * job
-     * imageURL
-     * level
-     * expedition
-     * guild
-     * isMaster
-     * stronghold → town
-     * memberList
- * stats
-     * attack
-     * health
-     * critical: 치명
-     * specialization: 특화
-     * domination: 제압
-     * swiftness: 신속
-     * endurance: 인내
-     * expertise: 숙련
- * equip
-     * position → category
-     * name → title
-     * tier
-     * grade
-     * quality
-     * iconPath
-     * defaultOption → basicEffect
-     * additionalOption → additionalEffect
-     * engrave → engravingEffect
-     * tripod → 삭제
- * engrave
-     * equips
-     * effect
- * skill
-     * type → 추가
-     * category
-     * title
-     * iconPath
-     * level
-     * tripod1
-     * tripod2
-     * tripod3
-     * rune
-         * title
-         * grade
-         * tooltip
-         * iconPath
- * gem
-     * title
-     * level
-     * grade
-     * iconPath
-     * tooltip
- * card
-     * title
-     * tooltip
- * etc → 추가
-     * setType → 추가
-     * maxSkillPoint → 추가
-     * usedSkillPoint → 추가
+/*
+if oldSchemaVersion < 9 {
+    migration.enumerateObjects(ofType: Member.className()) { oldObject, newObject in
+        newObject!["cube"] = 0
+        newObject!["boss"] = 0
+    }
+}
 
- */
+if oldSchemaVersion < 11 {
+    migration.enumerateObjects(ofType: Todo.className()) { oldObject, newObject in
+        newObject!["gold"] = List<String>()
+    }
+}
+
+if oldSchemaVersion < 12 {
+    migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
+        newObject!["limit"] = 0
+        newObject!["allowLimit"] = false
+        newObject!["link"] = ""
+    }
+}
+
+if oldSchemaVersion < 13 {
+    migration.enumerateObjects(ofType: AdditionalContent.className()) { oldObject, newObject in
+        newObject!["gate"] = ""
+    }
+}
+*/

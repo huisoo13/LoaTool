@@ -70,7 +70,6 @@ class SummaryViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -324,6 +323,11 @@ class SummaryViewController: UIViewController, Storyboarded {
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                activityViewController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+                activityViewController.popoverPresentationController?.permittedArrowDirections = []
+            }
+            
             self.present(activityViewController, animated: true, completion: nil)
         }
     }
@@ -354,7 +358,7 @@ extension SummaryViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.width - 64
+        let width = collectionView.bounds.width - 64
         return CGSize(width: width / 2, height: 32)
     }
     
@@ -413,7 +417,6 @@ extension SummaryViewController {
                 if let results = request.results as? [VNFaceObservation], results.count > 0 {
                     self.handleFaceDetectionResults(results, willCrop: image)
                 } else {
-                    print("not found")
                     self.imageView.image = image
                 }
             }

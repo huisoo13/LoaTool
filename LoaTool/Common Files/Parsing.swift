@@ -229,6 +229,13 @@ class Parsing: NSObject {
                             .replacingOccurrences(of: "<BR>", with: "\n", options: .regularExpression, range: nil)
                             .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                     }
+                } else {
+                    // 엘릭서
+                    json["Element_008"]["value"]["Element_000"]["contentStr"].sorted(by: { $0.0 < $1.0 }).forEach { key, json in
+                        engraving! += json["contentStr"].stringValue
+                            .replacingOccurrences(of: "</FONT><br>", with: "\n-", options: .regularExpression, range: nil)
+                            .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).components(separatedBy: "-").first ?? ""
+                    }
                 }
                 
                 engraving = engraving == "" ? nil : engraving?.trimmingCharacters(in: .whitespacesAndNewlines)

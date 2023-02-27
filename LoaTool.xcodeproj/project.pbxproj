@@ -7,6 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		505B1CF7299A157A00FE846B /* CalculatorAccessoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505B1CF6299A157A00FE846B /* CalculatorAccessoryViewController.swift */; };
+		508FEE65299B5695000B31DA /* CalculatorResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FEE64299B5695000B31DA /* CalculatorResultViewController.swift */; };
+		508FEE68299F1648000B31DA /* CalculatorResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FEE66299F1648000B31DA /* CalculatorResultCollectionViewCell.swift */; };
+		508FEE69299F1648000B31DA /* CalculatorResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508FEE67299F1648000B31DA /* CalculatorResultCollectionViewCell.xib */; };
+		508FEE6B299F1688000B31DA /* CalculatorResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FEE6A299F1688000B31DA /* CalculatorResultHeaderView.swift */; };
+		508FEE6D299F16B1000B31DA /* CalculatorResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508FEE6C299F16B1000B31DA /* CalculatorResultHeaderView.xib */; };
+		508FEE70299F1703000B31DA /* CalculatorResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FEE6E299F1703000B31DA /* CalculatorResultTableViewCell.swift */; };
+		508FEE71299F1703000B31DA /* CalculatorResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508FEE6F299F1703000B31DA /* CalculatorResultTableViewCell.xib */; };
+		50D18AE7298B741600922CE7 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18AE6298B741600922CE7 /* CalculatorViewController.swift */; };
+		50D18AF4298B822900922CE7 /* CalculatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18AF2298B822900922CE7 /* CalculatorCollectionViewCell.swift */; };
+		50D18AF5298B822900922CE7 /* CalculatorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D18AF3298B822900922CE7 /* CalculatorCollectionViewCell.xib */; };
+		50D18AF8298B955F00922CE7 /* CalculatorHelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18AF6298B955F00922CE7 /* CalculatorHelpTableViewCell.swift */; };
+		50D18AF9298B955F00922CE7 /* CalculatorHelpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D18AF7298B955F00922CE7 /* CalculatorHelpTableViewCell.xib */; };
+		50D18AFC298B958300922CE7 /* CalculatorTargetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18AFA298B958300922CE7 /* CalculatorTargetTableViewCell.swift */; };
+		50D18AFD298B958300922CE7 /* CalculatorTargetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D18AFB298B958300922CE7 /* CalculatorTargetTableViewCell.xib */; };
+		50D18B00298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18AFE298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.swift */; };
+		50D18B01298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D18AFF298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.xib */; };
+		50D18B04298B95E400922CE7 /* CalculatorAccessoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B02298B95E400922CE7 /* CalculatorAccessoryTableViewCell.swift */; };
+		50D18B05298B95E400922CE7 /* CalculatorAccessoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D18B03298B95E400922CE7 /* CalculatorAccessoryTableViewCell.xib */; };
+		50D18B0D2990BCC500922CE7 /* Auction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B0C2990BCC500922CE7 /* Auction.swift */; };
+		50D18B0F2993341100922CE7 /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B0E2993341100922CE7 /* CalculatorViewModel.swift */; };
+		50D18B112993377500922CE7 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D18B102993377500922CE7 /* Calculator.swift */; };
+		50EA50D429A863410066019E /* AdditionalTableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA50D329A863410066019E /* AdditionalTableViewCell+Extension.swift */; };
 		614304CC6F32E0260022DFEA /* Pods_LoaTool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A14DF66339B1A126645F8E6 /* Pods_LoaTool.framework */; };
 		F10695EE277D68B700D28F1F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10695ED277D68B700D28F1F /* Coordinator.swift */; };
 		F10695F0277D691400D28F1F /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10695EF277D691400D28F1F /* Storyboarded.swift */; };
@@ -222,6 +245,29 @@
 /* Begin PBXFileReference section */
 		0A14DF66339B1A126645F8E6 /* Pods_LoaTool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoaTool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		160F01B0CE58EF6A37B3D1E5 /* Pods-LoaTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoaTool.debug.xcconfig"; path = "Target Support Files/Pods-LoaTool/Pods-LoaTool.debug.xcconfig"; sourceTree = "<group>"; };
+		505B1CF6299A157A00FE846B /* CalculatorAccessoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorAccessoryViewController.swift; sourceTree = "<group>"; };
+		508FEE64299B5695000B31DA /* CalculatorResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultViewController.swift; sourceTree = "<group>"; };
+		508FEE66299F1648000B31DA /* CalculatorResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		508FEE67299F1648000B31DA /* CalculatorResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorResultCollectionViewCell.xib; sourceTree = "<group>"; };
+		508FEE6A299F1688000B31DA /* CalculatorResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultHeaderView.swift; sourceTree = "<group>"; };
+		508FEE6C299F16B1000B31DA /* CalculatorResultHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorResultHeaderView.xib; sourceTree = "<group>"; };
+		508FEE6E299F1703000B31DA /* CalculatorResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultTableViewCell.swift; sourceTree = "<group>"; };
+		508FEE6F299F1703000B31DA /* CalculatorResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorResultTableViewCell.xib; sourceTree = "<group>"; };
+		50D18AE6298B741600922CE7 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
+		50D18AF2298B822900922CE7 /* CalculatorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCollectionViewCell.swift; sourceTree = "<group>"; };
+		50D18AF3298B822900922CE7 /* CalculatorCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorCollectionViewCell.xib; sourceTree = "<group>"; };
+		50D18AF6298B955F00922CE7 /* CalculatorHelpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorHelpTableViewCell.swift; sourceTree = "<group>"; };
+		50D18AF7298B955F00922CE7 /* CalculatorHelpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorHelpTableViewCell.xib; sourceTree = "<group>"; };
+		50D18AFA298B958300922CE7 /* CalculatorTargetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTargetTableViewCell.swift; sourceTree = "<group>"; };
+		50D18AFB298B958300922CE7 /* CalculatorTargetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorTargetTableViewCell.xib; sourceTree = "<group>"; };
+		50D18AFE298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorEquipmentTableViewCell.swift; sourceTree = "<group>"; };
+		50D18AFF298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorEquipmentTableViewCell.xib; sourceTree = "<group>"; };
+		50D18B02298B95E400922CE7 /* CalculatorAccessoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorAccessoryTableViewCell.swift; sourceTree = "<group>"; };
+		50D18B03298B95E400922CE7 /* CalculatorAccessoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalculatorAccessoryTableViewCell.xib; sourceTree = "<group>"; };
+		50D18B0C2990BCC500922CE7 /* Auction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auction.swift; sourceTree = "<group>"; };
+		50D18B0E2993341100922CE7 /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
+		50D18B102993377500922CE7 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		50EA50D329A863410066019E /* AdditionalTableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdditionalTableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		F10695ED277D68B700D28F1F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F10695EF277D691400D28F1F /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		F106AB3027F53FC100C0B56C /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
@@ -462,6 +508,40 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		50D18AE8298B744400922CE7 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				50D18AE6298B741600922CE7 /* CalculatorViewController.swift */,
+				505B1CF6299A157A00FE846B /* CalculatorAccessoryViewController.swift */,
+				508FEE64299B5695000B31DA /* CalculatorResultViewController.swift */,
+				50D18AF1298B7FE300922CE7 /* Cell */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		50D18AF1298B7FE300922CE7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				50D18AF2298B822900922CE7 /* CalculatorCollectionViewCell.swift */,
+				50D18AF3298B822900922CE7 /* CalculatorCollectionViewCell.xib */,
+				50D18AF6298B955F00922CE7 /* CalculatorHelpTableViewCell.swift */,
+				50D18AF7298B955F00922CE7 /* CalculatorHelpTableViewCell.xib */,
+				50D18AFA298B958300922CE7 /* CalculatorTargetTableViewCell.swift */,
+				50D18AFB298B958300922CE7 /* CalculatorTargetTableViewCell.xib */,
+				50D18AFE298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.swift */,
+				50D18AFF298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.xib */,
+				50D18B02298B95E400922CE7 /* CalculatorAccessoryTableViewCell.swift */,
+				50D18B03298B95E400922CE7 /* CalculatorAccessoryTableViewCell.xib */,
+				508FEE66299F1648000B31DA /* CalculatorResultCollectionViewCell.swift */,
+				508FEE67299F1648000B31DA /* CalculatorResultCollectionViewCell.xib */,
+				508FEE6A299F1688000B31DA /* CalculatorResultHeaderView.swift */,
+				508FEE6C299F16B1000B31DA /* CalculatorResultHeaderView.xib */,
+				508FEE6E299F1703000B31DA /* CalculatorResultTableViewCell.swift */,
+				508FEE6F299F1703000B31DA /* CalculatorResultTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		D86B7D415A143D678B9C52B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,6 +765,8 @@
 				F1B0DD8B286AC50B00127AB7 /* BlockTableViewCell.xib */,
 				F1453341289A334E000D1108 /* OptionTableViewCell.swift */,
 				F1453342289A334E000D1108 /* OptionTableViewCell.xib */,
+				F1ECAC752948216800FFBAF2 /* ProfitAndLossTableViewCell.swift */,
+				F1ECAC762948216800FFBAF2 /* ProfitAndLossTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -781,6 +863,7 @@
 				F124F18827F2861900ADF95F /* Party */,
 				F124F18927F2861E00ADF95F /* More */,
 				F17F305C291A0F270060EFB6 /* OST */,
+				50D18AE8298B744400922CE7 /* Calculator */,
 				F11AEC6E27FE9F1F00AE10DB /* Popup */,
 				F169FF1C2949C07500DD8CF5 /* Screenshot */,
 			);
@@ -800,6 +883,8 @@
 				F1421838286C1B9D007BE6B1 /* AD.swift */,
 				F1ADFB70291A16BB0088BFF0 /* OST.swift */,
 				F193C3CA2947202C006991B9 /* Recipe.swift */,
+				50D18B0C2990BCC500922CE7 /* Auction.swift */,
+				50D18B102993377500922CE7 /* Calculator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -817,6 +902,7 @@
 				F1B0DD90286AC71700127AB7 /* BlockViewModel.swift */,
 				F1ADFB72291A16FA0088BFF0 /* OSTViewModel.swift */,
 				F1ECAC7229481D4000FFBAF2 /* RecipeViewModel.swift */,
+				50D18B0E2993341100922CE7 /* CalculatorViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -945,8 +1031,6 @@
 			children = (
 				F1ADFB7E291A20260088BFF0 /* OSTCollectionViewCell.swift */,
 				F1ADFB7B291A17DA0088BFF0 /* OSTCollectionViewCell.xib */,
-				F1ECAC752948216800FFBAF2 /* ProfitAndLossTableViewCell.swift */,
-				F1ECAC762948216800FFBAF2 /* ProfitAndLossTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1001,6 +1085,7 @@
 				F1FEC39327F4235E00D56518 /* SpecialDailyTableViewCell.swift */,
 				F1FEC39427F4235E00D56518 /* SpecialDailyTableViewCell.xib */,
 				F1FEC39B27F4237F00D56518 /* AdditionalTableViewCell.swift */,
+				50EA50D329A863410066019E /* AdditionalTableViewCell+Extension.swift */,
 				F1FEC39C27F4237F00D56518 /* AdditionalTableViewCell.xib */,
 				F117FB0228040D5A00EF30BB /* AdditionalCollectionViewCell.swift */,
 				F117FB0328040D5A00EF30BB /* AdditionalCollectionViewCell.xib */,
@@ -1076,12 +1161,14 @@
 				F11FA79126A534E000C13633 /* Color.xcassets in Resources */,
 				F12DD5952828D58700E0436C /* CommunityHeaderView.xib in Resources */,
 				F119B979281A5B7500F25F4B /* BookmarkTableViewCell.xib in Resources */,
+				50D18B05298B95E400922CE7 /* CalculatorAccessoryTableViewCell.xib in Resources */,
 				F155FED12829E95E00274A9F /* NotificationTableViewCell.xib in Resources */,
 				F1FEC38227F418D100D56518 /* TableViewHeaderView.xib in Resources */,
 				F1FEC39627F4235E00D56518 /* SpecialDailyTableViewCell.xib in Resources */,
 				F1CCAE09289CD5A2003D3556 /* ImagePickerView.xib in Resources */,
 				F1C5516227F6C8060018EC45 /* GemBarChartView.xib in Resources */,
 				F182258127FFD43800546864 /* MoreTableViewCell.xib in Resources */,
+				50D18B01298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.xib in Resources */,
 				F1FEC3A227F4305D00D56518 /* DailyCollectionViewCell.xib in Resources */,
 				F124F1AA27F2DABA00ADF95F /* GemTableViewCell.xib in Resources */,
 				F169FF17294983FA00DD8CF5 /* MoreToolTableViewCell.xib in Resources */,
@@ -1091,13 +1178,18 @@
 				F1111BFD26A7FE2B005F8793 /* Popup.storyboard in Resources */,
 				F182258527FFD44C00546864 /* BannerCollectionViewCell.xib in Resources */,
 				F119ABD7281120DA00FD3D59 /* CommentTableViewCell.xib in Resources */,
+				508FEE69299F1648000B31DA /* CalculatorResultCollectionViewCell.xib in Resources */,
 				F106AB3327F53FC100C0B56C /* ErrorTableViewCell.xib in Resources */,
+				50D18AF9298B955F00922CE7 /* CalculatorHelpTableViewCell.xib in Resources */,
 				F11FA75C26A5069300C13633 /* Assets.xcassets in Resources */,
 				F1FEC39E27F4237F00D56518 /* AdditionalTableViewCell.xib in Resources */,
+				508FEE6D299F16B1000B31DA /* CalculatorResultHeaderView.xib in Resources */,
 				F11B9AB8280D4BE500C5D0BA /* OpenSourceLibraryTableViewCell.xib in Resources */,
 				F1453344289A334E000D1108 /* OptionTableViewCell.xib in Resources */,
+				50D18AFD298B958300922CE7 /* CalculatorTargetTableViewCell.xib in Resources */,
 				F115AD0B280659B2006CE991 /* CollectionViewCell.xib in Resources */,
 				F117FB0528040D5A00EF30BB /* AdditionalCollectionViewCell.xib in Resources */,
+				50D18AF5298B822900922CE7 /* CalculatorCollectionViewCell.xib in Resources */,
 				F124F19127F2D78900ADF95F /* CharacterCollectionViewCell.xib in Resources */,
 				F114C215285AC57B0035B892 /* NormalFooter.bundle in Resources */,
 				F119B969281A1D2400F25F4B /* ImagePickerCollectionViewCell.xib in Resources */,
@@ -1105,6 +1197,7 @@
 				F18E483526B1258800417669 /* InfoPlist.strings in Resources */,
 				F1B0DD8D286AC50C00127AB7 /* BlockTableViewCell.xib in Resources */,
 				F169FF192949A6A900DD8CF5 /* Screenshot.storyboard in Resources */,
+				508FEE71299F1703000B31DA /* CalculatorResultTableViewCell.xib in Resources */,
 				F1FEC39A27F4237000D56518 /* DailyTableViewCell.xib in Resources */,
 				F1198B29280FEC5100A2FF50 /* CommunityTableViewCell.xib in Resources */,
 				F119B96C281A1D2400F25F4B /* ImagePickerTableViewCell.xib in Resources */,
@@ -1194,6 +1287,7 @@
 				F11AEC7127FEB32300AE10DB /* CharacterListTableViewCell.swift in Sources */,
 				F169FF16294983FA00DD8CF5 /* MoreToolTableViewCell.swift in Sources */,
 				F11FA77F26A518DB00C13633 /* Debug.swift in Sources */,
+				50D18B04298B95E400922CE7 /* CalculatorAccessoryTableViewCell.swift in Sources */,
 				F119B973281A2B5100F25F4B /* EditPostViewController.swift in Sources */,
 				F124F18D27F2900800ADF95F /* Router.swift in Sources */,
 				F1198B28280FEC5000A2FF50 /* CommunityTableViewCell.swift in Sources */,
@@ -1206,9 +1300,13 @@
 				F114C218285AC57B0035B892 /* CRRefreshExtension.swift in Sources */,
 				F15C25B0273DFF5300E66CF0 /* CircleProgressView.swift in Sources */,
 				F13FF99C2856D0C10067FD9D /* API.swift in Sources */,
+				505B1CF7299A157A00FE846B /* CalculatorAccessoryViewController.swift in Sources */,
 				F182258427FFD44C00546864 /* BannerCollectionViewCell.swift in Sources */,
 				F11FA78426A518DB00C13633 /* SaveManager.swift in Sources */,
+				508FEE70299F1703000B31DA /* CalculatorResultTableViewCell.swift in Sources */,
 				F1C5516127F6C8060018EC45 /* GemBarChartView.swift in Sources */,
+				50D18B0D2990BCC500922CE7 /* Auction.swift in Sources */,
+				50D18B00298B95CB00922CE7 /* CalculatorEquipmentTableViewCell.swift in Sources */,
 				F119B978281A5B7500F25F4B /* BookmarkTableViewCell.swift in Sources */,
 				F1B0DD8C286AC50C00127AB7 /* BlockTableViewCell.swift in Sources */,
 				F11A955827EBF0420074F4DE /* Party.swift in Sources */,
@@ -1224,12 +1322,15 @@
 				F114C20B285AC57B0035B892 /* SlackLoadingAnimator.swift in Sources */,
 				F138572C2822188200CF87BD /* ImageViewerViewController.swift in Sources */,
 				F119B96D281A1D2400F25F4B /* ContentPreviewViewController.swift in Sources */,
+				50D18B112993377500922CE7 /* Calculator.swift in Sources */,
+				508FEE68299F1648000B31DA /* CalculatorResultCollectionViewCell.swift in Sources */,
 				F114C21A285AC57B0035B892 /* CRRefreshComponent.swift in Sources */,
 				F12DD5932828D55A00E0436C /* CommunityHeaderView.swift in Sources */,
 				F1ADFB73291A16FA0088BFF0 /* OSTViewModel.swift in Sources */,
 				F12B9710280536FE00013A3A /* TodoConfigureViewController.swift in Sources */,
 				F182258727FFF41100546864 /* Version.swift in Sources */,
 				F114C20F285AC57B0035B892 /* FastArrowLayer.swift in Sources */,
+				50EA50D429A863410066019E /* AdditionalTableViewCell+Extension.swift in Sources */,
 				F119B966281A1D2400F25F4B /* ImagePickerViewController+UITableView.swift in Sources */,
 				F115AD0D28065C79006CE991 /* IconPickerViewController.swift in Sources */,
 				F1FEC3A127F4305D00D56518 /* DailyCollectionViewCell.swift in Sources */,
@@ -1279,6 +1380,7 @@
 				F1FE1EC5281BB207005BAAE4 /* CommunityViewModel.swift in Sources */,
 				F119ABD6281120DA00FD3D59 /* CommentTableViewCell.swift in Sources */,
 				F14F22A127C8B1D900F75749 /* Todo.swift in Sources */,
+				50D18B0F2993341100922CE7 /* CalculatorViewModel.swift in Sources */,
 				F1ECAC772948216800FFBAF2 /* ProfitAndLossTableViewCell.swift in Sources */,
 				F11B9AB4280D4B6300C5D0BA /* OpenSourceLibraryViewController.swift in Sources */,
 				F133350927D1B3FF00F6299A /* Keychain.swift in Sources */,
@@ -1289,6 +1391,7 @@
 				F11FA78626A518DB00C13633 /* Extension.swift in Sources */,
 				F12331772893B0F800D140EA /* SpotlightViewController.swift in Sources */,
 				F114C213285AC57B0035B892 /* NormalHeaderAnimator.swift in Sources */,
+				508FEE6B299F1688000B31DA /* CalculatorResultHeaderView.swift in Sources */,
 				F11FA78026A518DB00C13633 /* Regex+Extension.swift in Sources */,
 				F1FEC38027F418BD00D56518 /* TableViewHeaderView.swift in Sources */,
 				F13857282822182200CF87BD /* ImageViewCollectionViewCell.swift in Sources */,
@@ -1300,6 +1403,7 @@
 				F12B970E2805118D00013A3A /* TodoViewModel.swift in Sources */,
 				F1EEF78F27D728D4008D51DC /* NavigationItem.swift in Sources */,
 				F114C217285AC57B0035B892 /* CRRefreshHeaderView.swift in Sources */,
+				50D18AF4298B822900922CE7 /* CalculatorCollectionViewCell.swift in Sources */,
 				F114C20E285AC57B0035B892 /* FastLayer.swift in Sources */,
 				F11AEC6D27FE9F1900AE10DB /* TextFieldViewController.swift in Sources */,
 				F11FA77D26A518DB00C13633 /* Color.swift in Sources */,
@@ -1309,7 +1413,9 @@
 				F115AD0A280659B2006CE991 /* CollectionViewCell.swift in Sources */,
 				F11F41EB2910DCEB00B9A35A /* ContentPresetViewController.swift in Sources */,
 				F11FA75326A5069100C13633 /* AppDelegate.swift in Sources */,
+				50D18AFC298B958300922CE7 /* CalculatorTargetTableViewCell.swift in Sources */,
 				F114C206285AC57B0035B892 /* UIColorExtension.swift in Sources */,
+				50D18AF8298B955F00922CE7 /* CalculatorHelpTableViewCell.swift in Sources */,
 				F1FE1EBF281B7932005BAAE4 /* ReorderController+GestureRecognizer.swift in Sources */,
 				F11FA78526A518DB00C13633 /* Alert.swift in Sources */,
 				F1562CB72950381400E734CD /* Lostark.swift in Sources */,
@@ -1328,6 +1434,8 @@
 				F1280443294FE28500E8275A /* TripleDivisionCircleView.swift in Sources */,
 				F11FA75526A5069100C13633 /* SceneDelegate.swift in Sources */,
 				F114C219285AC57B0035B892 /* CRRefreshProtocol.swift in Sources */,
+				50D18AE7298B741600922CE7 /* CalculatorViewController.swift in Sources */,
+				508FEE65299B5695000B31DA /* CalculatorResultViewController.swift in Sources */,
 				F1B0DD91286AC71700127AB7 /* BlockViewModel.swift in Sources */,
 				F11AF0552807BDDF0079DA08 /* EditCharacterViewController.swift in Sources */,
 			);
@@ -1501,7 +1609,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.12.20;
+				MARKETING_VERSION = 23.2.24;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1526,7 +1634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 22.12.20;
+				MARKETING_VERSION = 23.2.24;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

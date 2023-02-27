@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -313,8 +314,8 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="트라이포드 효과" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u53-h4-0Mk">
-                                                        <rect key="frame" x="16" y="46.5" width="63.5" height="12"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="엘릭서 효과" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u53-h4-0Mk">
+                                                        <rect key="frame" x="16" y="46.5" width="46" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                         <color key="textColor" name="Text Blue"/>
                                                         <nil key="highlightedColor"/>
@@ -396,11 +397,11 @@
                 <outlet property="additionalLabel" destination="trV-Ow-qbI" id="rAD-HM-7FT"/>
                 <outlet property="defaultLabel" destination="xXm-YY-Ugw" id="Fx6-1r-P9b"/>
                 <outlet property="detailView" destination="Rvn-aL-pd0" id="350-iH-EAV"/>
+                <outlet property="elixirLabel" destination="FqD-09-ilg" id="XBj-Ed-1M0"/>
                 <outlet property="nameLabel" destination="eYo-0B-Oq2" id="6cZ-TM-yhS"/>
                 <outlet property="partLabel" destination="fPw-rR-m4n" id="2Q1-Ut-4PP"/>
                 <outlet property="qualityView" destination="tPM-uk-AoC" id="hcQ-cs-lRN"/>
                 <outlet property="summaryView" destination="DHy-8K-44e" id="Uoc-9Q-nhN"/>
-                <outlet property="tripodLabel" destination="FqD-09-ilg" id="XBj-Ed-1M0"/>
                 <outletCollection property="itemViews" destination="2li-cT-AWH" collectionClass="NSMutableArray" id="rxS-nk-oS2"/>
                 <outletCollection property="itemViews" destination="qKs-OK-yYa" collectionClass="NSMutableArray" id="Qab-GQ-DlT"/>
                 <outletCollection property="itemViews" destination="beB-k1-8Xc" collectionClass="NSMutableArray" id="wls-pK-R4o"/>

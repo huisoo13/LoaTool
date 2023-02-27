@@ -134,6 +134,11 @@ class RecipeViewController: UIViewController, Storyboarded {
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                activityViewController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+                activityViewController.popoverPresentationController?.permittedArrowDirections = []
+            }
+            
             self.present(activityViewController, animated: true, completion: nil)
         }
     }

@@ -12,25 +12,32 @@ import UIKit
 class SHToggleButton: UIButton {
     // MARK: - Variables
     private var fallingImage: UIImage?
-    
-    // MARK: - IBInspectable
-    @IBInspectable var defaultImage: UIImage? {
+    var primaryColor: UIColor = .label
+
+    var defaultImage: UIImage? {
         didSet {
             setImage(defaultImage, for: .normal)
         }
     }
     
-    @IBInspectable var selectedImage: UIImage? {
+    var selectedImage: UIImage? {
         didSet {
             setImage(selectedImage, for: .selected)
         }
     }
     
-    @IBInspectable var imageToAnimate: UIImage? {
+    var imageToAnimate: UIImage? {
         didSet {
             fallingImage = imageToAnimate
         }
     }
+    
+    override var isSelected: Bool {
+        didSet {
+            self.configuration?.baseForegroundColor = !isSelected ? .label : primaryColor
+        }
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +56,8 @@ class SHToggleButton: UIButton {
     
     @objc private func tap() {
         isSelected = !isSelected
+        
+        self.configuration?.baseForegroundColor = !isSelected ? .label : primaryColor
         
         if isSelected {
             bounceAnimation()
@@ -78,6 +87,7 @@ class SHToggleButton: UIButton {
             
             let imageView = UIImageView(image: fallingImage)
             imageView.frame = CGRect(x: x, y: y, width: frame.width * 0.7, height: frame.height * 0.7)
+            imageView.tintColor = primaryColor
             
             addSubview(imageView)
             

@@ -18,12 +18,11 @@ class AdditionalTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let numberOfLimitCompleted = 3 // 군단장 3회 제한
-
-    // 수정 - 003: 스크롤 변경
-    // 해당 부분 버그 발견 시 검토
+    let numberOfLimitCompleted = 3 // 골드 보상 3회 제한
+    
     var isDragging: Bool = false
-    //
+    
+    var target: UIViewController?
     var data: AdditionalContent? {
         didSet {
             guard let data = data else {
@@ -52,7 +51,7 @@ class AdditionalTableViewCell: UITableViewCell {
             nameLabel.textColor = data.weekday.contains(DateManager.shared.currentWeekday()) ? .label : .systemRed
             
             updatedView(data)
-
+            
             showCharacterList = showExcludedMember ? true : nil
             button.isHidden = showExcludedMember
             
@@ -116,14 +115,12 @@ class AdditionalTableViewCell: UITableViewCell {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reloadData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(_:)), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
         
-        // 수정 - 003
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "additionalDidScroll"), object: nil)
         
         let showExcludedMember: Bool = UserDefaults.standard.bool(forKey: "showExcludedMember")
         if let data = self.data, data.type % 10 != 0, showExcludedMember {
             NotificationCenter.default.addObserver(self, selector: #selector(additionalDidScroll(_:)), name: NSNotification.Name(rawValue: "additionalDidScroll"), object: nil)
         }
-        //
     }
     
     @objc func reloadData(_ sender: NSNotification) {
@@ -133,17 +130,17 @@ class AdditionalTableViewCell: UITableViewCell {
         updatedView(data)
     }
     
-    // 수정 - 003
     @objc func additionalDidScroll(_ sender: NSNotification) {
         let contentOffset = sender.object as? CGPoint ?? .zero
         collectionView.contentOffset = contentOffset
     }
-    //
     
     func updatedView(_ data: AdditionalContent) {
         let numberOfOverflow = inspectionNumberOfOverflow(data)
-        let count = data.included.count - data.completed.count - numberOfOverflow
-
+        
+        let usingTakenGold: Bool = UserDefaults.standard.bool(forKey: "usingTakenGold")
+        let count = data.included.count - data.completed.count - (usingTakenGold ? 0 : numberOfOverflow)
+        
         switch data.type % 10 {
         case 0:
             desciptionLabel.attributedText = count > 0
@@ -166,6 +163,8 @@ class AdditionalTableViewCell: UITableViewCell {
         }
     }
     
+    // !!!: 22.2.23 군단장 3회 제한이 골드 획득 3회 제한으로 변경됨에 따라 complete 를 takenGold 로 변경하여 사용 가능
+    //      기존의 기능을 유지하며 골드 획득 3회 제한 기능을 추가하기 때문에 해당 코드는 유지
     func inspectionNumberOfOverflow(_ data: AdditionalContent) -> Int {
         var numberOfOverflow = 0
         
@@ -226,8 +225,8 @@ class AdditionalTableViewCell: UITableViewCell {
 
         // STEP 9: 해당 컨텐츠를 완료하지 않았지만 군단장 수 제한에 걸려서 완료 할 수 없는 캐릭터의 수 반환
         return numberOfOverflow
+        
     }
-
 }
 
 extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -302,45 +301,77 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         } else {
             cell.contentView.isHidden = false
         }
-
+        
         cell.completed = data.completed.contains(identifier)
 
         if data.type >= 40 {
+            let usingTakenGold: Bool = UserDefaults.standard.bool(forKey: "usingTakenGold")
             guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
 
-            // 수정 - 004
             var numberOfCompleted = 0
             var linkingContent: [String] = []
-            additional.forEach { content in
-                if content.type >= 40 && content.completed.contains(identifier) {
-                    numberOfCompleted += 1
 
-                    if linkingContent.contains(content.link) && content.link != "" {
-                        numberOfCompleted -= 1
-                    } else if content.link != "" {
-                        linkingContent.append(content.link)
+            switch usingTakenGold {
+            case false:
+                additional.forEach { content in
+                    if content.type >= 40 && content.completed.contains(identifier) {
+                        numberOfCompleted += 1
+
+                        if linkingContent.contains(content.link) && content.link != "" {
+                            numberOfCompleted -= 1
+                        } else if content.link != "" {
+                            linkingContent.append(content.link)
+                        }
                     }
                 }
+
+                let link = additional.filter { content in
+                    return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+                }.map { content in content.link }
+
+                let gate = additional.filter { content in
+                    return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
+                }.map { content in content.gate }
+
+                let isLinkingContentCompleted = link.contains(data.link)
+                let isSameGateContentCompleted = gate.contains(data.gate)
+
+                let sameGateContentCompletedColor: UIColor = isSameGateContentCompleted ? .systemRed : .label
+
+                cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
+                ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemRed)
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemPurple) : sameGateContentCompletedColor)
+            case true:
+                additional.forEach { content in
+                    if content.type >= 40 && content.takenGold.contains(identifier) {
+                        numberOfCompleted += 1
+
+                        if linkingContent.contains(content.link) && content.link != "" {
+                            numberOfCompleted -= 1
+                        } else if content.link != "" {
+                            linkingContent.append(content.link)
+                        }
+                    }
+                }
+
+                let link = additional.filter { content in
+                    return content.type >= 40 && content.takenGold.contains(identifier) && content.link != ""
+                }.map { content in content.link }
+
+                let gate = additional.filter { content in
+                    return content.type >= 40 && content.takenGold.contains(identifier) && content.gate != ""
+                }.map { content in content.gate }
+
+                let isLinkingContentCompleted = link.contains(data.link)
+                let isSameGateContentCompleted = gate.contains(data.gate)
+
+                let sameGateContentCompletedColor: UIColor = isSameGateContentCompleted ? .systemRed : .label
+
+                cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.takenGold.contains(filter.identifier)
+                ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemRed)
+                : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.takenGold.contains(filter.identifier) ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemPurple) : sameGateContentCompletedColor)
+
             }
-
-            let link = additional.filter { content in
-                return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
-            }.map { content in content.link }
-
-            // 수정 - 005 : 동일 관문 추가
-            let gate = additional.filter { content in
-                return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
-            }.map { content in content.gate }
-
-            let isLinkingContentCompleted = link.contains(data.link)
-            let isSameGateContentCompleted = gate.contains(data.gate)
-
-            let sameGateContentCompletedColor: UIColor = isSameGateContentCompleted ? .systemRed : .label
-
-            cell.nameLabel.textColor = numberOfCompleted >= self.numberOfLimitCompleted && !data.completed.contains(filter.identifier)
-            ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemRed)
-            : ( numberOfCompleted >= (self.numberOfLimitCompleted - 1) && !data.completed.contains(filter.identifier) ? (isLinkingContentCompleted ? sameGateContentCompletedColor : .systemPurple) : sameGateContentCompletedColor)
-            //
         } else {
             cell.nameLabel.textColor = .label
         }
@@ -386,55 +417,134 @@ extension AdditionalTableViewCell: UICollectionViewDelegate, UICollectionViewDat
             if data.completed.contains(identifier) {
                 guard let index = data.completed.firstIndex(of: identifier) else { return }
                 data.completed.remove(at: index)
+                
+                guard let index = data.takenGold.firstIndex(of: identifier) else { return }
+                data.takenGold.remove(at: index)
             } else {
                 if data.type >= 40 {
                     var numberOfCompleted = 0
-
+                    
                     guard let additional = RealmManager.shared.readAll(Todo.self).first?.additional else { return }
-                    // 수정 - 004
-                    var linkingContent: [String] = []
-                    additional.forEach { content in
-                        if content.type >= 40 && content.completed.contains(identifier) {
-                            numberOfCompleted += 1
 
-                            if linkingContent.contains(content.link) && content.link != "" {
-                                numberOfCompleted -= 1
-                            } else if content.link != "" {
-                                linkingContent.append(content.link)
+                    let usingTakenGold: Bool = UserDefaults.standard.bool(forKey: "usingTakenGold")
+                    switch usingTakenGold {
+                    case false:
+                        var linkingContent: [String] = []
+                        additional.forEach { content in
+                            if content.type >= 40 && content.completed.contains(identifier) {
+                                numberOfCompleted += 1
+
+                                if linkingContent.contains(content.link) && content.link != "" {
+                                    numberOfCompleted -= 1
+                                } else if content.link != "" {
+                                    linkingContent.append(content.link)
+                                }
                             }
                         }
-                    }
-                    
-                    let link = additional.filter { content in
-                        return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
-                    }.map { content in content.link }
-                    
-                    let gate = additional.filter { content in
-                        return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
-                    }.map { content in content.gate }
+                        
+                        let link = additional.filter { content in
+                            return content.type >= 40 && content.completed.contains(identifier) && content.link != ""
+                        }.map { content in content.link }
+                        
+                        let gate = additional.filter { content in
+                            return content.type >= 40 && content.completed.contains(identifier) && content.gate != ""
+                        }.map { content in content.gate }
 
-                    let isLinkingContentCompleted = link.contains(data.link)
-                    let isSameGateContentCompleted = gate.contains(data.gate)
+                        let isLinkingContentCompleted = link.contains(data.link)
+                        let isSameGateContentCompleted = gate.contains(data.gate)
 
-                    switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted, isSameGateContentCompleted) {
-                    case (true, false, false):
-                        isExceeded = true
-                        return
-                    case (true, true, true):
-                        isExceeded = true
-                        return
-                    case (false, true, true):
-                        isExceeded = true
-                        return
-                    default:
-                        break
+                        switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted, isSameGateContentCompleted) {
+                        case (true, false, false):
+                            isExceeded = true
+                            return
+                        case (true, true, true):
+                            isExceeded = true
+                            return
+                        case (false, true, true):
+                            isExceeded = true
+                            return
+                        default:
+                            break
+                        }
+                        
+                        data.completed.append(identifier)
+                        data.takenGold.append(identifier)
+                    case true:
+                        var linkingContent: [String] = []
+                        additional.forEach { content in
+                            if content.type >= 40 && content.takenGold.contains(identifier) {
+                                numberOfCompleted += 1
+
+                                if linkingContent.contains(content.link) && content.link != "" {
+                                    numberOfCompleted -= 1
+                                } else if content.link != "" {
+                                    linkingContent.append(content.link)
+                                }
+                            }
+                        }
+                        
+                        let link = additional.filter { content in
+                            return content.type >= 40 && content.takenGold.contains(identifier) && content.link != ""
+                        }.map { content in content.link }
+                        
+                        let gate = additional.filter { content in
+                            return content.type >= 40 && content.takenGold.contains(identifier) && content.gate != ""
+                        }.map { content in content.gate }
+
+                        let isLinkingContentCompleted = link.contains(data.link)
+                        let isSameGateContentCompleted = gate.contains(data.gate)
+
+                        switch (numberOfCompleted >= self.numberOfLimitCompleted, isLinkingContentCompleted, isSameGateContentCompleted) {
+                        case (true, false, false):
+                            isExceeded = true
+                        case (true, true, true):
+                            isExceeded = true
+                        case (false, true, true):
+                            isExceeded = true
+                        default:
+                            break
+                        }
+                        
+                        if isExceeded {
+                            data.completed.append(identifier)
+                            
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+
+                            let includeMember = RealmManager.shared.read(Member.self, identifier: identifier).first
+                            cell.data = showExcludedMember ? filter : includeMember
+                            cell.completed = data.completed.contains(identifier)
+                        } else {
+                            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "골드 보상 획득".localized, style: .default, handler: { action in
+                                RealmManager.shared.update {
+                                    data.completed.append(identifier)
+                                    data.takenGold.append(identifier)
+                                }
+                                
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+                            }))
+
+                            alert.addAction(UIAlertAction(title: "골드 보상 미획득".localized, style: .default, handler: { action in
+                                RealmManager.shared.update {
+                                    data.completed.append(identifier)
+                                }
+                                
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+                            }))
+                            
+                            alert.addAction(UIAlertAction(title: "취소".localized, style: .destructive, handler: nil))
+
+                            self.target?.present(alert, animated: true, completion: nil)
+                        }
                     }
-                    //
+                } else {
+                    data.completed.append(identifier)
+                    data.takenGold.append(identifier)
                 }
-                
-                data.completed.append(identifier)
             }
         }
+        
         
         if isExceeded { return }
 

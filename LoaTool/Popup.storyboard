@@ -64,6 +64,12 @@
                                             <constraint firstItem="hk9-aq-MjH" firstAttribute="leading" secondItem="gw9-3w-VjN" secondAttribute="leading" constant="16" id="wNZ-kd-flh"/>
                                         </constraints>
                                     </view>
+                                    <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ez-O5-cQv">
+                                        <rect key="frame" x="0.0" y="162" width="414" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="XBm-vh-Kyp"/>
+                                        </constraints>
+                                    </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wjx-WT-pzH">
                                         <rect key="frame" x="16" y="292" width="382" height="40"/>
                                         <subviews>
@@ -98,7 +104,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="q9q-Hu-Al7" firstAttribute="trailing" secondItem="wjx-WT-pzH" secondAttribute="trailing" constant="16" id="0qx-ek-rsJ"/>
+                                    <constraint firstItem="6Ez-O5-cQv" firstAttribute="trailing" secondItem="q9q-Hu-Al7" secondAttribute="trailing" id="8n3-Ay-3JU"/>
                                     <constraint firstItem="wjx-WT-pzH" firstAttribute="leading" secondItem="q9q-Hu-Al7" secondAttribute="leading" constant="16" id="Frt-KV-muB"/>
+                                    <constraint firstItem="6Ez-O5-cQv" firstAttribute="leading" secondItem="q9q-Hu-Al7" secondAttribute="leading" id="MI7-RO-Ffo"/>
+                                    <constraint firstItem="6Ez-O5-cQv" firstAttribute="centerY" secondItem="wjx-WT-pzH" secondAttribute="centerY" id="RZ0-Rw-5qL"/>
                                     <constraint firstItem="gw9-3w-VjN" firstAttribute="top" secondItem="q9q-Hu-Al7" secondAttribute="top" id="bH3-iF-fCI"/>
                                     <constraint firstItem="q9q-Hu-Al7" firstAttribute="trailing" secondItem="gw9-3w-VjN" secondAttribute="trailing" id="cK8-Uj-SLd"/>
                                     <constraint firstItem="gw9-3w-VjN" firstAttribute="leading" secondItem="q9q-Hu-Al7" secondAttribute="leading" id="gWH-DR-52q"/>
@@ -122,6 +131,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="hk9-aq-MjH" id="d08-z3-dzC"/>
                         <outlet property="completeButton" destination="iPH-nV-Pnx" id="axG-mM-Lyj"/>
+                        <outlet property="pickerView" destination="6Ez-O5-cQv" id="IVe-X4-s0u"/>
                         <outlet property="textField" destination="Fko-L1-Ig8" id="m5A-1B-Cn0"/>
                         <outlet property="titleLabel" destination="weZ-Bx-PNM" id="g7j-FA-fd4"/>
                     </connections>
