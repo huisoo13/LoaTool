@@ -12,6 +12,18 @@ class DateManager {
     
     fileprivate let dateFormat: String = "yyyy-MM-dd HH:mm:ss"
     
+    var isAfterAM6: Bool {
+        get {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            dateFormatter.timeZone = TimeZone(abbreviation: "KST") ?? .autoupdatingCurrent
+            
+            guard let date = dateFormatter.string(for: Date()) else { return false }
+            return date > "06:00"
+        }
+    }
+    
     func convertDateFormat(_ date: String, originFormat: String, newFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = originFormat

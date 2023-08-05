@@ -343,7 +343,20 @@ extension String {
         case "스페셜리스트":
             return UIImage(named: "job.specialist.female") ?? UIImage()
         default:
-            return UIImage(systemName: "questionmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .ultraLight)) ?? UIImage()
+            let label = UILabel()
+            label.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            label.text = self
+            label.textColor = .label
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            label.adjustsFontSizeToFitWidth = true
+            label.layer.borderColor = UIColor.label.cgColor
+            label.layer.borderWidth = 0.5
+            
+            let image = UIImage(view: label)
+            
+            return image ?? UIImage()
+
         }
     }
     

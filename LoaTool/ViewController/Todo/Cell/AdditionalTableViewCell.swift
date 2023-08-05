@@ -48,7 +48,18 @@ class AdditionalTableViewCell: UITableViewCell {
             
             iconImageView.image = UIImage(named: "content.icon.\(data.icon)")
             nameLabel.text = data.title
-            nameLabel.textColor = data.weekday.contains(DateManager.shared.currentWeekday()) ? .label : .systemRed
+            
+            let weekday = DateManager.shared.currentWeekday()
+            let yesterday = weekday == 1 ? 7 : weekday - 1
+            let isAfterAM6 = DateManager.shared.isAfterAM6
+            
+            if data.weekday.contains(weekday) && isAfterAM6 {
+                nameLabel.textColor = .label
+            } else if data.weekday.contains(yesterday) && !isAfterAM6 {
+                nameLabel.textColor = .label
+            } else {
+                nameLabel.textColor = .systemRed
+            }
             
             updatedView(data)
             

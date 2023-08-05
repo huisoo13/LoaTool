@@ -19,7 +19,17 @@ class SpecialDailyTableViewCell: UITableViewCell {
                       let content = data?.contents[safe: i] else { return }
                 
                 if i != 2 {
-                    titleLabel.textColor = content.weekday.contains(DateManager.shared.currentWeekday()) ? .label : .systemRed
+                    let weekday = DateManager.shared.currentWeekday()
+                    let yesterday = weekday == 1 ? 7 : weekday - 1
+                    let isAfterAM6 = DateManager.shared.isAfterAM6
+                    
+                    if content.weekday.contains(weekday) && isAfterAM6 {
+                        titleLabel.textColor = .label
+                    } else if content.weekday.contains(yesterday) && !isAfterAM6 {
+                        titleLabel.textColor = .label
+                    } else {
+                        titleLabel.textColor = .systemRed
+                    }
                 }
                 
                 completeView.arrangedSubviews.enumerated().forEach { j, view in
