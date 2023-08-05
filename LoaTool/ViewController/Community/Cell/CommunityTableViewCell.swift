@@ -111,6 +111,9 @@ class CommunityTableViewCell: UITableViewCell {
         bookmarkButton.primaryColor = .custom.qualityYellow
         bookmarkButton.defaultImage = UIImage(systemName: "bookmark")
         bookmarkButton.selectedImage = UIImage(systemName: "bookmark.fill")
+        
+        // !!!: ISSUE - AWS 중지
+        contentLabel.numberOfLines = 0
     }
     
     func setupGestureRecognizer() {
@@ -123,7 +126,7 @@ class CommunityTableViewCell: UITableViewCell {
         contentImageView.addGestureRecognizer { _ in
             self.coordinator?.presentToImageViewerViewController(imageURL: self.data?.imageURL, animated: true)
         }
-        
+        /* !!!: ISSUE - AWS 중지
         commentButton.addGestureRecognizer { _ in
             self.coordinator?.pushToPostViewController(self.data, animated: true)
         }
@@ -131,6 +134,7 @@ class CommunityTableViewCell: UITableViewCell {
         moveView.addGestureRecognizer { _ in
             self.coordinator?.pushToPostViewController(self.data, animated: true)
         }
+         */
     }
     
     func setupActiveLabel() {

@@ -142,8 +142,9 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 cell.setupCell(title: "본인 인증",
                                image: UIImage(systemName: "person.fill.viewfinder", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)) ?? UIImage(),
-                               subTitle: User.shared.isConnected ? "인증 완료" : (User.shared.identifier == "" ? "미인증" : "만료"),
-                               subTitleColor: User.shared.isConnected ? .custom.qualityBlue : .custom.qualityRed,
+                               // !!!: ISSUE - AWS 중지
+                               subTitle: "서비스 일시 중지", // User.shared.isConnected ? "인증 완료" : (User.shared.identifier == "" ? "미인증" : "만료"),
+                               subTitleColor: .custom.qualityRed, // User.shared.isConnected ? .custom.qualityBlue : .custom.qualityRed,
                                subImage: nil,
                                showChevron: true)
             default:
@@ -206,10 +207,13 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             switch indexPath.row {
             case 0:
-                if User.shared.isConnected { return }
+                // !!!: ISSUE - AWS 중지
+                // if User.shared.isConnected { return }
                 coordinator?.pushToMainCharacterViewController(animated: true)
             case 1:
-                coordinator?.pushToRegisterViewController(animated: true)
+                // !!!: ISSUE - AWS 중지
+                // coordinator?.pushToRegisterViewController(animated: true)
+                break
             default:
                 break
             }

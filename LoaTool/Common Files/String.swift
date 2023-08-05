@@ -13,7 +13,7 @@ extension String {
                 "데빌헌터", "블래스터", "호크아이", "스카우터", "건슬링어",
                 "배틀마스터", "인파이터", "기공사", "창술사", "스트라이커",
                 "바드", "서머너", "아르카나", "소서리스",
-                "리퍼", "블레이드", "데모닉",
+                "리퍼", "블레이드", "데모닉", "소울이터",
                 "도화가", "기상술사"]
     }
     
@@ -65,7 +65,9 @@ extension String {
                 "이슬비",
                 "질풍노도",
                 "처단자",
-                "포식자"]
+                "포식자",
+                "만월의 집행자",
+                "그믐의 경계"]
     }
     
     static func engraving() -> [String] {
@@ -117,6 +119,8 @@ extension String {
                 "질풍노도",
                 "처단자",
                 "포식자",
+                "만월의 집행자",
+                "그믐의 경계",
                 "-",
                 "각성",
                 "강령술",
@@ -318,6 +322,8 @@ extension String {
             return UIImage(named: "job.aeromancer") ?? UIImage()
         case "슬레이어":
             return UIImage(named: "job.slayer") ?? UIImage()
+        case "소울이터":
+            return UIImage(named: "job.souleater") ?? UIImage()
         case "전사(남)":
             return UIImage(named: "job.warrior.male") ?? UIImage()
         case "전사(여)":

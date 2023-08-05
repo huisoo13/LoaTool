@@ -31,9 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Add network state checking observer
         Network.shared.addObserverNetwork()
         
+        // !!!: ISSUE - AWS 중지
         // Setup notification center
-        UNUserNotificationCenter.current().delegate = self
-        API.get.selectBadge()
+        // UNUserNotificationCenter.current().delegate = self
+        // API.get.selectBadge()
 
         return true
     }

@@ -83,7 +83,8 @@ class CommunityViewController: UIViewController, Storyboarded {
     }
     
     fileprivate func setupAccount() {
-        if User.shared.isConnected { API.get.certification(self) }
+        // !!!: ISSUE - AWS 중지
+        // if User.shared.isConnected { API.get.certification(self) }
         
         tableView.reloadData()
     }
@@ -124,10 +125,11 @@ extension CommunityViewController: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CommunityHeaderView") as! CommunityHeaderView
         
         header.data = viewModel.options.value ?? FilterOption()
+        /* !!!: ISSUE - AWS 중지
         header.addGestureRecognizer { _ in
             self.coordinator?.pushToFilterViewController(animated: true)
         }
-        
+        */
         return header
     }
     
@@ -152,8 +154,10 @@ extension CommunityViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func setupButtonAction(_ tableView: UITableView, cell: CommunityTableViewCell, cellForRowAt indexPath: IndexPath) {
+        /* !!!: ISSUE - AWS 중지
         cell.heartButton.addTarget(self, action: #selector(touchUpInsideForHeart(_:)), for: .touchUpInside)
         cell.bookmarkButton.addTarget(self, action: #selector(touchUpInsideForBookmark(_:)), for: .touchUpInside)
+         */
     }
     
     @objc func touchUpInsideForHeart(_ sender: SHToggleButton) {

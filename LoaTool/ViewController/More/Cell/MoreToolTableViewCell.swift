@@ -37,6 +37,9 @@ class MoreToolTableViewCell: UITableViewCell {
     }
     
     func setupGestureRecognizer() {
+        // !!!: ISSUE - AWS 중지
+        stackView.arrangedSubviews.first?.isHidden = true
+        
         stackView.arrangedSubviews.enumerated().forEach { i, view in
             view.addGestureRecognizer { _ in
                 switch i {

@@ -125,7 +125,9 @@ extension ViewController: CharacterListDelegate {
         let edit = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
         edit.tag = 1
 
-        addRightBarButtonItems([edit, bell])
+        // !!!: ISSUE - AWS 중지
+        // addRightBarButtonItems([edit, bell])
+        addRightBarButtonItems([])
     }
 
     fileprivate func setupTitleForMore() {

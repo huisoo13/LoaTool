@@ -19,7 +19,8 @@ class User {
         }
         
         get {
-            return UserDefaults.standard.bool(forKey: "isConnected")
+            // !!!: ISSUE - AWS 중지
+            return true // UserDefaults.standard.bool(forKey: "isConnected")
         }
     }
     
