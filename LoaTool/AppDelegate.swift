@@ -36,6 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // UNUserNotificationCenter.current().delegate = self
         // API.get.selectBadge()
 
+        // 가디언 토벌 횟수 수정
+        guard let data = RealmManager.shared.readAll(Todo.self).first else { return true }
+
+        data.member.forEach { member in
+            member.contents.forEach { content in
+                if content.title == "가디언 토벌" && content.maxValue != 1 {
+                    RealmManager.shared.update {
+                        content.maxValue = 1
+                    }
+                }
+            }
+        }
+        
         return true
     }
     

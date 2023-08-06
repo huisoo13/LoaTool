@@ -163,7 +163,7 @@ class Content: Object {
                                                title: "가디언 토벌",
                                                icon: 6,
                                                value: 0,
-                                               maxValue: 2,
+                                               maxValue: 1,
                                                bonusValue: 0,
                                                minBonusValue: 0,
                                                originBonusValue: 0,
