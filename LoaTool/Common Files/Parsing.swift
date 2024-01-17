@@ -231,11 +231,17 @@ class Parsing: NSObject {
                     }
                 } else {
                     // 엘릭서
-                    json["Element_008"]["value"]["Element_000"]["contentStr"].sorted(by: { $0.0 < $1.0 }).forEach { key, json in
+                    json["Element_009"]["value"]["Element_000"]["contentStr"].sorted(by: { $0.0 < $1.0 }).forEach { key, json in
                         engraving! += json["contentStr"].stringValue
                             .replacingOccurrences(of: "</FONT><br>", with: "\n-", options: .regularExpression, range: nil)
                             .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).components(separatedBy: "-").first ?? ""
                     }
+                    
+                    // 초월
+                    let transcendence = json["Element_008"]["value"]["Element_000"]["topStr"].stringValue
+                        .replacingOccurrences(of: "</FONT><br>", with: "\n-", options: .regularExpression, range: nil)
+                        .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                    engraving! += transcendence
                 }
                 
                 engraving = engraving == "" ? nil : engraving?.trimmingCharacters(in: .whitespacesAndNewlines)

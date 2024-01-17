@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50086E932B3BBD0C00BF1CF0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 50086E922B3BBD0C00BF1CF0 /* Realm */; };
+		50086E952B3BBD0C00BF1CF0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 50086E942B3BBD0C00BF1CF0 /* RealmSwift */; };
 		505B1CF7299A157A00FE846B /* CalculatorAccessoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505B1CF6299A157A00FE846B /* CalculatorAccessoryViewController.swift */; };
 		508FEE65299B5695000B31DA /* CalculatorResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FEE64299B5695000B31DA /* CalculatorResultViewController.swift */; };
 		508FEE68299F1648000B31DA /* CalculatorResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508FEE66299F1648000B31DA /* CalculatorResultCollectionViewCell.swift */; };
@@ -491,6 +493,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50086E952B3BBD0C00BF1CF0 /* RealmSwift in Frameworks */,
+				50086E932B3BBD0C00BF1CF0 /* Realm in Frameworks */,
 				614304CC6F32E0260022DFEA /* Pods_LoaTool.framework in Frameworks */,
 				F11E607C2873BBAB00ABED36 /* CloudKit.framework in Frameworks */,
 			);
@@ -1113,6 +1117,10 @@
 			dependencies = (
 			);
 			name = LoaTool;
+			packageProductDependencies = (
+				50086E922B3BBD0C00BF1CF0 /* Realm */,
+				50086E942B3BBD0C00BF1CF0 /* RealmSwift */,
+			);
 			productName = LoaTool;
 			productReference = F11FA74F26A5069100C13633 /* LoaTool.app */;
 			productType = "com.apple.product-type.application";
@@ -1141,6 +1149,9 @@
 				ko,
 			);
 			mainGroup = F11FA74626A5069100C13633;
+			packageReferences = (
+				50086E912B3BBD0C00BF1CF0 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = F11FA75026A5069100C13633 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1610,7 +1621,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 23.08.06;
+				MARKETING_VERSION = 24.01.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1636,7 +1647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 23.08.06;
+				MARKETING_VERSION = 24.01.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1666,6 +1677,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		50086E912B3BBD0C00BF1CF0 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		50086E922B3BBD0C00BF1CF0 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50086E912B3BBD0C00BF1CF0 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		50086E942B3BBD0C00BF1CF0 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50086E912B3BBD0C00BF1CF0 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F11FA74726A5069100C13633 /* Project object */;
 }

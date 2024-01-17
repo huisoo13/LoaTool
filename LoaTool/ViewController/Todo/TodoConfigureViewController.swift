@@ -203,22 +203,16 @@ extension TodoConfigureViewController {
                     content.included.append(member.identifier)
                 }
             }
-        case "PRESET-009":  // [하드1] 카양겔
+        case "PRESET-009":  // [하드] 카양겔
             members.forEach { member in
                 if content.level <= member.level && member.level < 1560 {
                     content.included.append(member.identifier)
                 }
             }
         case "PRESET-010":  // [하드2] 카양겔
-            members.forEach { member in
-                if content.level <= member.level && member.level < 1580 {
-                    content.included.append(member.identifier)
-                }
-            }
+            break
         case "PRESET-011":  // [하드3] 카양겔
-            members.forEach { member in
-                if content.level <= member.level { content.included.append(member.identifier) }
-            }
+            break
         case "PRESET-012":  // 아르고스
             members.forEach { member in
                 if content.level <= member.level { content.included.append(member.identifier) }
@@ -253,13 +247,13 @@ extension TodoConfigureViewController {
                     content.included.append(member.identifier)
                 }
             }
-        case "PRESET-018-2":  // [노말] 아브렐슈드 3-4
+        case "PRESET-018-2":  // [노말] 아브렐슈드 3
             members.forEach { member in
                 if content.level <= member.level && member.level < 1550 {
                     content.included.append(member.identifier)
                 }
             }
-        case "PRESET-018-3":  // [노말] 아브렐슈드 5-6
+        case "PRESET-018-3":  // [노말] 아브렐슈드 4
             members.forEach { member in
                 if content.level <= member.level && member.level < 1560 {
                     content.included.append(member.identifier)
@@ -269,11 +263,11 @@ extension TodoConfigureViewController {
             members.forEach { member in
                 if content.level <= member.level { content.included.append(member.identifier) }
             }
-        case "PRESET-019-2":  // [하드] 아브렐슈드 3-4
+        case "PRESET-019-2":  // [하드] 아브렐슈드 3
             members.forEach { member in
                 if content.level <= member.level { content.included.append(member.identifier) }
             }
-        case "PRESET-019-3":  // [하드] 아브렐슈드 5-6
+        case "PRESET-019-3":  // [하드] 아브렐슈드 4
             members.forEach { member in
                 if content.level <= member.level { content.included.append(member.identifier) }
             }
@@ -284,6 +278,26 @@ extension TodoConfigureViewController {
                 }
             }
         case "PRESET-021":  // [하드] 일리아칸
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-022":  // [노말] 상아탑
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-023":  // [하드] 상아탑
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-024":  // [노말] 카멘 1-3
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-025":  // [하드] 카멘 1-3
+            members.forEach { member in
+                if content.level <= member.level { content.included.append(member.identifier) }
+            }
+        case "PRESET-026":  // [하드] 카멘 4
             members.forEach { member in
                 if content.level <= member.level { content.included.append(member.identifier) }
             }

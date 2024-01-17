@@ -106,24 +106,9 @@ class EquipTableViewCell: UITableViewCell {
         defaultLabel.text = data.basicEffect
         additionalLabel.text = data.additionalEffect
 
-        // 엘릭서
+        // 엘릭서 + 초월
         let elixir = data.engravingEffect == "" || data.engravingEffect == nil ? "없음" : data.engravingEffect ?? ""
 
-        var attributedString = NSMutableAttributedString(string: elixir)
-
-        let parts = elixir.split(separator: "[")
-        let values = parts.compactMap { (part: Substring) -> String? in
-            let parts = part.split(separator: "]", omittingEmptySubsequences: false)
-            guard parts.count == 2 else {
-                return nil
-            }
-            return String(parts[0])
-        }
-        
-        values.forEach({
-            attributedString = attributedString.addAttribute(of: $0, key: .foregroundColor, value: UIColor.systemYellow)
-        })
-
-        elixirLabel.attributedText = attributedString
+        elixirLabel.text = elixir
     }
 }

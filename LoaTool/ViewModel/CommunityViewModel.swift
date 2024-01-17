@@ -31,16 +31,16 @@ class CommunityViewModel {
                                owner: "NOTICE",
                                name: "후이수",
                                job: "바드",
-                               level: 1625,
+                               level: 1630,
                                server: "@아만",
-                               text: "안녕하세요. 로아툴 개발자입니다.\n\n소울이터 아이콘 추가와 가디언 토벌 1회 변경 및 기타 버그 수정 업데이트를 진행하였습니다.\n\n관리를 자주 못하여 죄송합니다!",
+                               text: "안녕하세요. 로아툴 개발자입니다.\n\n브레이커 아이콘 추가와 컨텐츠 프리셋 내용 수정 및 기타 버그 수정 업데이트를 진행하였습니다.",
                                imageURL: [],
                                gateway: "",
                                numberOfLiked: 0,
                                numberOfComment: 0,
                                isLiked: false,
                                isMarked: false,
-                               date: "2023-08-05 10:00:00")
+                               date: "2023-12-27 10:00:00")
         
         self.result.value = [notice]
     }

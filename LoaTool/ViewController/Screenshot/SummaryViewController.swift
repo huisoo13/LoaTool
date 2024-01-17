@@ -386,11 +386,10 @@ extension SummaryViewController {
     func setupImageView(with urlString: String, placeholder: UIImage? = UIImage(), size: CGSize = CGSize(width: 512, height: 512)) {
         if let url = URL(string: urlString) {
             let processor = DownsamplingImageProcessor(size: size) |> RoundCornerImageProcessor(cornerRadius: 0)
-            let resource = ImageResource(downloadURL: url, cacheKey: url.absoluteString)
             imageView.kf.indicatorType = .activity
             
             DispatchQueue.main.async {
-                self.imageView.kf.setImage(with: resource, placeholder: placeholder, options: [
+                self.imageView.kf.setImage(with: url, placeholder: placeholder, options: [
                     .processor(processor),
                     .scaleFactor(UIScreen.main.scale),
                     .cacheOriginalImage,

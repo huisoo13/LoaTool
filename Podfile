@@ -20,7 +20,7 @@ target 'LoaTool' do
   pod 'SwiftSoup'
   
   # Locale Datebase
-  pod 'RealmSwift'
+  # pod 'RealmSwift'
   
   # Animate transitions
   pod 'Hero'
