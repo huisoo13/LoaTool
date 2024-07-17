@@ -83,18 +83,20 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewHeaderView") as! TableViewHeaderView
 
         switch section {
+            /*
         case 0:
             header.label.text = "설정"
         case 1:
             header.label.text = "서비스"
-        case 2:
+             */
+        case 0:
             header.label.text = "앱 정보"
         default:
             break
@@ -112,12 +114,14 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+            /*
         case 0:
             return 2
         case 1:
             return 1
-        case 2:
-            return 3
+             */
+        case 0:
+            return 2
         default:
             return 0
         }
@@ -129,6 +133,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
+            /*
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MoreTableViewCell", for: indexPath) as! MoreTableViewCell
             
@@ -160,23 +165,26 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             cell.target = self
             
             return cell
-        case 2:
+             */
+        case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MoreTableViewCell", for: indexPath) as! MoreTableViewCell
             
             switch indexPath.row {
+                /*
             case 0:
                 cell.setupCell(title: "공지사항",
                                image: UIImage(systemName: "megaphone", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)) ?? UIImage(),
                                subTitle: nil,
                                subImage: nil,
                                showChevron: true)
-            case 1:
+                 */
+            case 0:
                 cell.setupCell(title: "버전정보",
                                image: UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)) ?? UIImage(),
                                subTitle: Version.now(),
                                subImage: nil,
                                showChevron: true)
-            case 2:
+            case 1:
                 cell.setupCell(title: "오픈 소스 라이브러리",
                                image: UIImage(systemName: "doc.plaintext", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .thin)) ?? UIImage(),
                                subTitle: nil,
@@ -204,6 +212,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
+            /*
         case 0:
             switch indexPath.row {
             case 0:
@@ -219,17 +228,19 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case 1:
             break
-        case 2:
+             */
+        case 0:
             switch indexPath.row {
+                /*
             case 0:
                 guard let url = URL(string: "https://huisoo.tistory.com/10"), UIApplication.shared.canOpenURL(url) else { return }
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
-
-            case 1:
+                 */
+            case 0:
                 guard let url = URL(string: "https://apps.apple.com/kr/app/id1580507503"), UIApplication.shared.canOpenURL(url) else { return }
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
 
-            case 2:
+            case 1:
                 coordinator?.pushToOpenSourceLibraryViewController(animated: true)
             default:
                 break

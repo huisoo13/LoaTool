@@ -18,9 +18,12 @@ class ViewController: UIViewController, Storyboarded {
     var viewControllers: [UIViewController] = []
     var selectedIndex: Int = UserDefaults.standard.integer(forKey: "didSelectAtIndex")
     
+    var hiddenIndex: [Int] = [0, 1, 3]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        resetSelectedIndex()
         setupCoordinator()
         setupViewControllers()
         
@@ -28,24 +31,40 @@ class ViewController: UIViewController, Storyboarded {
             UserDefaults.standard.set(false, forKey: "usingCloudKit")
             UserDefaults.standard.set(true, forKey: "22.09.06")
         }
+        
+        if UserDefaults.standard.bool(forKey: "24.07.17") {
+            Alert.message(self, title: "서비스 유지 보수 중단 안내", message: "\n취미로 만들고 유지 및 보수를 해오고 있었지만 본업으로 인해 더이상 쾌적한 환경을 유지하기 힘들다고 판단되었습니다.\n\n그렇기 때문에 주기적으로 유지 보수를 해주어야 하던 부분을 최대한 덜어내고 앱 사용자의 대부분이 사용하는 '할 일' 기능만 남긴 상태로 업데이트를 진행 했습니다.\n\n개발자 계정이 만료되면 설치가 불가능하며, 기존에 설치하신 분들은 계속 사용 가능합니다.\n\n치명적인 버그 또는 요청사항이 있으신분들은 8월 30일까지 오픈톡 '로아툴 고객센터'로 문의주시면 최대한 수정하겠습니다.\n\n가끔 인게임에서 만나거나 오픈톡으로 응원해주시고 격려해주시는 분들께는 정말 감사하단 말씀 남깁니다.") { _ in
+                
+            }
+            
+            UserDefaults.standard.set(true, forKey: "24.07.17")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupTabBarView()
+        hideTabBarView()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(showBadge(_:)), name: NSNotification.Name("showBadge"), object: nil)
+        // NotificationCenter.default.addObserver(self, selector: #selector(showBadge(_:)), name: NSNotification.Name("showBadge"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        // NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 
     @objc func showBadge(_ sender: NSNotification) {
         setupTabBarView()
+    }
+    
+    fileprivate func resetSelectedIndex() {
+        if hiddenIndex.contains(selectedIndex) {
+            selectedIndex = 2
+            UserDefaults.standard.set(2, forKey: "didSelectAtIndex")
+        }
     }
 }
 
@@ -145,7 +164,7 @@ extension ViewController: CharacterListDelegate {
         
         let barButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .thin)), primaryAction: nil, menu: menu)
         
-        addRightBarButtonItems([barButtonItem])
+        // addRightBarButtonItems([barButtonItem])
     }
     
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
@@ -284,6 +303,13 @@ extension ViewController {
         }
     }
     
+    fileprivate func hideTabBarView() {
+        stackView.arrangedSubviews.enumerated().forEach { i, button in
+            if hiddenIndex.contains(i) {
+                button.isHidden = true
+            }
+        }
+    }
     
     // 최초 viewDidLoad 에서 한번 함수를 실행시키기
     @objc func touchUpInsideTheButton(_ sender: UIButton) {
@@ -355,7 +381,7 @@ extension ViewController {
         sender.alpha = 1
         
         // 선택 애니메이션 추가
-        selectedAnimation(sender)
+        // selectedAnimation(sender)
     }
     
     func selectedAnimation(_ sender: UIButton) {

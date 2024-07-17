@@ -331,6 +331,11 @@ extension EditCharacterViewController: UIPickerViewDelegate, UIPickerViewDataSou
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag < 100 {
+            var bonus = self.bonus
+            if pickerView.tag / 10 == 1 {
+                bonus.append(contentsOf: ["110", "120", "130", "140", "150", "160", "170", "180", "190", "200"])
+            }
+
             return pickerView.tag % 10 == 0 ? bonus.count : limit.count
         } else {
             return 100
@@ -338,7 +343,7 @@ extension EditCharacterViewController: UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        30
+        32
     }
     
     
@@ -346,6 +351,13 @@ extension EditCharacterViewController: UIPickerViewDelegate, UIPickerViewDataSou
         let label = UILabel()
 
         if pickerView.tag < 100 {
+            
+            var bonus = self.bonus
+            if pickerView.tag / 10 == 1 {
+                bonus.append(contentsOf: ["110", "120", "130", "140", "150", "160", "170", "180", "190", "200"])
+            }
+            
+            
             let titles = pickerView.tag % 10 == 0 ? bonus : limit
             label.text = titles[row]
             label.textColor = .custom.textBlue

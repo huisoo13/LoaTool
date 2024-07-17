@@ -55,8 +55,9 @@ class TodoViewModel {
         todo.member.forEach { member in
             member.contents.forEach { content in
                 RealmManager.shared.update {
+                    let maxBonusValue = content.title == "카오스 던전" ? 200 : 100
                     content.bonusValue += ((content.maxValue * (calculate - 1)) + (content.maxValue - content.value)) * 10
-                    content.bonusValue = max(0, min(content.bonusValue, 100))
+                    content.bonusValue = max(0, min(content.bonusValue, maxBonusValue))
                     content.originBonusValue = content.bonusValue
                     
                     content.value = 0

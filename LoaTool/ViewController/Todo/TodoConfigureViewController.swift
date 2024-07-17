@@ -85,17 +85,18 @@ extension TodoConfigureViewController {
     fileprivate func setupNavigationBar() {
         setTitle("할 일 설정".localized, size: 20)
         
-        let reset = UIBarButtonItem(title: step == 1 ? "다음" : "완료", style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
+        // let reset = UIBarButtonItem(title: step == 1 ? "다음" : "완료", style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
+        let reset = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(selectedBarButtonItem(_:)))
         reset.tintColor = .systemBlue
         
         addRightBarButtonItems([reset])
     }
     
     @objc func selectedBarButtonItem(_ sender: UIBarButtonItem) {
-        switch step {
-        case 1:
-            nextToStep()
-        case 2:
+//        switch step {
+//        case 1:
+//            nextToStep()
+//        case 2:
             let alert = UIAlertController(title: "설정 완료", message: "설정한 데이터를 저장할까요?\n저장한 데이터는 수정이 가능합니다.", preferredStyle: .alert)
             
             let ok = UIAlertAction(title: "완료", style: .default) { _ in
@@ -108,9 +109,9 @@ extension TodoConfigureViewController {
             alert.addAction(ok)
             
             self.present(alert, animated: true)
-        default:
-            break
-        }
+//        default:
+//            break
+//        }
     }
     
     func nextToStep() {
@@ -137,6 +138,17 @@ extension TodoConfigureViewController {
     }
     
     func completedConfigure() {
+        if self.job != "", self.nameTextField.text != "", self.levelTextField.text != "", self.members.count == 0 {
+            self.members.append(Member(identifier: UUID().uuidString,
+                                       category: 1,
+                                       name: self.nameTextField.text ?? "",
+                                       job: self.job,
+                                       level: Double(self.levelTextField.text ?? "0") ?? 0,
+                                       contents: Content.character)
+            )
+        }
+
+        
         UserDefaults.standard.set(true, forKey: "showDailyContents")
         UserDefaults.standard.set(true, forKey: "showSpectialContents")
         UserDefaults.standard.set(true, forKey: "showAdditionalContents")
@@ -145,6 +157,9 @@ extension TodoConfigureViewController {
         // 선택한 컨텐츠의 레벨에 맞는 캐릭터 넣기
         let expedition = Member.expedition
 
+        // 모든 컨텐츠 추가
+        contents = AdditionalContent.preset
+        
         contents.forEach { content in
             switch content.type % 10 {
             case 0:
@@ -199,15 +214,11 @@ extension TodoConfigureViewController {
             }
         case "PRESET-008":  // [노말] 카양겔
             members.forEach { member in
-                if content.level <= member.level && member.level < 1520 {
-                    content.included.append(member.identifier)
-                }
+                if content.level <= member.level { content.included.append(member.identifier) }
             }
         case "PRESET-009":  // [하드] 카양겔
             members.forEach { member in
-                if content.level <= member.level && member.level < 1560 {
-                    content.included.append(member.identifier)
-                }
+                if content.level <= member.level { content.included.append(member.identifier) }
             }
         case "PRESET-010":  // [하드2] 카양겔
             break
@@ -322,7 +333,11 @@ extension TodoConfigureViewController: TextFieldDelegate, JobPickerViewDelegate 
         
         switch selectedTextFieldAtIndex {
         case 0:
-            parsingUserData(text)
+            // parsingUserData(text)
+            guard let textField = stackView.arrangedSubviews[safe: 0]?.subviews[safe: 1] as? UITextField else { return }
+            
+            textField.text = text
+            break
         case 1:
             guard let textField = stackView.arrangedSubviews[safe: 1]?.subviews[safe: 1] as? UITextField else { return }
             
@@ -413,7 +428,7 @@ extension TodoConfigureViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        34
+        step == 1 ? 0 : 34
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

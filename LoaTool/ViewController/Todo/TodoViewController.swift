@@ -94,7 +94,9 @@ class TodoViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func moveToTodoConfigureViewController(_ sender: UIButton) {
-        coordinator?.pushToTodoConfigureViewController(animated: true)
+         coordinator?.pushToTodoConfigureViewController(animated: true)
+//        self.coordinator?.pushToTodoManagementViewController(animated: true)
+
     }
     
     @objc func reloadData(_ sender: NSNotification) {
