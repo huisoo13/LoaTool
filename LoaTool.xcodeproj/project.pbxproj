@@ -247,6 +247,7 @@
 /* Begin PBXFileReference section */
 		0A14DF66339B1A126645F8E6 /* Pods_LoaTool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoaTool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		160F01B0CE58EF6A37B3D1E5 /* Pods-LoaTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoaTool.debug.xcconfig"; path = "Target Support Files/Pods-LoaTool/Pods-LoaTool.debug.xcconfig"; sourceTree = "<group>"; };
+		50140C102C47691600F7E727 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		505B1CF6299A157A00FE846B /* CalculatorAccessoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorAccessoryViewController.swift; sourceTree = "<group>"; };
 		508FEE64299B5695000B31DA /* CalculatorResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultViewController.swift; sourceTree = "<group>"; };
 		508FEE66299F1648000B31DA /* CalculatorResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -821,6 +822,7 @@
 				F11FA79026A534E000C13633 /* Color.xcassets */,
 				F11FA76026A5069300C13633 /* Info.plist */,
 				F18E483726B1258800417669 /* InfoPlist.strings */,
+				50140C102C47691600F7E727 /* PrivacyInfo.xcprivacy */,
 			);
 			name = "Support Files";
 			sourceTree = "<group>";
@@ -1621,7 +1623,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 24.01.17;
+				MARKETING_VERSION = 24.07.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1647,7 +1649,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 24.01.17;
+				MARKETING_VERSION = 24.07.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.huisoo.loatool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

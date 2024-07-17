@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupCloudKit()
         
         // Request authorization for APNS
-        requestAuthorizationForNotification(application)
+        // requestAuthorizationForNotification(application)
         
         // Adjust spacing between Navigation bar button items
         let stackViewAppearance = UIStackView.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
